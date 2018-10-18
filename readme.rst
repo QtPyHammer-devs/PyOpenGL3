@@ -1,16 +1,14 @@
 Goals of this fork
 ================
-To update all string formatting to python 3.7
-To generate docstrings from either text files or
-https://www.khronos.org/registry/OpenGL-Refpages/gl4/html on install.
-To simplify error messages. (especially those where input type is incorrect)
-To give clearer errors when a state is incorrect,
-when the approriate glUseProgram or GLEnable have not yet been called, for example.
-Catch errors the OpenGL C implementation communicates poorly (non-square cubemap texture etc.)
-To implement context aware iterable-to-bytesting (no need for numpy with vertex buffers)
-    function(GL_FLOAT, iterable)
-    before being passed to C, translate iterable to bytes, taking hints from other arguments
-
+To update all string formatting to python 3.7  
+To generate docstrings from either text files or https://www.khronos.org/registry/OpenGL-Refpages/gl4/html on install.  
+To simplify error messages. (especially those where input type is incorrect)  
+To give clearer errors when a state is incorrect, when the approriate glUseProgram or GLEnable have not yet been called, for example.  
+Catch errors the OpenGL C implementation communicates poorly (non-square cubemap texture etc.)  
+To implement context aware iterable-to-bytesting (no need for numpy with vertex buffers)  
+    function(GL_FLOAT, iterable)  
+    before being passed to C, translate iterable to bytes, taking hints from other arguments  
+  
 PyOpenGL and PyOpenGL_accelerate
 =================================
 
