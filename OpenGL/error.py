@@ -94,16 +94,11 @@ class GLError( Error ):
             value = getattr( self, property, None )
             if value is not None or property=='description':
                 formatFunction = 'format_%s'%(property)
-                if hasattr( self, formatFunction ):
-                    args.append( getattr(self,formatFunction)( property, value ))
+                if hasattr(self, formatFunction):
+                    args.append(getattr(self, formatFunction)(property,value))
                 else:
-                    args.append( '%s = %s'%(
-                        property,
-                        self.shortRepr( value ),
-                    ))
-        return '%s(\n\t%s\n)'%(self.__class__.__name__, ',\n\t'.join(
-            [x for x in args if x]
-        ))
+                    args.append(f'{property} = {self.shortRepr(value)}')
+        return '%s(\n\t%s\n)'%(self.__class__.__name__, ',\n\t'.join([x for x in args if x]))
     def __repr__( self ):
         """Produce a much shorter version of the error as a string"""
         return '%s( %s )'%(
