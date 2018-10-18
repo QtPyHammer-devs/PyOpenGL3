@@ -10,8 +10,10 @@ To give clearer errors when a state is incorrect, when the approriate glUseProgr
 
 Catch errors the OpenGL C implementation communicates poorly (non-square cubemap texture etc.)
 
-To implement context aware iterable-to-bytesting (no need for numpy with vertex buffers)  
-    $ function(GL_FLOAT, iterable)  
+To implement context aware iterable-to-bytesting (no need for numpy with vertex buffers)::
+
+    $ function(GL_FLOAT, iterable)
+
 Before being passed to C, translate iterable to bytestring, taking hints from other arguments  
   
 PyOpenGL and PyOpenGL_accelerate
