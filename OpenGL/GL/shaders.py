@@ -29,8 +29,8 @@ __all__ = [
     'compileShader',
     'GL_VALIDATE_STATUS',
     'GL_LINK_STATUS',
-    'ShaderCompilationError', 
-    'ShaderValidationError', 
+    'ShaderCompilationError',
+    'ShaderValidationError',
     'ShaderLinkError',
     # automatically added stuff here...
 ]
@@ -95,12 +95,12 @@ class ShaderProgram( int ):
     def __exit__( self, typ, val, tb ):
         """Stop use of the program"""
         glUseProgram( 0 )
-    
+
     def check_validate( self ):
         """Check that the program validates
-        
+
         Validation has to occur *after* linking/loading
-        
+
         raises ShaderValidationError on failures
         """
         glValidateProgram( self )
@@ -116,7 +116,7 @@ class ShaderProgram( int ):
 
     def check_linked( self ):
         """Check link status for this program
-        
+
         raises ShaderLinkError on failures
         """
         link_status = glGetProgramiv( self, GL_LINK_STATUS )
@@ -130,14 +130,14 @@ class ShaderProgram( int ):
 
     def retrieve( self ):
         """Attempt to retrieve binary for this compiled shader
-        
+
         Note that binaries for a program are *not* generally portable,
-        they should be used solely for caching compiled programs for 
+        they should be used solely for caching compiled programs for
         local use; i.e. to reduce compilation overhead.
-        
+
         returns (format,binaryData) for the shader program
         """
-        from OpenGL.raw.GL._types import GLint,GLenum 
+        from OpenGL.raw.GL._types import GLint,GLenum
         from OpenGL.arrays import GLbyteArray
         size = GLint()
         glGetProgramiv( self, get_program_binary.GL_PROGRAM_BINARY_LENGTH, size )
@@ -145,10 +145,10 @@ class ShaderProgram( int ):
         size2 = GLint()
         format = GLenum()
         get_program_binary.glGetProgramBinary( self, size.value, size2, format, result )
-        return format.value, result 
+        return format.value, result
     def load( self, format, binary, validate=True ):
         """Attempt to load binary-format for a pre-compiled shader
-        
+
         See notes in retrieve
         """
         get_program_binary.glProgramBinary( self, format, binary, len(binary))
@@ -162,17 +162,17 @@ def compileProgram(*shaders, **named):
 
     shaders -- arbitrary number of shaders to attach to the
         generated program.
-    separable (keyword only) -- set the separable flag to allow 
-        for partial installation of shader into the pipeline (see 
+    separable (keyword only) -- set the separable flag to allow
+        for partial installation of shader into the pipeline (see
         glUseProgramStages)
-    retrievable (keyword only) -- set the retrievable flag to 
-        allow retrieval of the program binary representation, (see 
+    retrievable (keyword only) -- set the retrievable flag to
+        allow retrieval of the program binary representation, (see
         glProgramBinary, glGetProgramBinary)
-    validate (keyword only) -- if False, suppress automatic 
-        validation against current GL state. In advanced usage 
-        the validation can produce spurious errors. Note: this 
+    validate (keyword only) -- if False, suppress automatic
+        validation against current GL state. In advanced usage
+        the validation can produce spurious errors. Note: this
         function is *not* really intended for advanced usage,
-        if you're finding yourself specifying this flag you 
+        if you're finding yourself specifying this flag you
         likely should be using your own shader management code.
 
     This convenience function is *not* standard OpenGL,
@@ -230,16 +230,8 @@ def compileShader( source, shaderType ):
     glCompileShader( shader )
     result = glGetShaderiv( shader, GL_COMPILE_STATUS )
     if not(result):
-        # TODO: this will be wrong if the user has
-        # disabled traditional unpacking array support.
-        raise ShaderCompilationError(
-            """Shader compile failure (%s): %s"""%(
-                result,
-                glGetShaderInfoLog( shader ),
-            ),
-            source,
-            shaderType,
-        )
+        # TODO: this will be wrong if the user has disabled traditional unpacking array support.
+        ShaderCompilationError(f"{shaderType!r} COMPILE FAILURE:\n{glGetShaderInfoLog(shader).decode()}")
     return shader
 
 class ShaderCompilationError(RuntimeError):
