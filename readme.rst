@@ -1,20 +1,23 @@
 Goals of this fork
 ================
-To update all string formatting to python 3.7
+To update the entire PyOpenGL binding to Python 3.8+
 
-To generate docstrings from either text files or https://www.khronos.org/registry/OpenGL-Refpages/gl4/html on install.
+This will include use of f-strings, type hints & removing Python 2.7 support where readbility can be improved
 
-To simplify error messages. (especially those where input type is incorrect)
+To generate docstrings from either text files or https://www.khronos.org/registry/OpenGL-Refpages/gl4/html on install  
 
-To give clearer errors when a state is incorrect, when the approriate glUseProgram or GLEnable have not yet been called, for example.
+(This repo is huge so automating changes will be very important)
+
+To inform the programmer of errors in a way that is instructive & state aware, while retaining C OpenGL error codes
 
 Catch errors the OpenGL C implementation communicates poorly (non-square cubemap texture etc.)
 
-To implement context aware iterable-to-bytesting (no need for numpy with vertex buffers)::
+To remove the need for numpy, with quick the translation of python types into bytes handled invisibly::
 
     $ function(GL_FLOAT, iterable)
 
 Before being passed to C, translate iterable to bytestring, taking hints from other arguments  
+<<<<<<< HEAD
   
 PyOpenGL and PyOpenGL_accelerate
 =================================
@@ -92,3 +95,5 @@ numpy. Some will have accelerate, and some will not.
 .. image:: https://img.shields.io/pypi/dm/pyopengl.svg
     :target: https://pypi.python.org/pypi/pyopengl
     :alt: Monthly download counter
+=======
+>>>>>>> 2a9e84a9... Update readme.rst
