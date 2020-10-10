@@ -1,4 +1,17 @@
-PyOpenGL and PyOpenGL_Accelerate
+Goals of this fork
+================
+To update all string formatting to python 3.7
+To generate docstrings from either text files or
+https://www.khronos.org/registry/OpenGL-Refpages/gl4/html on install.
+To simplify error messages. (especially those where input type is incorrect)
+To give clearer errors when a state is incorrect,
+when the approriate glUseProgram or GLEnable have not yet been called, for example.
+Catch errors the OpenGL C implementation communicates poorly (non-square cubemap texture etc.)
+To implement context aware iterable-to-bytesting (no need for numpy with vertex buffers)
+    function(GL_FLOAT, iterable)
+    before being passed to C, translate iterable to bytes, taking hints from other arguments
+
+PyOpenGL and PyOpenGL_accelerate
 =================================
 
 PyOpenGL is normally distributed via PyPI using standard pip::
@@ -13,7 +26,7 @@ setup.py::
     $ cd accelerate
     $ python setup.py develop
 
-Note that to compile PyOpenGL_accelerate you will need to have 
+Note that to compile PyOpenGL_accelerate you will need to have
 a functioning Python extension-compiling environment.
 
 Learning PyOpenGL
@@ -32,8 +45,8 @@ Or you can clone it (including the tutorial sources) with::
 or (for GitHub usage)::
 
     $ git clone https://github.com/mcfletch/pyopengl.git
-    
-The `documentation pages`_ are useful for looking up the parameters and semantics of 
+
+The `documentation pages`_ are useful for looking up the parameters and semantics of
 PyOpenGL calls.
 
 .. _`tutorial page`: http://pyopengl.sourceforge.net/context/tutorials/index.html
@@ -56,7 +69,7 @@ Running the test suite from a top-level checkout looks like::
     $ tox
 
 The result being a lot of tests being run in a matrix of environments.
-All of the environment will pull in pygame, some will also pull in 
+All of the environment will pull in pygame, some will also pull in
 numpy. Some will have accelerate, and some will not.
 
 .. image:: https://travis-ci.org/mcfletch/pyopengl.svg?branch=master
