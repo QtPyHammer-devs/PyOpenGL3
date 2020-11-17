@@ -36,13 +36,13 @@ glTranslate = glTranslated
 glLight = glLightfv
 glTexCoord = glTexCoord2d
 glScale = glScaled
-#glColor = glColor3f
+# glColor = glColor3f
 glNormal = glNormal3d
 
 glGetBoolean = glGetBooleanv
 glGetDouble = glGetDoublev
 glGetFloat = glGetFloatv
-glGetInteger = glGetIntegerv 
+glGetInteger = glGetIntegerv
 glGetPolygonStippleub = glGetPolygonStipple
 
 from OpenGL.GL import vboimplementation as _core_implementation
