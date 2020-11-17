@@ -1,8 +1,12 @@
+name: Latest commit test
+
+on: [push]
+
 language: python
 python:
-    - "2.7"
     - "3.6"
     - "3.7"
+    - "3.8"
 
 install:
     - pip install pygame numpy cython pytest psutil

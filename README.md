@@ -1,5 +1,5 @@
-Goals of this fork
-================
+# Goals of this fork
+
 To update the entire PyOpenGL binding to Python 3.8+
 
 This will include use of f-strings, type hints & removing Python 2.7 support where readbility can be improved
