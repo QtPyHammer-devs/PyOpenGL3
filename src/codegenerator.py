@@ -4,9 +4,9 @@ import os
 import textwrap
 import traceback
 import urllib
-import xmlreg
 
 from OpenGL._bytes import as_str, unicode, as_unicode
+import xmlreg
 
 HERE = os.path.join(os.path.dirname(__file__))
 log = logging.getLogger(__name__)
@@ -109,7 +109,7 @@ _glget_size_mapping = _m = {}
             argNames = ", ".join([self.safe_name(n) for n in function.argNames])
         else:
             argNames = ""
-        arguments = ", ".join([f"{t} {self.safe_name(n)}" for (t, n) in zip(function.argTypes, function.argNames)])
+        arguments = ", ".join([f"{t} {self.safe_name(n)}" for t, n in zip(function.argTypes, function.argNames)])
 
         name = function.name
         if returnType.strip() in ("_cs.GLvoid", "_cs.void", "void"):
@@ -118,7 +118,7 @@ _glget_size_mapping = _m = {}
             pyReturn = function.returnType
 
         doc = f"{name}({arguments}) -> {pyReturn}"
-#        log.info("%s", doc)
+        # log.info(f"{doc}")
         formatted = f"""@_f
     @_p.types({returnType}, {argTypes})
     def {name}({argNames}): pass"""  # add docstring? type hints?
@@ -136,32 +136,22 @@ _glget_size_mapping = _m = {}
         """Load manually-generated table of glGet* sizes"""
         table = {}
         try:
-            lines = [
-                line.split("\t")
-                for line in open(os.path.join(HERE, "glgetsizes.csv")).read().splitlines()
-            ]
+            lines = [line.split("\t") for line in open(os.path.join(HERE, "glgetsizes.csv")).read().splitlines()]
         except IOError:
             pass
         else:
-            for line in lines:
-                if line and line[0]:
-                    value = [
-                        v for v in [
-                            v.strip(""") for v in line[1:]
-                        ]
-                        if v
-                    ]
-                    if value:
-                        table[line[0].strip(""").strip()] = value  # I hate this indentation already
+            raise NotImplementedError("Once again into the breach, dear friends, once more.")
+            # ^ deleted what was here, no idea what it did. Broke the parser.
+            # GOTO Commit: c5c1630fa251108eef56b704b41376e00d92e0c6
         # now make sure everything registered in the xml file is present...
         output_group_names = {}
         for function in self.registry.command_set.values():
             output_group_names.update(function.output_groups)
         for output_group in output_group_names.keys():
-            log.debug("Output parameter group: %s", output_group)
-            for name in self.registry.enum_groups.get(output_group,[]):
+            log.debug(f"Output parameter group: {output_group}")
+            for name in self.registry.enum_groups.get(output_group, []):
                 if name not in table:
-                    log.info("New %s value: %r", output_group, name)
+                    log.info(f"New {output_group} value: {name}")
                     table[name] = ""
         return table
 
@@ -169,13 +159,10 @@ _glget_size_mapping = _m = {}
         """Save out sorted list of glGet sizes to disk"""
         items = self.glGetSizes.items()
         items.sort()
-        data = "\n".join([
-            "%s\t%s"%(
-                key, "\t".join(value)
-           )
-            for (key,value) in items
-        ])
+        data = "\n".join([f"{key}\t{'\t'.join(value)}" for key, value in items])
         open(os.path.join(HERE, "glgetsizes.csv"), "w").write(data)
+        # oh boy I sure hope garbage collection doesn't mind closing this
+
 
 class ModuleGenerator(object):
     ROOT_EXTENSION_SOURCE = "http://www.opengl.org/registry/specs/"
@@ -219,6 +206,7 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
 %(output_wrapping)s"""
 
     dll = "_p.PLATFORM.GL"
+
     def __init__(self, registry, overall, api=None):
         self.registry = registry
         self.overall = overall
@@ -233,23 +221,24 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
                 self.prefix = self.registry.api.upper()
             else:
                 self.prefix = name.split("_")[0]
-        name = name.split("_",1)[1]
-        try:
-            self.owner, self.module = name.split("_",1)
-            self.sentinelConstant = "%s_%s"%(self.owner,self.module)
+        name = name.split("_", 1)[1]
 
+        try:
+            self.owner, self.module = name.split("_", 1)
+            self.sentinelConstant = f"{self.owner}_{self.module}"
         except ValueError:
             if name.endswith("SGIX"):
                 self.prefix = "GL"
                 self.owner = "SGIX"
                 self.module = name[3:-4]
-                self.sentinelConstant = "%s%s"%(self.module,self.owner)
+                self.sentinelConstant = f"{self.module}{self.owner}"
             else:
-                log.error("""Unable to parse module name: %s""", name)
+                log.error(f"""Unable to parse module name: {name}""")
                 raise
-        self.dll = "_p.PLATFORM.%s"%(self.prefix,)
+
+        self.dll = f"_p.PLATFORM.{self.prefix}"
         if self.module[0].isdigit():
-            self.module = "%s_%s"%(self.prefix,self.module,)
+            self.module = f"{self.prefix}_{self.module}"
         if self.module == "async":
             self.module = "async_"
         self.camelModule = "".join([x.title() for x in self.module.split("_")])
@@ -258,34 +247,29 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
         self.rawOwner = self.owner
         while self.owner and self.owner[0].isdigit():
             self.owner = self.owner[1:]
-        self.rawPathName = os.path.join(self.overall.rawTargetDirectory, self.prefix, self.owner, self.module+".py")
-        self.pathName = os.path.join(self.overall.targetDirectory, self.prefix, self.owner, self.module+".py")
+        self.rawPathName = os.path.join(self.overall.rawTargetDirectory, self.prefix, self.owner, self.module + ".py")
+        self.pathName = os.path.join(self.overall.targetDirectory, self.prefix, self.owner, self.module + ".py")
 
-        self.constantModule = "%(prefix)s_%(owner)s_%(rawModule)s"%self
+        self.constantModule = f"{self.prefix}_{self.owner}_{self.rawModule}"
         specification = self.getSpecification()
         self.constantsFromSpec()
         self.overview = ""
         if self.overall.includeOverviews:
-            for title,section in specification.blocks(specification.source):
+            for title, section in specification.blocks(specification.source):
                 if title.startswith("Overview"):
-                    if isinstance(section,bytes):
-                        section = section.decode("latin-1") # seems not to be utf in at lest some cases
-                    self.overview = "Overview (from the spec)\n%s\n\n"%(
-                        indent(
-                            as_unicode(
-                                as_str(section)
-                                .replace("\xd4", "O")
-                                .replace("\xd5", "O")
-                           ).encode("ascii", "ignore")
-                            .decode("ascii", "ignore")
-                       )
-                   )
+                    if isinstance(section, bytes):
+                        section = section.decode("latin-1")  # seems not to be utf in at lest some cases
+                    s = indent(as_unicode(as_str(section).replace("\xd4", "O").replace("\xd5", "O"))
+                               .encode("ascii", "ignore").decode("ascii", "ignore")))))  # five closing parenthesis!!?!?
+                    self.overview = f"Overview (from the spec)\n{s}\n\n"
                     break
+
     def __getitem__(self, key):
         try:
             return getattr(self, key)
         except AttributeError:
             raise KeyError(key)
+
     def __getattr__(self, key):
         if key not in ("registry",):
             return getattr(self.registry, key)
@@ -314,17 +298,16 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
                         short_def = self.overall.registry.enumeration_set.get(short_key)
                         if short_def and int(short_def.value, 16) == value:
                             key = short_def.name
-                    if not key in table:
-                        table[key] = ["(1,)", "#TODO Review %s"%(self.specFile())]
+                    if key not in table:
+                        table[key] = ["(1,)", f"#TODO Review {self.specFile()}"]
                         changed = True
             if changed:
                 self.overall.saveGLGetSizes()
+
     def shouldReplace(self):
         """Should we replace the given filename?"""
         filename = self.pathName
-        if not os.path.isfile(
-            filename
-       ):
+        if not os.path.isfile(filename):
             return True
         else:
             hasLines = 0
@@ -336,6 +319,7 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
                 return True
             log.warning("Not replacing %s (no AUTOGENERATION_SENTINEL_END found)", filename)
         return False
+
     @property
     def output_wrapping(self):
         """Generate output wrapping statements for our various functions"""
@@ -348,35 +332,31 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
                     for param,dependency in sorted(dependencies.items()):
                         param = as_str(param)
                         if isinstance(dependency, xmlreg.Output):
-                            statements.append("# %s.%s is OUTPUT without known output size"%(
-                                function.name,param,
-                           ))
+                            statements.append(f"# {function.name}.{param} is OUTPUT without known output size")
                         if isinstance(dependency, xmlreg.Staticsize):
-                            base.append(".setOutput(\n    %(param)r,size=(%(dependency)r,),orPassIn=True\n)"%locals())
+                            base.append(f".setOutput({param}, size=({dependency},), orPassIn=True)")
                         elif isinstance(dependency, xmlreg.Dynamicsize):
-                            base.append(".setOutput(\n    %(param)r,size=lambda x:(x,),pnameArg=%(dependency)r,orPassIn=True\n)"%locals())
+                            base.append(f".setOutput({param}, size=lambda x:(x,), pnameArg={dependency}, orPassIn=True)")
                         elif isinstance(dependency, xmlreg.Multiple):
                             pname,multiple = dependency
-                            base.append(".setOutput(\n    %(param)r,size=lambda x:(x,%(multiple)s),pnameArg=%(pname)r,orPassIn=True\n)"%locals())
+                            base.append(f".setOutput({param}, size=lambda x:(x, {multiple}), pnameArg={pname}, orPassIn=True)")
                         elif isinstance(dependency, xmlreg.Compsize):
                             if len(dependency) == 1:
                                 pname = dependency[0]
-                                base.append(".setOutput(\n    %(param)r,size=_glgets._glget_size_mapping,pnameArg=%(pname)r,orPassIn=True\n)"%locals())
+                                base.append(f".setOutput({param}, size=_glgets._glget_size_mapping, pnameArg={pname}, orPassIn=True)")
                             else:
                                 statements.append("# OUTPUT %s.%s COMPSIZE(%s) "%(function.name,param, ", ".join(dependency)))
                         elif isinstance(dependency, xmlreg.StaticInput):
-                            base.append(".setInputArraySize(\n    %(param)r, %(dependency)s\n)"%locals())
+                            base.append(f".setInputArraySize({param}, {dependency})")
                         elif isinstance(dependency, (xmlreg.DynamicInput, xmlreg.MultipleInput, xmlreg.Input)):
                             if dependency is None:
                                 continue
-                            statements.append("# INPUT %s.%s size not checked against %s"%(
-                                function.name,
-                                param,
-                                dependency
-                           ))
-                            base.append(".setInputArraySize(\n    %(param)r, None\n)"%locals())
+                            statements.append(f"# INPUT {function.name}.{param} size not checked against {dependency}")
+                            base.append(f".setInputArraySize({param}, None)")
                     if base:
-                        base.insert(0, "%s=wrapper.wrapper(%s)"%(function.name,function.name))
+                        base.insert(0, f"{function.name.lstrip("gl")} = wrapper.wrapper({function.name})")
+                        # ^ rip that C namespace nonsese off and use the python namespace
+                        # - glVertex3d -> gl.Vertex3d
                         statements.append("".join(base))
             return "\n".join(statements)
         except Exception as err:
@@ -388,9 +368,11 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
         functions = self.registry.enums()
         functions.sort(key = lambda x: x.name)
         return functions
+
     @property
     def init_function(self):
         return self.INIT_TEMPLATE%self
+
     @property
     def constants(self):
         result = []
@@ -401,6 +383,7 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
         except Exception:
             traceback.print_exc()
             raise
+
     @property
     def declarations(self):
         functions = self.registry.commands()
@@ -442,7 +425,7 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
                 os.makedirs(directory)
             if not os.path.isfile(os.path.join(directory, "__init__.py")):
                 open(os.path.join(directory, "__init__.py"), "w").write(
-                    """"""OpenGL Extensions""""""
+                    """'OpenGL Extensions'"""
                )
 
         directory = os.path.dirname(self.rawPathName)
@@ -492,8 +475,7 @@ from OpenGL.raw.%(prefix)s.%(owner)s.%(module)s import _EXTENSION_NAME
         return False
 
 class Specification(object):
-    """Parser for parsing OpenGL specifications for interesting information
-    """
+    """Parser for parsing OpenGL specifications for interesting information"""
     def __init__(self, source):
         """Store the source text for the specification"""
         if isinstance(source,bytes):
@@ -504,6 +486,7 @@ class Specification(object):
         else:
             self.source = source
         assert isinstance(self.source, unicode)
+
     def blocks(self, data):
         """Retrieve the set of all blocks"""
         data = data.splitlines()
@@ -520,25 +503,24 @@ class Specification(object):
                 block.append(line)
         if block:
             yield "\n".join(title), textwrap.dedent("\n".join(block))
+
     def constantBlocks(self):
         """Retrieve the set of constant blocks"""
         for title,block in self.blocks(self.source):
             if title and title.startswith("New Tokens"):
                 yield block
+
     def glGetConstants(self):
         """Retrieve the set of constants which pass to glGet* functions"""
         table = {}
         for block in self.constantBlocks():
             for title, section in self.blocks(block):
-                for possible in (
-                    "GetBooleanv", "GetIntegerv", "<pname> of Get",
-                    "<pname> parameter of Get",
-               ):
+                for possible in ("GetBooleanv", "GetIntegerv", "<pname> of Get", "<pname> parameter of Get"):
                     if possible in title:
                         for line in section.splitlines():
                             line = line.strip().split()
                             if len(line) == 2:
-                                constant,value = line
+                                constant, value = line
                                 constant = constant.strip(":")
                                 table["GL_%s"%(constant,)] = value
                         break
@@ -546,6 +528,6 @@ class Specification(object):
 
 def download(url):
     """Download the given url, informing the user of what we"re doing"""
-    log.info("Download: %r",url,)
+    log.info(f"Download: {url}")
     file = urllib.urlopen(url)
     return file.read()
