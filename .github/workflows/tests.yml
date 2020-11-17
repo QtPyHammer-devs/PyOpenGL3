@@ -20,7 +20,7 @@ jobs:
       run: |
           # addons apt packages
           sudo apt-get install freeglut3-dev libgl1-mesa-dev libxcursor-dev libpulse-dev libxinerama-dev libxrandr-dev libxv-dev mesa-utils
-          sudo apt-get install libgl1-mesa-glx mesa-common-dev libglapi-mesa libgbml libgl1-mesa-dri libsdl1.2-dev libfreetype6-dev
+          sudo apt-get install libgl1-mesa-glx mesa-common-dev libglapi-mesa libgbm1 libgl1-mesa-dri libsdl1.2-dev libfreetype6-dev
           # before install
           sudo apt-get update -qq -y
           export DEBIAN_FRONTEND=noninteractive
