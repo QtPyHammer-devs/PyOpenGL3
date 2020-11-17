@@ -1,43 +1,49 @@
 name: Latest commit test
+# Formerly .travis.yml
+# I've never used Travis CI so this has likely been translated wrong
 
 on: [push]
 
-language: python
-python:
-    - "3.6"
-    - "3.7"
-    - "3.8"
+jobs:
+  build:
+    name: Build, Test & Analyse
 
-install:
-    - pip install pygame numpy cython pytest psutil
-    - pip install ./accelerate
-    - pip install .
-
-addons:
-  apt:
-     packages:
-        - freeglut3-dev
-        - libgl1-mesa-dev
-        - libxcursor-dev
-        - libpulse-dev
-        - libxinerama-dev
-        - libxrandr-dev
-        - libxv-dev
-        - mesa-utils
-        - libgl1-mesa-glx
-        - mesa-common-dev
-        - libglapi-mesa
-        - libgbm1
-        - libgl1-mesa-dri
-        - libsdl1.2-dev
-        - libfreetype6-dev
-
-before_install:
-  - sudo apt-get update -qq -y
-  - export DEBIAN_FRONTEND=noninteractive
-  - sudo apt-get -yq --force-yes install libgl1-mesa-dev libgl1-mesa-glx mesa-common-dev libglapi-mesa libgbm1 libgl1-mesa-dri mesa-utils
-
-before_script:
-  - xvfb-run -s "-screen 0 640x480x24 +extension GLX +extension RENDER" glxinfo
-  
-script: xvfb-run -s "-screen 0 640x480x24 +extension GLX +extension RENDER" pytest -v tests
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            python-version: [3.7, 3.8]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Shallow clones disabled for sonarcloud
+    - name: Install Ubuntu packages
+      run: |
+          # addons apt packages
+          sudo apt-get install freeglut3-dev libgl1-mesa-dev libxcursor-dev libpulse-dev libxinerama-dev libxrandr-dev libxv-dev mesa-utils
+          sudo apt-get install libgl1-mesa-glx mesa-common-dev libglapi-mesa libgbml libgl1-mesa-dri libsdl1.2-dev libfreetype6-dev
+          # before install
+          sudo apt-get update -qq -y
+          export DEBIAN_FRONTEND=noninteractive
+          sudo apt-get -yq --force-yes install libgl1-mesa-dev libgl1-mesa-glx mesa-common-dev libglapi-mesa libgbm1 libgl1-mesa-dri mesa-utils
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        # install
+        pip install cython numpy psutil pygame pytest
+        pip install ./accelerate
+        pip install .
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Test with pytest
+      run: |
+       # before script
+       xvfb-run -s "-screen 0 640x480x24 +extension GLX +extension RENDER" glxinfo
+       # script
+       xvfb-run -s "-screen 0 640x480x24 +extension GLX +extension RENDER" pytest -v tests
