@@ -33,8 +33,6 @@ jobs:
       run: |
         # install
         pip install cython numpy psutil pygame pytest
-        pip install ./accelerate
-        pip install .
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
