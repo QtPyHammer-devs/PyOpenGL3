@@ -32,7 +32,7 @@ jobs:
     - name: Install dependencies
       run: |
         # install
-        pip install cython flake8 numpy psutil pygame pytest
+        pip install cython flake8 numpy psutil pygame pytest pytest-cov
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -44,4 +44,9 @@ jobs:
        # before script
        xvfb-run -s "-screen 0 640x480x24 +extension GLX +extension RENDER" glxinfo
        # script
-       xvfb-run -s "-screen 0 640x480x24 +extension GLX +extension RENDER" pytest -v tests
+       xvfb-run -s "-screen 0 640x480x24 +extension GLX +extension RENDER" pytest -v -cov=./tests -cov-report=xml
+    - name: Analyse with SonarCloud
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
