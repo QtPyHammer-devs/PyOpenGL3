@@ -1,3 +1,6 @@
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=QtPyHammer-devs_PyOpenGL3&metric=bugs)](https://sonarcloud.io/dashboard?id=QtPyHammer-devs_PyOpenGL3)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=QtPyHammer-devs_PyOpenGL3&metric=ncloc)](https://sonarcloud.io/dashboard?id=QtPyHammer-devs_PyOpenGL3)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=QtPyHammer-devs_PyOpenGL3&metric=sqale_index)](https://sonarcloud.io/dashboard?id=QtPyHammer-devs_PyOpenGL3)
 # Goals of this fork
 
 To update the entire PyOpenGL binding to Python 3.8+
