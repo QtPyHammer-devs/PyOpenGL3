@@ -21,14 +21,14 @@ def main():
             platform_gbm.EGL_PLATFORM_GBM_MESA, 
             ctypes.c_void_p(dev), 
             ctypes.c_void_p(0)
-        )
+       )
         print(dpy)
         if EGL_1_5.eglGetPlatformDisplay:
             dpy = platform_base.eglGetPlatformDisplay(
                 platform_gbm.EGL_PLATFORM_GBM_MESA, 
                 ctypes.c_void_p(dev), 
                 ctypes.c_void_p(0)
-            )
+           )
             print(dpy)
         else:
             print("No EGL_1_5 implementation")

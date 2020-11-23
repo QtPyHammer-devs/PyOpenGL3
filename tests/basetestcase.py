@@ -2,7 +2,7 @@ from __future__ import print_function
 import unittest, pygame, pygame.display, time, os
 import logging 
 logging.basicConfig(level=logging.INFO)
-HERE = os.path.dirname( __file__ )
+HERE = os.path.dirname(__file__)
 import pickle
 try:
     import cPickle
@@ -16,7 +16,7 @@ except ImportError as err:
 
 pygame.display.init()
 import OpenGL 
-if os.environ.get( 'TEST_NO_ACCELERATE' ):
+if os.environ.get("TEST_NO_ACCELERATE"):
     OpenGL.USE_ACCELERATE = False
 #OpenGL.FULL_LOGGING = True
 OpenGL.CONTEXT_CHECKING = True
@@ -31,8 +31,8 @@ except error.NoContext as err:
     # good, should have got this error 
     pass
 else:
-    print( 'WARNING: Failed to catch invalid context' )
-    #raise RuntimeError( """Did not catch invalid context!""" )
+    print("WARNING: Failed to catch invalid context")
+    #raise RuntimeError("""Did not catch invalid context!""")
 #from OpenGL import error
 from OpenGL.GLU import *
 #from OpenGL.arrays import arraydatatype
@@ -43,21 +43,21 @@ from OpenGL.GL.framebufferobjects import *
 from OpenGL.GL.EXT.multi_draw_arrays import *
 from OpenGL.GL.ARB.imaging import *
 
-glMultiDrawElements = alternate( 
+glMultiDrawElements = alternate(
     glMultiDrawElementsEXT, glMultiDrawElements, 
 )
 
-class BaseTest( unittest.TestCase ):
+class BaseTest(unittest.TestCase):
     width = height = 300
-    def setUp( self ):
+    def setUp(self):
         """Set up the operation"""
         
         self.screen = pygame.display.set_mode(
             (self.width,self.height),
             pygame.OPENGL | pygame.DOUBLEBUF,
-        )
+       )
         
-        pygame.display.set_caption('Testing system')
+        pygame.display.set_caption("Testing system")
         pygame.key.set_repeat(500,30)
         glMatrixMode (GL_PROJECTION)
         glLoadIdentity()
@@ -68,13 +68,13 @@ class BaseTest( unittest.TestCase ):
             -2,0,3, # eyepoint
             0,0,0, # center-of-view
             0,1,0, # up-vector
-        )
-        glClearColor( 0,0,.25, 0 )
-        glClear( GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT )
+       )
+        glClearColor(0,0,.25, 0)
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
     
-    def tearDown( self ):
+    def tearDown(self):
         glFlush()
         pygame.display.flip()
         # this is just so that you can see the effect
         # before we run the next test...
-        time.sleep( .05 )
+        time.sleep(.05)

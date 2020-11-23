@@ -17,15 +17,15 @@ def main():
     disp = pygame.display.set_mode((1024, 768), OPENGL | DOUBLEBUF)
 
     program = compileProgram(
-        compileShader( vertex_shader, GL_VERTEX_SHADER )
-    )
+        compileShader(vertex_shader, GL_VERTEX_SHADER)
+   )
 
     nu = glGetProgramiv(program, GL_ACTIVE_UNIFORMS)
     for i in range(nu):
         name, size, type = glGetActiveUniform(program, i)
-        print('CORE - ', name, size, type)
-        glGetActiveUniformARB( program, i )
-        print('ARB  - ', name, size, type)
+        print("CORE - ", name, size, type)
+        glGetActiveUniformARB(program, i)
+        print("ARB  - ", name, size, type)
 
 if __name__ == "__main__":
     main()

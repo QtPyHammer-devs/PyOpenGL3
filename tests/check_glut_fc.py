@@ -19,29 +19,29 @@ def display():
         glClearColor (0.0, 0.0, (time.time()%1.0)/1.0, 0.0)
         glClear (GL_COLOR_BUFFER_BIT)
         try:
-            glGetString( GL_EXTENSIONS )
+            glGetString(GL_EXTENSIONS)
         except GLError:
             pass 
         else:
-            print('Egads, glGetString should not have worked!')
-        assert bool( glGenVertexArrays ), "Should have vertex array support in 3.2"
+            print("Egads, glGetString should not have worked!")
+        assert bool(glGenVertexArrays), "Should have vertex array support in 3.2"
         glFlush ()
         glutSwapBuffers()
     except Exception:
-        glutDestroyWindow( window )
+        glutDestroyWindow(window)
         raise
 
 size = (250,250)
 
-def reshape( *args ):
+def reshape(*args):
     global size 
     size = args
-    glViewport( *( (0,0)+args) )
+    glViewport(*((0,0)+args))
     display()
 
-def ontimer( *args ):
-#    print 'timer', args, '@time', time.time()-start
-    glutTimerFunc( 1000, ontimer, 24 )
+def ontimer(*args):
+#    print "timer", args, "@time", time.time()-start
+    glutTimerFunc(1000, ontimer, 24)
 
 def idle():
     delta = time.time()-start
@@ -58,23 +58,23 @@ def idle():
             x = 1
         if y < 1:
             y = 1
-        glutReshapeWindow( x, y )
+        glutReshapeWindow(x, y)
         size = (x,y)
         glutSetWindow(window)
         glutPostRedisplay()
     else:
-        glutDestroyWindow( window )
-        print('window destroyed')
+        glutDestroyWindow(window)
+        print("window destroyed")
         try:
             if fgDeinitialize: fgDeinitialize(False)
         except NameError:
             pass # Older PyOpenGL, you may see a seg-fault here...
         import sys
-        sys.exit( 0 )
+        sys.exit(0)
 
-def printFunction( name ):
-    def onevent( *args ):
-        print('%s -> %s'%(name, ", ".join( [str(a) for a in args ])))
+def printFunction(name):
+    def onevent(*args):
+        print("%s -> %s"%(name, ", ".join([str(a) for a in args ])))
     return onevent
 
 
@@ -85,29 +85,29 @@ if __name__ == "__main__":
     glutInitContextVersion(3, 1)
     glutInitContextFlags(GLUT_FORWARD_COMPATIBLE)
     glutInitContextProfile(GLUT_CORE_PROFILE)
-    glutInitDisplayMode( GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH )
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
 
     glutSetOption(
         GLUT_ACTION_ON_WINDOW_CLOSE,
         GLUT_ACTION_GLUTMAINLOOP_RETURNS
-    );
+   );
     glutInitWindowSize(250, 250)
     glutInitWindowPosition(100, 100)
     window = glutCreateWindow("hello")
-    print('window', repr(window))
+    print("window", repr(window))
     glutDisplayFunc(display)
     glutReshapeFunc(reshape)
-    glutMouseFunc(printFunction( 'Mouse' ))
-    glutEntryFunc(printFunction( 'Entry' ))
-    glutKeyboardFunc( printFunction( 'Keyboard' ))
-    glutKeyboardUpFunc( printFunction( 'KeyboardUp' ))
-    glutMotionFunc( printFunction( 'Motion' ))
-    glutPassiveMotionFunc( printFunction( 'PassiveMotion' ))
-    glutVisibilityFunc( printFunction( 'Visibility' ))
-    glutWindowStatusFunc( printFunction( 'WindowStatus' ))
-    glutSpecialFunc( printFunction( 'Special' ))
-    glutSpecialUpFunc( printFunction( 'SpecialUp' ))
-    glutTimerFunc( 1000, ontimer, 23 )
+    glutMouseFunc(printFunction("Mouse"))
+    glutEntryFunc(printFunction("Entry"))
+    glutKeyboardFunc(printFunction("Keyboard"))
+    glutKeyboardUpFunc(printFunction("KeyboardUp"))
+    glutMotionFunc(printFunction("Motion"))
+    glutPassiveMotionFunc(printFunction("PassiveMotion"))
+    glutVisibilityFunc(printFunction("Visibility"))
+    glutWindowStatusFunc(printFunction("WindowStatus"))
+    glutSpecialFunc(printFunction("Special"))
+    glutSpecialUpFunc(printFunction("SpecialUp"))
+    glutTimerFunc(1000, ontimer, 23)
     
-    glutIdleFunc( idle )
+    glutIdleFunc(idle)
     glutMainLoop()

@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 from __future__ import print_function
 import os
-if not os.environ.get( 'PYOPENGL_PLATFORM' ):
-    os.environ['PYOPENGL_PLATFORM'] = 'osmesa'
+if not os.environ.get("PYOPENGL_PLATFORM"):
+    os.environ["PYOPENGL_PLATFORM"] = "osmesa"
 from math import pi, sin, cos
 import OpenGL
 OpenGL.USE_ACCELERATE = False
@@ -114,9 +114,9 @@ def write_ppm(buf, filename):
     f = open(filename, "w")
     if f:
         h, w, c = buf.shape
-        print( "P3", file=f)
-        print( "# ascii ppm file created by osmesa",file=f)
-        print( "%i %i" % (w, h),file=f)
+        print("P3", file=f)
+        print("# ascii ppm file created by osmesa",file=f)
+        print("%i %i" % (w, h),file=f)
         print("255",file=f)
         for y in range(h - 1, -1, -1):
             for x in range(w):
@@ -125,7 +125,7 @@ def write_ppm(buf, filename):
                 f.write(l)
             f.write("\n")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from OpenGL import arrays
 
     ctx = OSMesaCreateContext(OSMESA_RGBA, None)
@@ -151,6 +151,6 @@ if __name__ == '__main__':
 
     render_image()
 
-    write_ppm(buf, 'output.ppm')
+    write_ppm(buf, "output.ppm")
 
     OSMesaDestroyContext(ctx)

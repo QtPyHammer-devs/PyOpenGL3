@@ -36,29 +36,29 @@ def main():
     program = shaders.compileProgram(
         shaders.compileShader([vertex_shader], GL_VERTEX_SHADER), 
         shaders.compileShader([geometry_shader], GL_GEOMETRY_SHADER)
-    )
+   )
     
     # test that we can describe the attributes in the shader
-    for i in range( glGetProgramiv( program, GL_ACTIVE_ATTRIBUTES )):
-        name,size,type = glGetActiveAttrib( program, i )
-        print( 'Arribute %s(%i) -> %s %s'%(name,i,size,type))
+    for i in range(glGetProgramiv(program, GL_ACTIVE_ATTRIBUTES)):
+        name,size,type = glGetActiveAttrib(program, i)
+        print("Arribute %s(%i) -> %s %s"%(name,i,size,type))
         
         length,size,type,name = GLsizei(),GLint(),GLenum(),(GLchar*8)()
-        glGetActiveAttrib( program, i, None, length,size,type,name )
+        glGetActiveAttrib(program, i, None, length,size,type,name)
         assert length.value == len(name.value),(length.value,name.value)
         assert type.value == 5126, type.value
         
-    for i in range( glGetProgramiv( program, GL_ACTIVE_UNIFORMS )):
-        name,size,type = glGetActiveUniform( program, i )
-        print( 'Uniform %s(%i) -> %s %s'%(name,i,size,type))
+    for i in range(glGetProgramiv(program, GL_ACTIVE_UNIFORMS)):
+        name,size,type = glGetActiveUniform(program, i)
+        print("Uniform %s(%i) -> %s %s"%(name,i,size,type))
         
         length,size,type,name = GLsizei(),GLint(),GLenum(),(GLchar*5)()
-        glGetActiveUniform( program, i, 5, length, size, type, name )
+        glGetActiveUniform(program, i, 5, length, size, type, name)
         assert length.value == len(name.value),(length.value,name.value)
         assert type.value == 5126, type.value
         
 
-    buff = (ctypes.c_char_p * 1)( as_8_bit("outValue\000") )
+    buff = (ctypes.c_char_p * 1)(as_8_bit("outValue\000"))
     c_text = ctypes.cast(ctypes.pointer(buff), ctypes.POINTER(ctypes.POINTER(GLchar)))
     # modifies the state in the linking of the program
     glTransformFeedbackVaryings(program, 1, c_text, GL_INTERLEAVED_ATTRIBS);

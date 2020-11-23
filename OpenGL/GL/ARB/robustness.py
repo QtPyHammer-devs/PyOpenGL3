@@ -1,4 +1,4 @@
-'''OpenGL extension ARB.robustness
+"""OpenGL extension ARB.robustness
 
 This module customises the behaviour of the 
 OpenGL.raw.GL.ARB.robustness to provide a more 
@@ -32,7 +32,7 @@ Overview (from the spec)
 	instead the number of bytes returned is a complex function of one
 	or more query arguments, sometimes context state such as pixel
 	store modes or the active texture selector, and the current state
-	of an object (such as a texture level's number of total texels).
+	of an object (such as a texture level"s number of total texels).
 	By the standards of modern API design, such queries are not "safe".
 	Making these queries safer involves introducing a new query API with
 	an additional parameter that specifies the number of bytes in the
@@ -42,7 +42,7 @@ Overview (from the spec)
 	sharing of objects such as textures and programs.  Such sharing in
 	conjunction with concurrent OpenGL commands stream execution by two
 	or more contexts introduces hazards whereby one context can change
-	objects in ways that can cause buffer overflows for another context's
+	objects in ways that can cause buffer overflows for another context"s
 	OpenGL queries.
 	
 	The original ARB_vertex_buffer_object extension includes an issue
@@ -80,7 +80,7 @@ Overview (from the spec)
 	route all OpenGL API calls through the web browser.  It is then the
 	web browser that configures the context, using the commands in this
 	extension, to enforce safe behavior. In this scenario, the WebGL
-	content cannot specify or change the use of this extension's features
+	content cannot specify or change the use of this extension"s features
 	itself; the web browser enforces this policy.
 	
 	There are other well-known robustness issues with the OpenGL API
@@ -100,8 +100,8 @@ Overview (from the spec)
 	of OpenGL.
 
 The official definition of this extension is available here:
-http://www.opengl.org/registry/specs/ARB/robustness.txt
-'''
+https://www.opengl.org/registry/specs/ARB/robustness.txt
+"""
 from OpenGL import platform, constant, arrays
 from OpenGL import extensions, wrapper
 import ctypes
@@ -110,69 +110,69 @@ from OpenGL.raw.GL.ARB.robustness import *
 from OpenGL.raw.GL.ARB.robustness import _EXTENSION_NAME
 
 def glInitRobustnessARB():
-    '''Return boolean indicating whether this extension is available'''
+    """Return boolean indicating whether this extension is available"""
     from OpenGL import extensions
-    return extensions.hasGLExtension( _EXTENSION_NAME )
+    return extensions.hasGLExtension(_EXTENSION_NAME)
 
 glGetnTexImageARB=wrapper.wrapper(glGetnTexImageARB).setOutput(
-    'img',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "img",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glReadnPixelsARB=wrapper.wrapper(glReadnPixelsARB).setOutput(
-    'data',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "data",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnCompressedTexImageARB=wrapper.wrapper(glGetnCompressedTexImageARB).setOutput(
-    'img',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "img",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnUniformfvARB=wrapper.wrapper(glGetnUniformfvARB).setOutput(
-    'params',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "params",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnUniformivARB=wrapper.wrapper(glGetnUniformivARB).setOutput(
-    'params',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "params",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnUniformuivARB=wrapper.wrapper(glGetnUniformuivARB).setOutput(
-    'params',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "params",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnUniformdvARB=wrapper.wrapper(glGetnUniformdvARB).setOutput(
-    'params',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "params",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnMapdvARB=wrapper.wrapper(glGetnMapdvARB).setOutput(
-    'v',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "v",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnMapfvARB=wrapper.wrapper(glGetnMapfvARB).setOutput(
-    'v',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "v",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnMapivARB=wrapper.wrapper(glGetnMapivARB).setOutput(
-    'v',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "v",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnPixelMapfvARB=wrapper.wrapper(glGetnPixelMapfvARB).setOutput(
-    'values',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "values",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnPixelMapuivARB=wrapper.wrapper(glGetnPixelMapuivARB).setOutput(
-    'values',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "values",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnPixelMapusvARB=wrapper.wrapper(glGetnPixelMapusvARB).setOutput(
-    'values',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "values",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnPolygonStippleARB=wrapper.wrapper(glGetnPolygonStippleARB).setOutput(
-    'pattern',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "pattern",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnColorTableARB=wrapper.wrapper(glGetnColorTableARB).setOutput(
-    'table',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "table",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnConvolutionFilterARB=wrapper.wrapper(glGetnConvolutionFilterARB).setOutput(
-    'image',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "image",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnSeparableFilterARB=wrapper.wrapper(glGetnSeparableFilterARB).setOutput(
-    'column',size=lambda x:(x,),pnameArg='columnBufSize',orPassIn=True
+    "column",size=lambda x:(x,),pnameArg="columnBufSize",orPassIn=True
 ).setOutput(
-    'row',size=lambda x:(x,),pnameArg='rowBufSize',orPassIn=True
+    "row",size=lambda x:(x,),pnameArg="rowBufSize",orPassIn=True
 ).setOutput(
-    'span',size=(0,),orPassIn=True
+    "span",size=(0,),orPassIn=True
 )
 glGetnHistogramARB=wrapper.wrapper(glGetnHistogramARB).setOutput(
-    'values',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "values",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
 glGetnMinmaxARB=wrapper.wrapper(glGetnMinmaxARB).setOutput(
-    'values',size=lambda x:(x,),pnameArg='bufSize',orPassIn=True
+    "values",size=lambda x:(x,),pnameArg="bufSize",orPassIn=True
 )
-### END AUTOGENERATED SECTION
+# END AUTOGENERATED SECTION

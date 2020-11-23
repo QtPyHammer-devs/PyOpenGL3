@@ -1,4 +1,4 @@
-'''OpenGL extension ARB.shader_objects
+"""OpenGL extension ARB.shader_objects
 
 This module customises the behaviour of the 
 OpenGL.raw.GL.ARB.shader_objects to provide a more 
@@ -10,7 +10,7 @@ Overview (from the spec)
 	objects and program objects as defined in the OpenGL 2.0 white papers by
 	3Dlabs.
 	
-	The generation of an executable that runs on one of OpenGL's
+	The generation of an executable that runs on one of OpenGL"s
 	programmable units is modeled to that of developing a typical C/C++
 	application. There are one or more source files, each of which are
 	stored by OpenGL in a shader object. Each shader object (source file)
@@ -22,7 +22,7 @@ Overview (from the spec)
 	string that can be queried to get more information. This information
 	could be, but is not limited to, compile errors, link errors,
 	optimization hints, etc. Values for uniform variables, declared in a
-	shader, can be set by the application and used to control a shader's
+	shader, can be set by the application and used to control a shader"s
 	behavior.
 	
 	This extension defines functions for creating shader objects and program
@@ -40,8 +40,8 @@ Overview (from the spec)
 	extension).
 
 The official definition of this extension is available here:
-http://www.opengl.org/registry/specs/ARB/shader_objects.txt
-'''
+https://www.opengl.org/registry/specs/ARB/shader_objects.txt
+"""
 from OpenGL import platform, constant, arrays
 from OpenGL import extensions, wrapper
 import ctypes
@@ -50,217 +50,217 @@ from OpenGL.raw.GL.ARB.shader_objects import *
 from OpenGL.raw.GL.ARB.shader_objects import _EXTENSION_NAME
 
 def glInitShaderObjectsARB():
-    '''Return boolean indicating whether this extension is available'''
+    """Return boolean indicating whether this extension is available"""
     from OpenGL import extensions
-    return extensions.hasGLExtension( _EXTENSION_NAME )
+    return extensions.hasGLExtension(_EXTENSION_NAME)
 
 # INPUT glShaderSourceARB.length size not checked against count
 # INPUT glShaderSourceARB.string size not checked against count
 glShaderSourceARB=wrapper.wrapper(glShaderSourceARB).setInputArraySize(
-    'length', None
+    "length", None
 ).setInputArraySize(
-    'string', None
+    "string", None
 )
 # INPUT glUniform1fvARB.value size not checked against count
 glUniform1fvARB=wrapper.wrapper(glUniform1fvARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniform2fvARB.value size not checked against count*2
 glUniform2fvARB=wrapper.wrapper(glUniform2fvARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniform3fvARB.value size not checked against count*3
 glUniform3fvARB=wrapper.wrapper(glUniform3fvARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniform4fvARB.value size not checked against count*4
 glUniform4fvARB=wrapper.wrapper(glUniform4fvARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniform1ivARB.value size not checked against count
 glUniform1ivARB=wrapper.wrapper(glUniform1ivARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniform2ivARB.value size not checked against count*2
 glUniform2ivARB=wrapper.wrapper(glUniform2ivARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniform3ivARB.value size not checked against count*3
 glUniform3ivARB=wrapper.wrapper(glUniform3ivARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniform4ivARB.value size not checked against count*4
 glUniform4ivARB=wrapper.wrapper(glUniform4ivARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniformMatrix2fvARB.value size not checked against count*4
 glUniformMatrix2fvARB=wrapper.wrapper(glUniformMatrix2fvARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniformMatrix3fvARB.value size not checked against count*9
 glUniformMatrix3fvARB=wrapper.wrapper(glUniformMatrix3fvARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glUniformMatrix4fvARB.value size not checked against count*16
 glUniformMatrix4fvARB=wrapper.wrapper(glUniformMatrix4fvARB).setInputArraySize(
-    'value', None
+    "value", None
 )
 glGetObjectParameterfvARB=wrapper.wrapper(glGetObjectParameterfvARB).setOutput(
-    'params',size=_glgets._glget_size_mapping,pnameArg='pname',orPassIn=True
+    "params",size=_glgets._glget_size_mapping,pnameArg="pname",orPassIn=True
 )
 glGetObjectParameterivARB=wrapper.wrapper(glGetObjectParameterivARB).setOutput(
-    'params',size=_glgets._glget_size_mapping,pnameArg='pname',orPassIn=True
+    "params",size=_glgets._glget_size_mapping,pnameArg="pname",orPassIn=True
 )
 glGetInfoLogARB=wrapper.wrapper(glGetInfoLogARB).setOutput(
-    'infoLog',size=lambda x:(x,),pnameArg='maxLength',orPassIn=True
+    "infoLog",size=lambda x:(x,),pnameArg="maxLength",orPassIn=True
 ).setOutput(
-    'length',size=(1,),orPassIn=True
+    "length",size=(1,),orPassIn=True
 )
 glGetAttachedObjectsARB=wrapper.wrapper(glGetAttachedObjectsARB).setOutput(
-    'count',size=(1,),orPassIn=True
+    "count",size=(1,),orPassIn=True
 ).setOutput(
-    'obj',size=lambda x:(x,),pnameArg='maxCount',orPassIn=True
+    "obj",size=lambda x:(x,),pnameArg="maxCount",orPassIn=True
 )
 glGetActiveUniformARB=wrapper.wrapper(glGetActiveUniformARB).setOutput(
-    'length',size=(1,),orPassIn=True
+    "length",size=(1,),orPassIn=True
 ).setOutput(
-    'name',size=lambda x:(x,),pnameArg='maxLength',orPassIn=True
+    "name",size=lambda x:(x,),pnameArg="maxLength",orPassIn=True
 ).setOutput(
-    'size',size=(1,),orPassIn=True
+    "size",size=(1,),orPassIn=True
 ).setOutput(
-    'type',size=(1,),orPassIn=True
+    "type",size=(1,),orPassIn=True
 )
 # OUTPUT glGetUniformfvARB.params COMPSIZE(programObj, location) 
 # OUTPUT glGetUniformivARB.params COMPSIZE(programObj, location) 
 glGetShaderSourceARB=wrapper.wrapper(glGetShaderSourceARB).setOutput(
-    'length',size=(1,),orPassIn=True
+    "length",size=(1,),orPassIn=True
 ).setOutput(
-    'source',size=lambda x:(x,),pnameArg='maxLength',orPassIn=True
+    "source",size=lambda x:(x,),pnameArg="maxLength",orPassIn=True
 )
-### END AUTOGENERATED SECTION
+# END AUTOGENERATED SECTION
 import OpenGL
 from OpenGL._bytes import bytes, _NULL_8_BYTE, as_8_bit
 from OpenGL.raw.GL import _errors
 from OpenGL.lazywrapper import lazy as _lazy
 from OpenGL import converters, error
-GL_INFO_LOG_LENGTH_ARB = constant.Constant( 'GL_INFO_LOG_LENGTH_ARB', 0x8B84 )
+GL_INFO_LOG_LENGTH_ARB = constant.Constant("GL_INFO_LOG_LENGTH_ARB", 0x8B84)
 
 glShaderSourceARB = platform.createExtensionFunction(
-    'glShaderSourceARB', dll=platform.PLATFORM.GL,
+    "glShaderSourceARB", dll=platform.PLATFORM.GL,
     resultType=None,
     argTypes=(_types.GLhandleARB, _types.GLsizei, ctypes.POINTER(ctypes.c_char_p), arrays.GLintArray,),
-    doc = 'glShaderSourceARB( GLhandleARB(shaderObj), [bytes(string),...] ) -> None',
-    argNames = ('shaderObj', 'count', 'string', 'length',),
+    doc = "glShaderSourceARB(GLhandleARB(shaderObj), [bytes(string),...]) -> None",
+    argNames = ("shaderObj", "count", "string", "length",),
     extension = _EXTENSION_NAME,
 )
-conv = converters.StringLengths( name='string' )
+conv = converters.StringLengths(name="string")
 glShaderSourceARB = wrapper.wrapper(
     glShaderSourceARB
 ).setPyConverter(
-    'count' # number of strings
+    "count" # number of strings
 ).setPyConverter(
-    'length' # lengths of strings
+    "length" # lengths of strings
 ).setPyConverter(
-    'string', conv.stringArray
+    "string", conv.stringArray
 ).setCResolver(
-    'string', conv.stringArrayForC,
+    "string", conv.stringArrayForC,
 ).setCConverter(
-    'length', conv,
+    "length", conv,
 ).setCConverter(
-    'count', conv.totalCount,
+    "count", conv.totalCount,
 )
 try:
     del conv
 except NameError as err:
     pass
 
-def _afterCheck( key ):
+def _afterCheck(key):
     """Generate an error-checking function for compilation operations"""
     def GLSLCheckError(
         result,
         baseOperation=None,
         cArguments=None,
         *args
-    ):
-        result = _errors._error_checker.glCheckError( result, baseOperation, cArguments, *args )
+   ):
+        result = _errors._error_checker.glCheckError(result, baseOperation, cArguments, *args)
         status = glGetObjectParameterivARB(
             cArguments[0], key
-        )
+       )
         if not status:
             raise error.GLError(
                 result = result,
                 baseOperation = baseOperation,
                 cArguments = cArguments,
-                description= glGetInfoLogARB( cArguments[0] )
-            )
+                description= glGetInfoLogARB(cArguments[0])
+           )
         return result
     return GLSLCheckError
 
 if OpenGL.ERROR_CHECKING:
-    glCompileShaderARB.errcheck = _afterCheck( GL_OBJECT_COMPILE_STATUS_ARB )
+    glCompileShaderARB.errcheck = _afterCheck(GL_OBJECT_COMPILE_STATUS_ARB)
 if OpenGL.ERROR_CHECKING:
-    glLinkProgramARB.errcheck = _afterCheck( GL_OBJECT_LINK_STATUS_ARB )
+    glLinkProgramARB.errcheck = _afterCheck(GL_OBJECT_LINK_STATUS_ARB)
 ## Not sure why, but these give invalid operation :(
 ##if glValidateProgramARB and OpenGL.ERROR_CHECKING:
-##	glValidateProgramARB.errcheck = _afterCheck( GL_OBJECT_VALIDATE_STATUS_ARB )
+##	glValidateProgramARB.errcheck = _afterCheck(GL_OBJECT_VALIDATE_STATUS_ARB)
 
-@_lazy( glGetInfoLogARB )
-def glGetInfoLogARB( baseOperation, obj ):
-    """Retrieve the program/shader's error messages as a Python string
+@_lazy(glGetInfoLogARB)
+def glGetInfoLogARB(baseOperation, obj):
+    """Retrieve the program/shader"s error messages as a Python string
 
-    returns string which is '' if no message
+    returns string which is "" if no message
     """
     length = int(glGetObjectParameterivARB(obj, GL_INFO_LOG_LENGTH_ARB))
     if length > 0:
         log = ctypes.create_string_buffer(length)
         baseOperation(obj, length, None, log)
         return log.value.strip(_NULL_8_BYTE) # null-termination
-    return ''
+    return ""
 
-@_lazy( glGetAttachedObjectsARB )
-def glGetAttachedObjectsARB( baseOperation, obj ):
+@_lazy(glGetAttachedObjectsARB)
+def glGetAttachedObjectsARB(baseOperation, obj):
     """Retrieve the attached objects as an array of GLhandleARB instances"""
-    length= glGetObjectParameterivARB( obj, GL_OBJECT_ATTACHED_OBJECTS_ARB )
+    length= glGetObjectParameterivARB(obj, GL_OBJECT_ATTACHED_OBJECTS_ARB)
     if length > 0:
-        storage = arrays.GLuintArray.zeros( (length,))
-        baseOperation( obj, length, None, storage )
+        storage = arrays.GLuintArray.zeros((length,))
+        baseOperation(obj, length, None, storage)
         return storage
-    return arrays.GLuintArray.zeros( (0,))
+    return arrays.GLuintArray.zeros((0,))
 
-@_lazy( glGetShaderSourceARB )
-def glGetShaderSourceARB( baseOperation, obj ):
-    """Retrieve the program/shader's source code as a Python string
+@_lazy(glGetShaderSourceARB)
+def glGetShaderSourceARB(baseOperation, obj):
+    """Retrieve the program/shader"s source code as a Python string
 
-    returns string which is '' if no source code
+    returns string which is "" if no source code
     """
     length = int(glGetObjectParameterivARB(obj, GL_OBJECT_SHADER_SOURCE_LENGTH_ARB))
     if length > 0:
         source = ctypes.create_string_buffer(length)
         baseOperation(obj, length, None, source)
         return source.value.strip(_NULL_8_BYTE) # null-termination
-    return ''
+    return ""
 
-@_lazy( glGetActiveUniformARB )
+@_lazy(glGetActiveUniformARB)
 def glGetActiveUniformARB(baseOperation,program, index,bufSize=None):
     """Retrieve the name, size and type of the uniform of the index in the program"""
-    max_index = int(glGetObjectParameterivARB( program, GL_OBJECT_ACTIVE_UNIFORMS_ARB ))
+    max_index = int(glGetObjectParameterivARB(program, GL_OBJECT_ACTIVE_UNIFORMS_ARB))
     if bufSize is None:
-        bufSize = int(glGetObjectParameterivARB( program, GL_OBJECT_ACTIVE_UNIFORM_MAX_LENGTH_ARB))
+        bufSize = int(glGetObjectParameterivARB(program, GL_OBJECT_ACTIVE_UNIFORM_MAX_LENGTH_ARB))
     if index < max_index and index >= 0:
-        length,name,size,type = baseOperation( program, index, bufSize )
-        if hasattr(name,'tostring'):
-            name = name.tostring().rstrip(b'\000')
-        elif hasattr(name,'value'):
+        length,name,size,type = baseOperation(program, index, bufSize)
+        if hasattr(name,"tostring"):
+            name = name.tostring().rstrip(b"\000")
+        elif hasattr(name,"value"):
             name = name.value
         return name,size,type
-    raise IndexError( 'Index %s out of range 0 to %i' % (index, max_index - 1, ) )
+    raise IndexError("Index %s out of range 0 to %i" % (index, max_index - 1,))
 
-@_lazy( glGetUniformLocationARB )
-def glGetUniformLocationARB( baseOperation, program, name ):
+@_lazy(glGetUniformLocationARB)
+def glGetUniformLocationARB(baseOperation, program, name):
     """Check that name is a string with a null byte at the end of it"""
     if not name:
-        raise ValueError( """Non-null name required""" )
-    name = as_8_bit( name )
+        raise ValueError("""Non-null name required""")
+    name = as_8_bit(name)
     if name[-1] != _NULL_8_BYTE:
         name = name + _NULL_8_BYTE
-    return baseOperation( program, name )
+    return baseOperation(program, name)

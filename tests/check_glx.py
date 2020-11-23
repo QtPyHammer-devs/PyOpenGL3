@@ -7,7 +7,7 @@ from OpenGL.GLX.EXT.texture_from_pixmap import *
 from pygamegltest import pygametest
 import os
 
-# print('Not yet working')
+# print("Not yet working")
 # raise SystemExit(1)
 attributes = [
 #    GLX_BIND_TO_TEXTURE_RGBA_EXT, 1,
@@ -26,12 +26,12 @@ attributes = [
     GLX_Y_INVERTED_EXT, GLX_DONT_CARE,
     GL_NONE
 ]
-attributes = (GLint * len(attributes))( * attributes )
+attributes = (GLint * len(attributes))(* attributes)
 
 import ctypes
 from OpenGL.platform import ctypesloader
 
-X11 = ctypesloader.loadLibrary( ctypes.cdll, 'X11' )
+X11 = ctypesloader.loadLibrary(ctypes.cdll, "X11")
 
 XDefaultScreen = X11.XDefaultScreen
 XDefaultScreen.argtypes = [ctypes.POINTER(Display)]
@@ -40,10 +40,10 @@ XOpenDisplay = X11.XOpenDisplay
 XOpenDisplay.restype = ctypes.POINTER(Display)
 
 XRootWindow = X11.XRootWindow
-XRootWindow.restyle = ctypes.POINTER( Window )
+XRootWindow.restyle = ctypes.POINTER(Window)
 
 XCreateWindow = X11.XCreateWindow
-XCreateWindow.restyle = ctypes.POINTER( Window )
+XCreateWindow.restyle = ctypes.POINTER(Window)
 XCreateWindow.argtypes = [
     ctypes.POINTER(Display),ctypes.POINTER(Window),
     GLint,GLint,GLuint,GLuint,GLuint,GLint,GLuint,
@@ -60,15 +60,15 @@ def debug_struct(s):
 
 #@pygametest()
 def main():
-    display = XOpenDisplay( os.environ.get( 'DISPLAY' ))
+    display = XOpenDisplay(os.environ.get("DISPLAY"))
     if not display:
         raise RuntimeError("Unable to get the default display")
-    screen = XDefaultScreen( display )
-    print('X Display %s Screen %s'%( display, screen ))
+    screen = XDefaultScreen(display)
+    print("X Display %s Screen %s"%(display, screen))
     major,minor = GLint(),GLint()
     glXQueryVersion(display, major, minor)
     version = (major.value,minor.value)
-    print('glX Version: %s.%s'%version)
+    print("glX Version: %s.%s"%version)
     if (major.value,minor.value) < (1,3):
         print("Need at least GLX 1.3 to choose the framebuffer config")
         raise RuntimeError((major.value,minor.value))
@@ -77,14 +77,14 @@ def main():
     count = ctypes.c_int(0)
     configs = glXChooseFBConfig(display, screen, attributes, ctypes.pointer(count))
     if count.value < 1:
-        raise RuntimeError('Did not find any configs')
-    print('Found %s configs'%(count.value,))
+        raise RuntimeError("Did not find any configs")
+    print("Found %s configs"%(count.value,))
 
     for index in range(count.value):
-        vis = glXGetVisualFromFBConfig( display, configs[index] )
+        vis = glXGetVisualFromFBConfig(display, configs[index])
         if vis:
             vis = vis[0]
-            print('Visual %s: %s'%(index+1, debug_struct(vis)))
+            print("Visual %s: %s"%(index+1, debug_struct(vis)))
     
     # get a visual with 1.0 functionality...
     if not vis:
@@ -93,7 +93,7 @@ def main():
     
     root = XRootWindow(display,vis.screen)
     root_p = ctypes.c_ulong(root)
-    window = XCreateWindow( 
+    window = XCreateWindow(
         display, 
         root_p, 
         0,0, #x,y
@@ -104,7 +104,7 @@ def main():
         vis.visual,
         0,
         ctypes.c_void_p(0),
-    )
+   )
         
     context = glXCreateContext(display,vis,None,GL_TRUE)
     
@@ -112,7 +112,7 @@ def main():
         print(glXQueryExtensionsString(display,screen))
 #        if version >= (1,2):
 #            d = glXGetCurrentDisplay()[0]
-#            print 'Current display', d
+#            print "Current display", d
 #        else:
     
     
@@ -124,20 +124,20 @@ def main():
             screen, 
             attributes, 
             elements
-        )
-        print('%s configs found'%( elements.value ))
-        for config in range( elements.value ):
-            print('Config: %s %s'%(config,configs[config][0]))
+       )
+        print("%s configs found"%(elements.value))
+        for config in range(elements.value):
+            print("Config: %s %s"%(config,configs[config][0]))
             samples = ctypes.c_int()
             for attribute in (
-                'GLX_FBCONFIG_ID','GLX_BUFFER_SIZE',
-                'GLX_LEVEL','GLX_DOUBLEBUFFER',
-                'GLX_STEREO',
-                'GLX_SAMPLES','GLX_SAMPLE_BUFFERS',
-                'GLX_DRAWABLE_TYPE',
-            ):
-                glXGetFBConfigAttrib( display, configs[config], globals()[attribute], samples )
-                print('%s -> %s'%( attribute, samples.value ))
+                "GLX_FBCONFIG_ID","GLX_BUFFER_SIZE",
+                "GLX_LEVEL","GLX_DOUBLEBUFFER",
+                "GLX_STEREO",
+                "GLX_SAMPLES","GLX_SAMPLE_BUFFERS",
+                "GLX_DRAWABLE_TYPE",
+           ):
+                glXGetFBConfigAttrib(display, configs[config], globals()[attribute], samples)
+                print("%s -> %s"%(attribute, samples.value))
             print() 
     
         

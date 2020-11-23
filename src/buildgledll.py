@@ -16,6 +16,7 @@ despite the name GLE referring to the GLE project for a very long time (they too
 due to such a takedown notice).
 """
 from __future__ import print_function
+
 import glob
 import logging
 import os
@@ -27,7 +28,7 @@ import sys
 
 log = logging.getLogger("buildgle")
 
-DOWNLOAD_URL = "http://downloads.sourceforge.net/project/gle/gle/gle-3.1.0/gle-3.1.0.tar.gz" \
+DOWNLOAD_URL = "https://downloads.sourceforge.net/project/gle/gle/gle-3.1.0/gle-3.1.0.tar.gz" \
                "?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fgle%2F&ts=1315332658&use_mirror=voxel"
 GLE_VERSION = "3.1.0"
 GLE_SOURCE_DIR = f"gle-{GLE_VERSION}"
@@ -74,9 +75,9 @@ def build():
         target = os.path.join(current, "..", "OpenGL", "DLLS", outfile)
         exports = " ".join([f"/EXPORT:{x}" for x in EXPORTS.split() if x])
 
-        subprocess.check_call('cl -c /D"WIN32" /D "_WINDLL" /Gd /MD *.c')
-        subprocess.check_call(f'link  /LIBPATH:"C:/Program Files/Microsoft Platform SDK/Lib"'
-                              f'{exports} /DLL /OUT:{outfile} opengl32.lib glu32.lib *.obj')
+        subprocess.check_call("cl -c /D"WIN32" /D "_WINDLL" /Gd /MD *.c")
+        subprocess.check_call(f"link  /LIBPATH:"C:/Program Files/Microsoft Platform SDK/Lib""
+                              f"{exports} /DLL /OUT:{outfile} opengl32.lib glu32.lib *.obj")
         shutil.copyfile(outfile, target)
         print(f"Created file {target}")
     finally:

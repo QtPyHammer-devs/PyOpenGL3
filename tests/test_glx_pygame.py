@@ -4,7 +4,7 @@ from __future__ import print_function
 from OpenGL.GL import *
 import pytest
 import sys
-if not sys.platform.startswith('linux'):
+if not sys.platform.startswith("linux"):
     pytest.skip("Skipping GLX tests on non-linux platforms", allow_module_level=True)
 from OpenGL.GLX import *
 from OpenGL.GLX.EXT.texture_from_pixmap import *
@@ -24,7 +24,7 @@ attributes = [
 import ctypes
 from OpenGL.platform import ctypesloader
 
-X11 = ctypesloader.loadLibrary( ctypes.cdll, 'X11' )
+X11 = ctypesloader.loadLibrary(ctypes.cdll, "X11")
 XDefaultScreen = X11.XDefaultScreen
 XDefaultScreen.argtypes = [ctypes.POINTER(Display)]
 XOpenDisplay = X11.XOpenDisplay 
@@ -32,18 +32,18 @@ XOpenDisplay.restype = ctypes.POINTER(Display)
 
 @pygametest()
 def main():
-    dsp = XOpenDisplay( os.environ.get( 'DISPLAY' ))
-    screen = XDefaultScreen( dsp )
-    print('X Display %s Screen %s'%( dsp, screen ))
+    dsp = XOpenDisplay(os.environ.get("DISPLAY"))
+    screen = XDefaultScreen(dsp)
+    print("X Display %s Screen %s"%(dsp, screen))
     major,minor = GLint(),GLint()
     glXQueryVersion(dsp, major, minor)
     version = (major.value,minor.value)
-    print('glX Version: %s.%s'%version)
+    print("glX Version: %s.%s"%version)
     if version >= (1,1):
         print(glXQueryExtensionsString(dsp,screen))
         if version >= (1,2):
             d = glXGetCurrentDisplay()[0]
-            print('Current display', d)
+            print("Current display", d)
         else:
             d = dsp
     if version >= (1,3):
@@ -51,25 +51,25 @@ def main():
         configs = glXChooseFBConfig(
             dsp, 
             screen, 
-            (GLint * len(attributes))( * attributes ), 
+            (GLint * len(attributes))(* attributes), 
             elements
-        )
-        print('%s configs found'%( elements.value ))
-        for config in range( elements.value ):
-            print('Config: %s %s'%(config,configs[config][0]))
+       )
+        print("%s configs found"%(elements.value))
+        for config in range(elements.value):
+            print("Config: %s %s"%(config,configs[config][0]))
             samples = ctypes.c_int()
             for attribute in (
-                'GLX_FBCONFIG_ID','GLX_BUFFER_SIZE',
-                'GLX_LEVEL','GLX_DOUBLEBUFFER',
-                'GLX_STEREO',
-                'GLX_SAMPLES','GLX_SAMPLE_BUFFERS',
-                'GLX_DRAWABLE_TYPE',
-            ):
-                glXGetFBConfigAttrib( dsp, configs[config], globals()[attribute], samples )
-                print('%s -> %s'%( attribute, samples.value ))
+                "GLX_FBCONFIG_ID","GLX_BUFFER_SIZE",
+                "GLX_LEVEL","GLX_DOUBLEBUFFER",
+                "GLX_STEREO",
+                "GLX_SAMPLES","GLX_SAMPLE_BUFFERS",
+                "GLX_DRAWABLE_TYPE",
+           ):
+                glXGetFBConfigAttrib(dsp, configs[config], globals()[attribute], samples)
+                print("%s -> %s"%(attribute, samples.value))
             print() 
     from OpenGL.raw.GLX import _types
-    print('Extension List', _types.GLXQuerier.getExtensions())
+    print("Extension List", _types.GLXQuerier.getExtensions())
         
 if __name__ == "__main__":
     main()

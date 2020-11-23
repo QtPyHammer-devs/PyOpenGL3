@@ -20,7 +20,7 @@ def main():
             modelview_matrix = glGetFloatv(GL_MODELVIEW_MATRIX)
             assert modelview_matrix is not None
             if not i % 500:
-                sys.stdout.write('.')
+                sys.stdout.write(".")
         print()
         pygame.display.flip()
 
@@ -29,5 +29,5 @@ def main():
             if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                 done = True
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

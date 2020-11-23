@@ -1,4 +1,4 @@
-'''OpenGL extension NV.path_rendering
+"""OpenGL extension NV.path_rendering
 
 This module customises the behaviour of the 
 OpenGL.raw.GLES2.NV.path_rendering to provide a more 
@@ -19,7 +19,7 @@ Overview (from the spec)
 	
 	With this extension, path rendering becomes a first-class rendering
 	mode within the OpenGL graphics system that can be arbitrarily mixed
-	with existing OpenGL rendering and can take advantage of OpenGL's
+	with existing OpenGL rendering and can take advantage of OpenGL"s
 	existing mechanisms for texturing, programmability, and per-fragment
 	operations.
 	
@@ -71,7 +71,7 @@ Overview (from the spec)
 	        a contour) or open.
 	
 	    2.  Path stenciling is the process of updating the stencil buffer
-	        based on a path's coverage transformed into window space.
+	        based on a path"s coverage transformed into window space.
 	
 	        Path stenciling can determine either the filled or stroked
 	        coverage of a path.
@@ -85,7 +85,7 @@ Overview (from the spec)
 	        properties specified are parameters of path objects.
 	
 	    3.  Path covering is the process of emitting simple (convex &
-	        planar) geometry that (conservatively) "covers" the path's
+	        planar) geometry that (conservatively) "covers" the path"s
 	        sample coverage in the stencil buffer.  During path covering,
 	        stencil testing can be configured to discard fragments not
 	        within the actual coverage of the path as determined by
@@ -99,14 +99,14 @@ Overview (from the spec)
 	
 	To render a path object into the color buffer, an application specifies
 	a path object and then uses a two-step rendering process.  First, the
-	path object is stenciled whereby the path object's stroked or filled
+	path object is stenciled whereby the path object"s stroked or filled
 	coverage is rasterized into the stencil buffer.  Second, the path object
 	is covered whereby conservative bounding geometry for the path is
 	transformed and rasterized with stencil testing configured to test against
 	the coverage information written to the stencil buffer in the first step
 	so that only fragments covered by the path are written during this second
 	step.  Also during this second step written pixels typically have
-	their stencil value reset (so there's no need for clearing the
+	their stencil value reset (so there"s no need for clearing the
 	stencil buffer between rendering each path).
 	
 	Here is an example of specifying and then rendering a five-point
@@ -139,12 +139,12 @@ Overview (from the spec)
 	The PostScript path syntax also supports compact and precise binary
 	encoding and includes PostScript-style circular arcs.
 	
-	Or the path's command and coordinates can be specified explicitly:
+	Or the path"s command and coordinates can be specified explicitly:
 	
 	    static const GLubyte pathCommands[10] =
 	      { GL_MOVE_TO_NV, GL_LINE_TO_NV, GL_LINE_TO_NV, GL_LINE_TO_NV,
 	        GL_LINE_TO_NV, GL_CLOSE_PATH_NV,
-	        'M', 'C', 'C', 'Z' };  // character aliases
+	        "M", "C", "C", "Z" };  // character aliases
 	    static const GLshort pathCoords[12][2] =
 	      { {100, 180}, {40, 10}, {190, 120}, {10, 120}, {160, 10},
 	        {300,300}, {100,400}, {100,200}, {300,100},
@@ -160,7 +160,7 @@ Overview (from the spec)
 	    glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	
 	Use an orthographic path-to-clip-space transform to map the
-	[0..500]x[0..400] range of the star's path coordinates to the [-1..1]
+	[0..500]x[0..400] range of the star"s path coordinates to the [-1..1]
 	clip space cube:
 	
 	    glMatrixLoadIdentityEXT(GL_PROJECTION);
@@ -172,9 +172,9 @@ Overview (from the spec)
 	    glStencilFillPathNV(pathObj, GL_COUNT_UP_NV, 0x1F);
 	
 	The 0x1F mask means the counting uses modulo-32 arithmetic. In
-	principle the star's path is simple enough (having a maximum winding
+	principle the star"s path is simple enough (having a maximum winding
 	number of 2) that modulo-4 arithmetic would be sufficient so the mask
-	could be 0x3.  Or a mask of all 1's (~0) could be used to count with
+	could be 0x3.  Or a mask of all 1"s (~0) could be used to count with
 	all available stencil bits.
 	
 	Now that the coverage of the star and the heart have been rasterized
@@ -192,7 +192,7 @@ Overview (from the spec)
 	a yellow heart.
 	
 	The GL_ZERO stencil operation ensures that any covered samples
-	(meaning those with non-zero stencil values) are zero'ed when
+	(meaning those with non-zero stencil values) are zero"ed when
 	the path cover is rasterized. This allows subsequent paths to be
 	rendered without clearing the stencil buffer again.
 	
@@ -206,14 +206,14 @@ Overview (from the spec)
 	    glPathParameteriNV(pathObj, GL_PATH_JOIN_STYLE_NV, GL_ROUND_NV);
 	    glPathParameterfNV(pathObj, GL_PATH_STROKE_WIDTH_NV, 6.5);
 	
-	 Now stencil the path's stroked coverage into the stencil buffer,
+	 Now stencil the path"s stroked coverage into the stencil buffer,
 	 setting the stencil to 0x1 for all stencil samples within the
 	 transformed path.
 	
 	    glStencilStrokePathNV(pathObj, 0x1, ~0);
 	
-	 Cover the path's stroked coverage (with a hull this time instead
-	 of a bounding box; the choice doesn't really matter here) while
+	 Cover the path"s stroked coverage (with a hull this time instead
+	 of a bounding box; the choice doesn"t really matter here) while
 	 stencil testing that writes white to the color buffer and again
 	 zero the stencil buffer.
 	
@@ -230,7 +230,7 @@ Overview (from the spec)
 	 as depth testing, depth bound test, clip planes, and scissoring)
 	 can restrict path stenciling.
 	
-	 Now let's render the word "OpenGL" atop the star and heart.
+	 Now let"s render the word "OpenGL" atop the star and heart.
 	
 	 First create a sequence of path objects for the glyphs for the
 	 characters in "OpenGL":
@@ -284,7 +284,7 @@ Overview (from the spec)
 	                           yMinMax);
 	
 	Use an orthographic path-to-clip-space transform to map the
-	word's bounds to the [-1..1] clip space cube:
+	word"s bounds to the [-1..1] clip space cube:
 	
 	    glMatrixLoadIdentityEXT(GL_PROJECTION);
 	    glMatrixOrthoEXT(GL_MODELVIEW,
@@ -380,8 +380,8 @@ Overview (from the spec)
 	XXX add path clipping example to demonstrate glPathStencilFuncNV.
 
 The official definition of this extension is available here:
-http://www.opengl.org/registry/specs/NV/path_rendering.txt
-'''
+https://www.opengl.org/registry/specs/NV/path_rendering.txt
+"""
 from OpenGL import platform, constant, arrays
 from OpenGL import extensions, wrapper
 import ctypes
@@ -390,175 +390,175 @@ from OpenGL.raw.GLES2.NV.path_rendering import *
 from OpenGL.raw.GLES2.NV.path_rendering import _EXTENSION_NAME
 
 def glInitPathRenderingNV():
-    '''Return boolean indicating whether this extension is available'''
+    """Return boolean indicating whether this extension is available"""
     from OpenGL import extensions
-    return extensions.hasGLExtension( _EXTENSION_NAME )
+    return extensions.hasGLExtension(_EXTENSION_NAME)
 
 # INPUT glPathCommandsNV.commands size not checked against numCommands
-# INPUT glPathCommandsNV.coords size not checked against 'numCoords,coordType'
+# INPUT glPathCommandsNV.coords size not checked against "numCoords,coordType"
 glPathCommandsNV=wrapper.wrapper(glPathCommandsNV).setInputArraySize(
-    'commands', None
+    "commands", None
 ).setInputArraySize(
-    'coords', None
+    "coords", None
 )
-# INPUT glPathCoordsNV.coords size not checked against 'numCoords,coordType'
+# INPUT glPathCoordsNV.coords size not checked against "numCoords,coordType"
 glPathCoordsNV=wrapper.wrapper(glPathCoordsNV).setInputArraySize(
-    'coords', None
+    "coords", None
 )
 # INPUT glPathSubCommandsNV.commands size not checked against numCommands
-# INPUT glPathSubCommandsNV.coords size not checked against 'numCoords,coordType'
+# INPUT glPathSubCommandsNV.coords size not checked against "numCoords,coordType"
 glPathSubCommandsNV=wrapper.wrapper(glPathSubCommandsNV).setInputArraySize(
-    'commands', None
+    "commands", None
 ).setInputArraySize(
-    'coords', None
+    "coords", None
 )
-# INPUT glPathSubCoordsNV.coords size not checked against 'numCoords,coordType'
+# INPUT glPathSubCoordsNV.coords size not checked against "numCoords,coordType"
 glPathSubCoordsNV=wrapper.wrapper(glPathSubCoordsNV).setInputArraySize(
-    'coords', None
+    "coords", None
 )
 # INPUT glPathStringNV.pathString size not checked against length
 glPathStringNV=wrapper.wrapper(glPathStringNV).setInputArraySize(
-    'pathString', None
+    "pathString", None
 )
-# INPUT glPathGlyphsNV.charcodes size not checked against 'numGlyphs,type,charcodes'
-# INPUT glPathGlyphsNV.fontName size not checked against 'fontTarget,fontName'
+# INPUT glPathGlyphsNV.charcodes size not checked against "numGlyphs,type,charcodes"
+# INPUT glPathGlyphsNV.fontName size not checked against "fontTarget,fontName"
 glPathGlyphsNV=wrapper.wrapper(glPathGlyphsNV).setInputArraySize(
-    'charcodes', None
+    "charcodes", None
 ).setInputArraySize(
-    'fontName', None
+    "fontName", None
 )
-# INPUT glPathGlyphRangeNV.fontName size not checked against 'fontTarget,fontName'
+# INPUT glPathGlyphRangeNV.fontName size not checked against "fontTarget,fontName"
 glPathGlyphRangeNV=wrapper.wrapper(glPathGlyphRangeNV).setInputArraySize(
-    'fontName', None
+    "fontName", None
 )
 # INPUT glWeightPathsNV.paths size not checked against numPaths
 # INPUT glWeightPathsNV.weights size not checked against numPaths
 glWeightPathsNV=wrapper.wrapper(glWeightPathsNV).setInputArraySize(
-    'paths', None
+    "paths", None
 ).setInputArraySize(
-    'weights', None
+    "weights", None
 )
-# INPUT glTransformPathNV.transformValues size not checked against 'transformType'
+# INPUT glTransformPathNV.transformValues size not checked against "transformType"
 glTransformPathNV=wrapper.wrapper(glTransformPathNV).setInputArraySize(
-    'transformValues', None
+    "transformValues", None
 )
-# INPUT glPathParameterivNV.value size not checked against 'pname'
+# INPUT glPathParameterivNV.value size not checked against "pname"
 glPathParameterivNV=wrapper.wrapper(glPathParameterivNV).setInputArraySize(
-    'value', None
+    "value", None
 )
-# INPUT glPathParameterfvNV.value size not checked against 'pname'
+# INPUT glPathParameterfvNV.value size not checked against "pname"
 glPathParameterfvNV=wrapper.wrapper(glPathParameterfvNV).setInputArraySize(
-    'value', None
+    "value", None
 )
 # INPUT glPathDashArrayNV.dashArray size not checked against dashCount
 glPathDashArrayNV=wrapper.wrapper(glPathDashArrayNV).setInputArraySize(
-    'dashArray', None
+    "dashArray", None
 )
-# INPUT glStencilFillPathInstancedNV.paths size not checked against 'numPaths,pathNameType,paths'
-# INPUT glStencilFillPathInstancedNV.transformValues size not checked against 'numPaths,transformType'
+# INPUT glStencilFillPathInstancedNV.paths size not checked against "numPaths,pathNameType,paths"
+# INPUT glStencilFillPathInstancedNV.transformValues size not checked against "numPaths,transformType"
 glStencilFillPathInstancedNV=wrapper.wrapper(glStencilFillPathInstancedNV).setInputArraySize(
-    'paths', None
+    "paths", None
 ).setInputArraySize(
-    'transformValues', None
+    "transformValues", None
 )
-# INPUT glStencilStrokePathInstancedNV.paths size not checked against 'numPaths,pathNameType,paths'
-# INPUT glStencilStrokePathInstancedNV.transformValues size not checked against 'numPaths,transformType'
+# INPUT glStencilStrokePathInstancedNV.paths size not checked against "numPaths,pathNameType,paths"
+# INPUT glStencilStrokePathInstancedNV.transformValues size not checked against "numPaths,transformType"
 glStencilStrokePathInstancedNV=wrapper.wrapper(glStencilStrokePathInstancedNV).setInputArraySize(
-    'paths', None
+    "paths", None
 ).setInputArraySize(
-    'transformValues', None
+    "transformValues", None
 )
-# INPUT glCoverFillPathInstancedNV.paths size not checked against 'numPaths,pathNameType,paths'
-# INPUT glCoverFillPathInstancedNV.transformValues size not checked against 'numPaths,transformType'
+# INPUT glCoverFillPathInstancedNV.paths size not checked against "numPaths,pathNameType,paths"
+# INPUT glCoverFillPathInstancedNV.transformValues size not checked against "numPaths,transformType"
 glCoverFillPathInstancedNV=wrapper.wrapper(glCoverFillPathInstancedNV).setInputArraySize(
-    'paths', None
+    "paths", None
 ).setInputArraySize(
-    'transformValues', None
+    "transformValues", None
 )
-# INPUT glCoverStrokePathInstancedNV.paths size not checked against 'numPaths,pathNameType,paths'
-# INPUT glCoverStrokePathInstancedNV.transformValues size not checked against 'numPaths,transformType'
+# INPUT glCoverStrokePathInstancedNV.paths size not checked against "numPaths,pathNameType,paths"
+# INPUT glCoverStrokePathInstancedNV.transformValues size not checked against "numPaths,transformType"
 glCoverStrokePathInstancedNV=wrapper.wrapper(glCoverStrokePathInstancedNV).setInputArraySize(
-    'paths', None
+    "paths", None
 ).setInputArraySize(
-    'transformValues', None
+    "transformValues", None
 )
 glGetPathParameterivNV=wrapper.wrapper(glGetPathParameterivNV).setOutput(
-    'value',size=(4,),orPassIn=True
+    "value",size=(4,),orPassIn=True
 )
 glGetPathParameterfvNV=wrapper.wrapper(glGetPathParameterfvNV).setOutput(
-    'value',size=(4,),orPassIn=True
+    "value",size=(4,),orPassIn=True
 )
 glGetPathCommandsNV=wrapper.wrapper(glGetPathCommandsNV).setOutput(
-    'commands',size=_glgets._glget_size_mapping,pnameArg='path',orPassIn=True
+    "commands",size=_glgets._glget_size_mapping,pnameArg="path",orPassIn=True
 )
 glGetPathCoordsNV=wrapper.wrapper(glGetPathCoordsNV).setOutput(
-    'coords',size=_glgets._glget_size_mapping,pnameArg='path',orPassIn=True
+    "coords",size=_glgets._glget_size_mapping,pnameArg="path",orPassIn=True
 )
 glGetPathDashArrayNV=wrapper.wrapper(glGetPathDashArrayNV).setOutput(
-    'dashArray',size=_glgets._glget_size_mapping,pnameArg='path',orPassIn=True
+    "dashArray",size=_glgets._glget_size_mapping,pnameArg="path",orPassIn=True
 )
 # OUTPUT glGetPathMetricsNV.metrics COMPSIZE(metricQueryMask, numPaths, stride) 
-# INPUT glGetPathMetricsNV.paths size not checked against 'numPaths,pathNameType,paths'
+# INPUT glGetPathMetricsNV.paths size not checked against "numPaths,pathNameType,paths"
 glGetPathMetricsNV=wrapper.wrapper(glGetPathMetricsNV).setInputArraySize(
-    'paths', None
+    "paths", None
 )
 # OUTPUT glGetPathMetricRangeNV.metrics COMPSIZE(metricQueryMask, numPaths, stride) 
-# INPUT glGetPathSpacingNV.paths size not checked against 'numPaths,pathNameType,paths'
+# INPUT glGetPathSpacingNV.paths size not checked against "numPaths,pathNameType,paths"
 # OUTPUT glGetPathSpacingNV.returnedSpacing COMPSIZE(pathListMode, numPaths) 
 glGetPathSpacingNV=wrapper.wrapper(glGetPathSpacingNV).setInputArraySize(
-    'paths', None
+    "paths", None
 )
 glPointAlongPathNV=wrapper.wrapper(glPointAlongPathNV).setOutput(
-    'tangentX',size=(1,),orPassIn=True
+    "tangentX",size=(1,),orPassIn=True
 ).setOutput(
-    'tangentY',size=(1,),orPassIn=True
+    "tangentY",size=(1,),orPassIn=True
 ).setOutput(
-    'x',size=(1,),orPassIn=True
+    "x",size=(1,),orPassIn=True
 ).setOutput(
-    'y',size=(1,),orPassIn=True
+    "y",size=(1,),orPassIn=True
 )
-# INPUT glPathColorGenNV.coeffs size not checked against 'genMode,colorFormat'
+# INPUT glPathColorGenNV.coeffs size not checked against "genMode,colorFormat"
 glPathColorGenNV=wrapper.wrapper(glPathColorGenNV).setInputArraySize(
-    'coeffs', None
+    "coeffs", None
 )
-# INPUT glPathTexGenNV.coeffs size not checked against 'genMode,components'
+# INPUT glPathTexGenNV.coeffs size not checked against "genMode,components"
 glPathTexGenNV=wrapper.wrapper(glPathTexGenNV).setInputArraySize(
-    'coeffs', None
+    "coeffs", None
 )
 glGetPathColorGenivNV=wrapper.wrapper(glGetPathColorGenivNV).setOutput(
-    'value',size=_glgets._glget_size_mapping,pnameArg='pname',orPassIn=True
+    "value",size=_glgets._glget_size_mapping,pnameArg="pname",orPassIn=True
 )
 glGetPathColorGenfvNV=wrapper.wrapper(glGetPathColorGenfvNV).setOutput(
-    'value',size=_glgets._glget_size_mapping,pnameArg='pname',orPassIn=True
+    "value",size=_glgets._glget_size_mapping,pnameArg="pname",orPassIn=True
 )
 glGetPathTexGenivNV=wrapper.wrapper(glGetPathTexGenivNV).setOutput(
-    'value',size=_glgets._glget_size_mapping,pnameArg='pname',orPassIn=True
+    "value",size=_glgets._glget_size_mapping,pnameArg="pname",orPassIn=True
 )
 glGetPathTexGenfvNV=wrapper.wrapper(glGetPathTexGenfvNV).setOutput(
-    'value',size=_glgets._glget_size_mapping,pnameArg='pname',orPassIn=True
+    "value",size=_glgets._glget_size_mapping,pnameArg="pname",orPassIn=True
 )
 glMatrixLoadTransposefEXT=wrapper.wrapper(glMatrixLoadTransposefEXT).setInputArraySize(
-    'm', 16
+    "m", 16
 )
 glMatrixLoadTransposedEXT=wrapper.wrapper(glMatrixLoadTransposedEXT).setInputArraySize(
-    'm', 16
+    "m", 16
 )
 glMatrixLoadfEXT=wrapper.wrapper(glMatrixLoadfEXT).setInputArraySize(
-    'm', 16
+    "m", 16
 )
 glMatrixLoaddEXT=wrapper.wrapper(glMatrixLoaddEXT).setInputArraySize(
-    'm', 16
+    "m", 16
 )
 glMatrixMultTransposefEXT=wrapper.wrapper(glMatrixMultTransposefEXT).setInputArraySize(
-    'm', 16
+    "m", 16
 )
 glMatrixMultTransposedEXT=wrapper.wrapper(glMatrixMultTransposedEXT).setInputArraySize(
-    'm', 16
+    "m", 16
 )
 glMatrixMultfEXT=wrapper.wrapper(glMatrixMultfEXT).setInputArraySize(
-    'm', 16
+    "m", 16
 )
 glMatrixMultdEXT=wrapper.wrapper(glMatrixMultdEXT).setInputArraySize(
-    'm', 16
+    "m", 16
 )
-### END AUTOGENERATED SECTION
+# END AUTOGENERATED SECTION

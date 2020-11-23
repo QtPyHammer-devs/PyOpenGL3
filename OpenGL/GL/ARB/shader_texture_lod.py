@@ -1,4 +1,4 @@
-'''OpenGL extension ARB.shader_texture_lod
+"""OpenGL extension ARB.shader_texture_lod
 
 This module customises the behaviour of the 
 OpenGL.raw.GL.ARB.shader_texture_lod to provide a more 
@@ -44,57 +44,57 @@ Overview (from the spec)
 	New anisotropic texture functions, providing explicit
 	derivatives:
 	
-	    texture1DGradARB(         sampler1D sampler,
-	                              float P, float dPdx, float dPdy );
-	    texture1DProjGradARB(     sampler1D sampler,
-	                              vec2  P, float dPdx, float dPdy );
-	    texture1DProjGradARB(     sampler1D sampler,
-	                              vec4  P, float dPdx, float dPdy );
+	    texture1DGradARB(        sampler1D sampler,
+	                              float P, float dPdx, float dPdy);
+	    texture1DProjGradARB(    sampler1D sampler,
+	                              vec2  P, float dPdx, float dPdy);
+	    texture1DProjGradARB(    sampler1D sampler,
+	                              vec4  P, float dPdx, float dPdy);
 	
-	    texture2DGradARB(         sampler2D sampler,
-	                              vec2  P, vec2  dPdx, vec2  dPdy );
-	    texture2DProjGradARB(     sampler2D sampler,
-	                              vec3  P, vec2  dPdx, vec2  dPdy );
-	    texture2DProjGradARB(     sampler2D sampler,
-	                              vec4  P, vec2  dPdx, vec2  dPdy );
+	    texture2DGradARB(        sampler2D sampler,
+	                              vec2  P, vec2  dPdx, vec2  dPdy);
+	    texture2DProjGradARB(    sampler2D sampler,
+	                              vec3  P, vec2  dPdx, vec2  dPdy);
+	    texture2DProjGradARB(    sampler2D sampler,
+	                              vec4  P, vec2  dPdx, vec2  dPdy);
 	
-	    texture3DGradARB(         sampler3D sampler,
-	                              vec3  P, vec3  dPdx, vec3  dPdy );
-	    texture3DProjGradARB(     sampler3D sampler,
-	                              vec4  P, vec3  dPdx, vec3  dPdy );
+	    texture3DGradARB(        sampler3D sampler,
+	                              vec3  P, vec3  dPdx, vec3  dPdy);
+	    texture3DProjGradARB(    sampler3D sampler,
+	                              vec4  P, vec3  dPdx, vec3  dPdy);
 	
-	    textureCubeGradARB(       samplerCube sampler,
-	                              vec3  P, vec3  dPdx, vec3  dPdy );
+	    textureCubeGradARB(      samplerCube sampler,
+	                              vec3  P, vec3  dPdx, vec3  dPdy);
 	
-	    shadow1DGradARB(          sampler1DShadow sampler,
-	                              vec3  P, float dPdx, float dPdy );
-	    shadow1DProjGradARB(      sampler1DShadow sampler,
-	                              vec4  P, float dPdx, float dPdy );
+	    shadow1DGradARB(         sampler1DShadow sampler,
+	                              vec3  P, float dPdx, float dPdy);
+	    shadow1DProjGradARB(     sampler1DShadow sampler,
+	                              vec4  P, float dPdx, float dPdy);
 	
-	    shadow2DGradARB(          sampler2DShadow sampler,
-	                              vec3  P, vec2  dPdx, vec2  dPdy );
-	    shadow2DProjGradARB(      sampler2DShadow sampler,
-	                              vec4  P, vec2  dPdx, vec2  dPdy );
+	    shadow2DGradARB(         sampler2DShadow sampler,
+	                              vec3  P, vec2  dPdx, vec2  dPdy);
+	    shadow2DProjGradARB(     sampler2DShadow sampler,
+	                              vec4  P, vec2  dPdx, vec2  dPdy);
 	
 	
-	    texture2DRectGradARB(     sampler2DRect sampler,
-	                              vec2  P, vec2  dPdx, vec2  dPdy );
-	    texture2DRectProjGradARB( sampler2DRect sampler,
-	                              vec3  P, vec2  dPdx, vec2  dPdy );
-	    texture2DRectProjGradARB( sampler2DRect sampler,
-	                              vec4  P, vec2  dPdx, vec2  dPdy );
+	    texture2DRectGradARB(    sampler2DRect sampler,
+	                              vec2  P, vec2  dPdx, vec2  dPdy);
+	    texture2DRectProjGradARB(sampler2DRect sampler,
+	                              vec3  P, vec2  dPdx, vec2  dPdy);
+	    texture2DRectProjGradARB(sampler2DRect sampler,
+	                              vec4  P, vec2  dPdx, vec2  dPdy);
 	
-	    shadow2DRectGradARB(      sampler2DRectShadow sampler,
-	                              vec3  P, vec2  dPdx, vec2  dPdy );
-	    shadow2DRectProjGradARB(  sampler2DRectShadow sampler,
-	                              vec4  P, vec2  dPdx, vec2  dPdy );
+	    shadow2DRectGradARB(     sampler2DRectShadow sampler,
+	                              vec3  P, vec2  dPdx, vec2  dPdy);
+	    shadow2DRectProjGradARB( sampler2DRectShadow sampler,
+	                              vec4  P, vec2  dPdx, vec2  dPdy);
 	
 	 are added to the built-in functions for vertex shaders
 	 and fragment shaders.
 
 The official definition of this extension is available here:
-http://www.opengl.org/registry/specs/ARB/shader_texture_lod.txt
-'''
+https://www.opengl.org/registry/specs/ARB/shader_texture_lod.txt
+"""
 from OpenGL import platform, constant, arrays
 from OpenGL import extensions, wrapper
 import ctypes
@@ -103,9 +103,9 @@ from OpenGL.raw.GL.ARB.shader_texture_lod import *
 from OpenGL.raw.GL.ARB.shader_texture_lod import _EXTENSION_NAME
 
 def glInitShaderTextureLodARB():
-    '''Return boolean indicating whether this extension is available'''
+    """Return boolean indicating whether this extension is available"""
     from OpenGL import extensions
-    return extensions.hasGLExtension( _EXTENSION_NAME )
+    return extensions.hasGLExtension(_EXTENSION_NAME)
 
 
-### END AUTOGENERATED SECTION
+# END AUTOGENERATED SECTION

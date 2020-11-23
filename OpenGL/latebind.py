@@ -14,17 +14,17 @@ if LateBind is None:
         self.finalise() and then calls self._finalCall()
         """
         _finalCall = None
-        def setFinalCall( self, finalCall ):
+        def setFinalCall(self, finalCall):
             """Set our finalCall to the callable object given"""
             self._finalCall = finalCall
-        def getFinalCall( self ):
+        def getFinalCall(self):
             """Retrieve and/or bind and retrieve final call"""
             if not self._finalCall:
                 self._finalCall = self.finalise()
             return self._finalCall
 
 
-        def finalise( self ):
+        def finalise(self):
             """Finalise our target to our final callable object
 
             return final callable
@@ -32,19 +32,19 @@ if LateBind is None:
         def __nonzero__(self):
             """Resolve our final call and check for empty/nonzero on it"""
             return bool(self.getFinalCall())
-        def __call__( self, *args, **named ):
+        def __call__(self, *args, **named):
             """Call self._finalCall, calling finalise() first if not already called
 
-            There's actually *no* reason to unpack and repack the arguments,
-            but unfortunately I don't know of a Cython syntax to specify
+            There"s actually *no* reason to unpack and repack the arguments,
+            but unfortunately I don"t know of a Cython syntax to specify
             that.
             """
             try:
-                return self._finalCall( *args, **named )
+                return self._finalCall(*args, **named)
             except (TypeError,AttributeError) as err:
                 if self._finalCall is None:
                     self._finalCall = self.finalise()
-                return self._finalCall( *args, **named )
+                return self._finalCall(*args, **named)
 if Curry is None:
     class Curry(object):
         """Provides a simple Curry which can bind (only) the first element
@@ -54,10 +54,10 @@ if Curry is None:
         """
         wrapperFunction = None
         baseFunction = None
-        def __init__( self, wrapperFunction, baseFunction ):
+        def __init__(self, wrapperFunction, baseFunction):
             """Stores self.wrapperFunction and self.baseFunction"""
             self.baseFunction = baseFunction
             self.wrapperFunction = wrapperFunction
-        def __call__( self, *args, **named ):
-            """returns self.wrapperFunction( self.baseFunction, *args, **named )"""
-            return self.wrapperFunction( self.baseFunction, *args, **named )
+        def __call__(self, *args, **named):
+            """returns self.wrapperFunction(self.baseFunction, *args, **named)"""
+            return self.wrapperFunction(self.baseFunction, *args, **named)

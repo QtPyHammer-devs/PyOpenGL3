@@ -155,14 +155,14 @@ def glCallLists(baseFunction, lists, *args):
                 len(lists),
                 full.GL_UNSIGNED_BYTE,
                 ctypes.c_void_p(arrays.GLubyteArray.dataPointer(lists)),
-            )
+           )
         ptr = arrays.GLuintArray.asArray(lists)
         size = arrays.GLuintArray.arraySize(ptr)
         return baseFunction(
             size,
             full.GL_UNSIGNED_INT,
             ctypes.c_void_p(arrays.GLuintArray.dataPointer(ptr))
-        )
+       )
     return baseFunction(lists, *args)
 
 
@@ -217,7 +217,7 @@ def glColor(*args):
     elif arglen == 4:
         return full.glColor4d(*args)
     else:
-        raise ValueError(f"Don't know how to handle arguments: {args}")
+        raise ValueError(f"Don"t know how to handle arguments: {args}")
 
 
 # Rectagle coordinates,
@@ -225,15 +225,15 @@ def glColor(*args):
 def glAreTexturesResident(baseFunction, *args):
     """Allow both Pythonic and C-style calls to glAreTexturesResident
 
-        glAreTexturesResident( arrays.GLuintArray( textures) )
+        glAreTexturesResident(arrays.GLuintArray(textures))
 
     or
 
-        glAreTexturesResident( int(n), arrays.GLuintArray( textures), arrays.GLuboolean( output) )
+        glAreTexturesResident(int(n), arrays.GLuintArray(textures), arrays.GLuboolean(output))
 
     or
 
-        glAreTexturesResident( int(n), arrays.GLuintArray( textures) )
+        glAreTexturesResident(int(n), arrays.GLuintArray(textures))
 
     returns the output arrays.GLubooleanArray
     """
@@ -268,7 +268,7 @@ def glAreTexturesResident(baseFunction, *args):
     outputPtr = arrays.GLbooleanArray.typedPointer(output)
     result = baseFunction(n, texturePtr, outputPtr)
     if result:
-        # weirdness of the C api, doesn't produce values if all are true
+        # weirdness of the C api, doesn"t produce values if all are true
         for i in range(len(output)):
             output[i] = 1
     return output

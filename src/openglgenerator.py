@@ -22,7 +22,7 @@ from OpenGL.platform import GL, GLU, GLUT, GLE
 from OpenGL import constant
 
 
-def indent(code, indentation='\t'):
+def indent(code, indentation="\t"):
     """Indent given code by given indentation"""
     lines = code.splitlines()
     return "\n".join([f"{indentation}{line}" for line in lines])
@@ -51,29 +51,29 @@ GLvoid = GL_types.GLvoid"""
         return (
             isinstance(value, type) or 
             isinstance(value, constant.Constant) or 
-            value.__class__.__name__.endswith('CFunctionType') # this should be available *somewhere*!
-       )
+            value.__class__.__name__.endswith("CFunctionType") # this should be available *somewhere*!
+      )
 
     def filter_items(self, items, expressions=None,symbols=None, types=None):
         """Filter out PFN functions"""
         items = [
             i for i in items 
             # skip the pointer-to-function meta-types...
-            if not getattr(i,'name','').startswith('PFN')
+            if not getattr(i,"name","").startswith("PFN")
         ]
         return self._super.filter_items(self, items, expressions=expressions, symbols=symbols, types=types)
     def get_sharedlib(self, dllname, cc):
         """Override so that all references to shared libraries go through "platform" module"""
-        if dllname in ('libGL','GL','libGL.so.1'):
-            return 'platform.PLATFORM.GL'
-        elif dllname in ('libGLU','GLU','libGLU.so.1'):
-            return 'platform.PLATFORM.GLU'
-        elif dllname in ('libglut','glut','libglut.so.3'):
-            return 'platform.PLATFORM.GLUT'
-        elif dllname in ('libgle','gle','libgle.so.3'):
-            return 'platform.PLATFORM.GLE'
+        if dllname in ("libGL","GL","libGL.so.1"):
+            return "platform.PLATFORM.GL"
+        elif dllname in ("libGLU","GLU","libGLU.so.1"):
+            return "platform.PLATFORM.GLU"
+        elif dllname in ("libglut","glut","libglut.so.3"):
+            return "platform.PLATFORM.GLUT"
+        elif dllname in ("libgle","gle","libgle.so.3"):
+            return "platform.PLATFORM.GLE"
         else:
-            raise NotImplementedError("""Haven't done %s yet!"""%(dllname))
+            raise NotImplementedError("""Haven"t done %s yet!"""%(dllname))
     def cmpitems(self, a, b):
         """Dumb sorting helper to order by name instead of position"""
         try:
@@ -111,23 +111,23 @@ class OpenGLFunction(codegenerator.Function):
             generator.names.add(func.name)
             result.append(self.TEMPLATE %locals())
             return result
-        elif not func.name.startswith('__builtin_'):
+        elif not func.name.startswith("__builtin_"):
             log.warning("""Could not find DLL name for function: %r""", func.name)
-            return ''
+            return ""
 
     def arrayTypeName(self, generator, argType):
         """Retrieve the array type name for argType or None"""
-        if generator.type_name(argType).startswith('POINTER'):
+        if generator.type_name(argType).startswith("POINTER"):
             # side effect should be to make the type available,
-            # but doesn't work with GLvoid
+            # but doesn"t work with GLvoid
             typeName = generator.type_name(argType.typ)
             if typeName in self.CTYPE_TO_ARRAY_TYPE:
-                return 'arrays.%s'%(self.CTYPE_TO_ARRAY_TYPE[typeName])
-            elif (typeName == 'GLvoid'):
+                return "arrays.%s"%(self.CTYPE_TO_ARRAY_TYPE[typeName])
+            elif (typeName == "GLvoid"):
                 # normal to not have pointers to it...
-                log.info('GLvoid pointer %r, using POINTER(%s)', typeName, typeName)
+                log.info("GLvoid pointer %r, using POINTER(%s)", typeName, typeName)
             else:
-                log.warning('No mapping for %r, using POINTER(%s)', typeName, typeName)
+                log.warning("No mapping for %r, using POINTER(%s)", typeName, typeName)
         return None
     def getArgs(self, generator, func):
         """Retrieve arg type-names for all arguments in function typedef"""
@@ -142,52 +142,52 @@ class OpenGLFunction(codegenerator.Function):
         return str("%s(%s) -> %s"%(
             func.name,
             ", ".join(
-                [ '%s(%s)'%(name, typ) for (name,typ) in zip(args,argnames) ]
-           ),
+                [ "%s(%s)"%(name, typ) for (name,typ) in zip(args,argnames) ]
+          ),
             generator.type_name(func.returns),
-       ))
+      ))
     SUFFIX_TO_ARRAY_DATATYPE = [
-        ('ub','GLGL_1_0.GL_UNSIGNED_BYTE'),
-        ('us','GLGL_1_0.GL_UNSIGNED_SHORT'),
-        ('ui','GLGL_1_0.GL_UNSIGNED_INT'),
-        ('f','GLGL_1_0.GL_FLOAT'),
-        ('d','GLGL_1_0.GL_DOUBLE'),
-        ('i','GLGL_1_0.GL_INT'),
-        ('s','GLGL_1_0.GL_SHORT'),
-        ('b','GLGL_1_0.GL_BYTE'),
+        ("ub","GLGL_1_0.GL_UNSIGNED_BYTE"),
+        ("us","GLGL_1_0.GL_UNSIGNED_SHORT"),
+        ("ui","GLGL_1_0.GL_UNSIGNED_INT"),
+        ("f","GLGL_1_0.GL_FLOAT"),
+        ("d","GLGL_1_0.GL_DOUBLE"),
+        ("i","GLGL_1_0.GL_INT"),
+        ("s","GLGL_1_0.GL_SHORT"),
+        ("b","GLGL_1_0.GL_BYTE"),
     ]
     CTYPE_TO_ARRAY_TYPE = {
-        'GLfloat': 'GLfloatArray',
-        'float': 'GLfloatArray',
-        'GLclampf': 'GLclampfArray',
-        'GLdouble': 'GLdoubleArray',
-        'double': 'GLdoubleArray',
-        'int': 'GLintArray',
-        'GLint': 'GLintArray',
-        'GLuint': 'GLuintArray',
-        'unsigned int':'GLuintArray',
-        'unsigned char': 'GLbyteArray',
-        'uint': 'GLuintArray',
-        'GLshort': 'GLshortArray',
-        'GLushort': 'GLushortArray',
-        'short unsigned int':'GLushortArray',
-        'GLubyte': 'GLubyteArray',
-        'GLbyte': 'GLbyteArray',
-        'char': 'GLbyteArray',
-        'gleDouble': 'GLdoubleArray',
+        "GLfloat": "GLfloatArray",
+        "float": "GLfloatArray",
+        "GLclampf": "GLclampfArray",
+        "GLdouble": "GLdoubleArray",
+        "double": "GLdoubleArray",
+        "int": "GLintArray",
+        "GLint": "GLintArray",
+        "GLuint": "GLuintArray",
+        "unsigned int":"GLuintArray",
+        "unsigned char": "GLbyteArray",
+        "uint": "GLuintArray",
+        "GLshort": "GLshortArray",
+        "GLushort": "GLushortArray",
+        "short unsigned int":"GLushortArray",
+        "GLubyte": "GLubyteArray",
+        "GLbyte": "GLbyteArray",
+        "char": "GLbyteArray",
+        "gleDouble": "GLdoubleArray",
         # following should all have special sub-classes that enforce dimensions
-        'gleDouble * 4': 'GLdoubleArray',
-        'gleDouble * 3': 'GLdoubleArray',
-        'gleDouble * 2': 'GLdoubleArray',
-        'c_float * 3': 'GLfloatArray',
-        'gleDouble * 3 * 2': 'GLdoubleArray',
+        "gleDouble * 4": "GLdoubleArray",
+        "gleDouble * 3": "GLdoubleArray",
+        "gleDouble * 2": "GLdoubleArray",
+        "c_float * 3": "GLfloatArray",
+        "gleDouble * 3 * 2": "GLdoubleArray",
     }
 
 class OpenGLConstant(codegenerator.Variable):
     """Override to produce OpenGL.constant.Constant instances"""
     TEMPLATE = """%(name)s = Constant(%(name)r, %(value)r)"""
     def emit(self, generator, typedef):
-        """Filter out constants that don't have all-uppercase names"""
+        """Filter out constants that don"t have all-uppercase names"""
         if typedef.name.upper() != typedef.name:
             return ""
         return super(OpenGLConstant, self).emit(generator, typedef)
@@ -200,7 +200,7 @@ class OpenGLDecorator(OpenGLFunction):
     """
     def isPointer(self, generator, arg):
         """Is given arg-type a pointer?"""
-        return generator.type_name(arg).startswith('POINTER')
+        return generator.type_name(arg).startswith("POINTER")
     def hasPointer(self, generator, args):
         """Given set of arg-types, is one a pointer?"""
         return [ arg for arg in args if self.isPointer(generator, arg) ]
@@ -215,9 +215,9 @@ class OpenGLDecorator(OpenGLFunction):
         if not libname:
             return None
         base = name 
-        if name.endswith('ARB'):
+        if name.endswith("ARB"):
             base = base[:-3]
-        if base.endswith('v'):
+        if base.endswith("v"):
             base = base[:-1]
             found = 0
             for suffix,typ in self.SUFFIX_TO_ARRAY_DATATYPE:
@@ -229,24 +229,24 @@ class OpenGLDecorator(OpenGLFunction):
                     except ValueError, err:
                         size = None
                     break
-        elif base[:-1].endswith('Matrix'):
+        elif base[:-1].endswith("Matrix"):
             # glLoadMatrix, glMultMatrix
             for suffix,typ in self.SUFFIX_TO_ARRAY_DATATYPE:
                 if name.endswith(suffix):
                     size = 16
                     break
-        result = ''
+        result = ""
         for index,(arg,argName) in enumerate(zip(func.iterArgTypes(),func.iterArgNames())):
             type = self.arrayTypeName(generator, arg)
             argName = str(argName)
             if type:
                 generator.names.add(func.name)
             if result:
-                previous = indent(result, '\t')
+                previous = indent(result, "\t")
             else:
-                previous = '\traw.%(name)s'%locals()
+                previous = "\traw.%(name)s"%locals()
             if type and size is None:
-                # should only print this if it's a normal array type...
+                # should only print this if it"s a normal array type...
                 result = """arrays.setInputArraySizeType(
 %(previous)s,
     None, # XXX Could not determine size of argument %(argName)s for %(name)s %(type)s
@@ -263,7 +263,7 @@ class OpenGLDecorator(OpenGLFunction):
 )
 """%locals()
         if result:
-            return '%(name)s = %(result)s'%locals()
+            return "%(name)s = %(result)s"%locals()
         return None
     
 

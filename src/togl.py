@@ -16,7 +16,7 @@ if sys.maxint > 2**32:
     suffix = "-64"
 else:
     suffix = ""
-# These three define what software we're going to install...
+# These three define what software we"re going to install...
 BASE_URL = "https://downloads.sourceforge.net/project/togl/Togl"
 TOGL_VERSION = "2.0"
 COMPILED_TK_VERSION = "8.4"

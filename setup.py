@@ -54,7 +54,7 @@ class smart_install_data(install_data):
         # need to change self.install_dir to the library dir
         install_cmd = self.get_finalized_command("install")
         self.install_dir = getattr(install_cmd, "install_lib")
-        # should create the directory if it doesn't exist!!!
+        # should create the directory if it doesn"t exist!!!
         return install_data.run(self)
 
 

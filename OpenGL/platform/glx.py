@@ -2,7 +2,7 @@
 import ctypes, ctypes.util
 from OpenGL.platform import baseplatform, ctypesloader
 
-class GLXPlatform( baseplatform.BasePlatform ):
+class GLXPlatform(baseplatform.BasePlatform):
     """Posix (Linux, FreeBSD, etceteras) implementation for PyOpenGL"""
     # On Linux (and, I assume, most GLX platforms, we have to load 
     # GL and GLU with the "global" flag to allow GLUT to resolve its
@@ -12,9 +12,9 @@ class GLXPlatform( baseplatform.BasePlatform ):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'GL', 
+                "GL", 
                 mode=ctypes.RTLD_GLOBAL 
-            ) 
+           ) 
         except OSError as err:
             raise ImportError("Unable to load OpenGL library", *err.args)
     @baseplatform.lazy_property
@@ -22,22 +22,22 @@ class GLXPlatform( baseplatform.BasePlatform ):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'GLU',
+                "GLU",
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
     @baseplatform.lazy_property
-    def GLUT( self ):
+    def GLUT(self):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'glut', 
+                "glut", 
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
-    # GLX doesn't seem to have its own loadable module?
+    # GLX doesn"t seem to have its own loadable module?
     @baseplatform.lazy_property
     def GLX(self): return self.GL
 
@@ -46,9 +46,9 @@ class GLXPlatform( baseplatform.BasePlatform ):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'GLESv1_CM', # ick
+                "GLESv1_CM", # ick
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
     @baseplatform.lazy_property
@@ -56,9 +56,9 @@ class GLXPlatform( baseplatform.BasePlatform ):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'GLESv2', 
+                "GLESv2", 
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
     @baseplatform.lazy_property
@@ -76,25 +76,25 @@ class GLXPlatform( baseplatform.BasePlatform ):
         return self.glXGetProcAddressARB
     
     @baseplatform.lazy_property
-    def GLE( self ):
+    def GLE(self):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'gle', 
+                "gle", 
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
 
-    DEFAULT_FUNCTION_TYPE = staticmethod( ctypes.CFUNCTYPE )
+    DEFAULT_FUNCTION_TYPE = staticmethod(ctypes.CFUNCTYPE)
 
-    # This loads the GLX functions from the GL .so, not sure if that's
+    # This loads the GLX functions from the GL .so, not sure if that"s
     # really kosher...
     @baseplatform.lazy_property
-    def GetCurrentContext( self ):
+    def GetCurrentContext(self):
         return self.GL.glXGetCurrentContext
 
-    def getGLUTFontPointer( self, constant ):
+    def getGLUTFontPointer(self, constant):
         """Platform specific function to retrieve a GLUT font pointer
         
         GLUTAPI void *glutBitmap9By15;
@@ -102,15 +102,15 @@ class GLXPlatform( baseplatform.BasePlatform ):
         
         Key here is that we want the addressof the pointer in the DLL,
         not the pointer in the DLL.  That is, our pointer is to the 
-        pointer defined in the DLL, we don't want the *value* stored in
+        pointer defined in the DLL, we don"t want the *value* stored in
         that pointer.
         """
-        name = [ x.title() for x in constant.split( '_' )[1:] ]
-        internal = 'glut' + "".join( [x.title() for x in name] )
-        pointer = ctypes.c_void_p.in_dll( self.GLUT, internal )
+        name = [ x.title() for x in constant.split("_")[1:] ]
+        internal = "glut" + "".join([x.title() for x in name])
+        pointer = ctypes.c_void_p.in_dll(self.GLUT, internal)
         return ctypes.c_void_p(ctypes.addressof(pointer))
     
     @baseplatform.lazy_property
-    def glGetError( self ):
+    def glGetError(self):
         return self.GL.glGetError
     

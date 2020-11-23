@@ -16,9 +16,9 @@ vertex_shader = """#version 150 core
 def main():
     program = shaders.compileProgram(
         shaders.compileShader([vertex_shader], GL_VERTEX_SHADER), 
-    )
+   )
 
-    buff = ctypes.c_char_p( b"outValue" )
+    buff = ctypes.c_char_p(b"outValue")
     c_text = ctypes.cast(ctypes.pointer(buff), ctypes.POINTER(ctypes.POINTER(GLchar)))
     # modifies the state in the linking of the program
     glTransformFeedbackVaryings(program, 1, c_text, GL_INTERLEAVED_ATTRIBS);

@@ -9,7 +9,7 @@ if __name__ == "__main__":
     except Exception as err:
         raise
     else:
-        print('accepted 0 arguments, as desired')
+        print("accepted 0 arguments, as desired")
         try:
             if fgDeinitialize: fgDeinitialize(False)
         except NameError as err:

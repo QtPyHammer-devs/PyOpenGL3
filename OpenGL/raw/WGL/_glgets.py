@@ -3,6 +3,6 @@ try:
     from OpenGL.raw.GL._lookupint import LookupInt as _L
 except ImportError:
     def _L(*args):
-        raise RuntimeError( "Need to define a lookupint for this api" )
+        raise RuntimeError("Need to define a lookupint for this api")
 _glget_size_mapping = _m = {}
 

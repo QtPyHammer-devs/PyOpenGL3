@@ -17,11 +17,11 @@ def main():
                 5,
                 devices,
                 count,
-            )
+           )
             for device in devices[:int(count)]:
                 print(device)
         else:
-            print('No device_query extension available')
+            print("No device_query extension available")
 
 if __name__ == "__main__":
     main()

@@ -2,16 +2,16 @@
 import ctypes, ctypes.util
 from OpenGL.platform import baseplatform, ctypesloader
 
-class EGLPlatform( baseplatform.BasePlatform ):
+class EGLPlatform(baseplatform.BasePlatform):
     """EGL platform for opengl-es only platforms"""
     @baseplatform.lazy_property
     def GLES1(self):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'GLESv1_CM', # ick
+                "GLESv1_CM", # ick
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
     @baseplatform.lazy_property
@@ -19,9 +19,9 @@ class EGLPlatform( baseplatform.BasePlatform ):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'GLESv2', 
+                "GLESv2", 
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
     @baseplatform.lazy_property
@@ -31,12 +31,12 @@ class EGLPlatform( baseplatform.BasePlatform ):
     @baseplatform.lazy_property
     def GL(self):
         try:
-            for name in ('OpenGL','GL'):
+            for name in ("OpenGL","GL"):
                 lib = ctypesloader.loadLibrary(
                     ctypes.cdll,
-                    'GL', 
+                    "GL", 
                     mode=ctypes.RTLD_GLOBAL 
-                )
+               )
                 if lib:
                     return lib 
             raise OSError("No GL/OpenGL library available")
@@ -47,19 +47,19 @@ class EGLPlatform( baseplatform.BasePlatform ):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'GLU',
+                "GLU",
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
     @baseplatform.lazy_property
-    def GLUT( self ):
+    def GLUT(self):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'glut', 
+                "glut", 
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
     @baseplatform.lazy_property
@@ -72,35 +72,35 @@ class EGLPlatform( baseplatform.BasePlatform ):
         # linking to that library... Github issue is here:
         #   https://github.com/raspberrypi/firmware/issues/110
         import os
-        if os.path.exists('/proc/cpuinfo'):
-            info = open('/proc/cpuinfo').read()
-            if 'BCM2708' in info or 'BCM2709' in info:
+        if os.path.exists("/proc/cpuinfo"):
+            info = open("/proc/cpuinfo").read()
+            if "BCM2708" in info or "BCM2709" in info:
                 assert self.GLES2
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'EGL', 
+                "EGL", 
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError as err:
             raise ImportError("Unable to load EGL library", *err.args)
     @baseplatform.lazy_property
-    def getExtensionProcedure( self ):
+    def getExtensionProcedure(self):
         eglGetProcAddress = self.EGL.eglGetProcAddress
         eglGetProcAddress.restype = ctypes.c_void_p
         return eglGetProcAddress
     @baseplatform.lazy_property
-    def GLE( self ):
+    def GLE(self):
         try:
             return ctypesloader.loadLibrary(
                 ctypes.cdll,
-                'gle', 
+                "gle", 
                 mode=ctypes.RTLD_GLOBAL 
-            )
+           )
         except OSError:
             return None
 
-    DEFAULT_FUNCTION_TYPE = staticmethod( ctypes.CFUNCTYPE )
+    DEFAULT_FUNCTION_TYPE = staticmethod(ctypes.CFUNCTYPE)
     @baseplatform.lazy_property
-    def GetCurrentContext( self ):
+    def GetCurrentContext(self):
         return self.EGL.eglGetCurrentContext

@@ -12,7 +12,7 @@ def main():
     glutInitWindowPosition(0, 0)	
     glutCreateWindow("Framebuffer bug demo")
 
-    for i in range( 200 ):
+    for i in range(200):
         fbo = EXT.glGenFramebuffersEXT(1)
         print("FBO = ", fbo)
         EXT.glDeleteFramebuffersEXT (int(fbo))

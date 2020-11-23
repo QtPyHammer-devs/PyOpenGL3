@@ -11,11 +11,11 @@ getLog = logging.getLogger
 def getException(error):
     """Get formatted traceback from exception"""
     try:
-        return traceback.format_exc( limit=10 )
+        return traceback.format_exc(limit=10)
     except Exception as err:
-        return str( error )
+        return str(error)
 
-logging.Logger.getException = staticmethod( getException )
+logging.Logger.getException = staticmethod(getException)
 logging.Logger.err = logging.Logger.error
 logging.Logger.DEBUG = logging.DEBUG 
 logging.Logger.WARN = logging.WARN 
@@ -23,56 +23,56 @@ logging.Logger.INFO = logging.INFO
 logging.Logger.ERR = logging.Logger.ERROR = logging.ERROR
 
 if FULL_LOGGING:
-    getLog( 'OpenGL.calltrace' ).setLevel( logging.INFO )
+    getLog("OpenGL.calltrace").setLevel(logging.INFO)
 
-class _LoggedFunction( object ):
+class _LoggedFunction(object):
     """Proxy that overrides __call__ to log arguments"""
-    def __init__( self, base, log ):
-        self.__dict__[''] = base 
-        self.__dict__['log'] = log
-    def __setattr__( self, key, value ):
-        if key != '':
-            setattr( self.__dict__[''], key, value )
+    def __init__(self, base, log):
+        self.__dict__[""] = base 
+        self.__dict__["log"] = log
+    def __setattr__(self, key, value):
+        if key != "":
+            setattr(self.__dict__[""], key, value)
         else:
-            self.__dict__[''] = value 
-    def __getattr__( self, key ):
-        if key == '':
-            return self.__dict__['']
+            self.__dict__[""] = value 
+    def __getattr__(self, key):
+        if key == "":
+            return self.__dict__[""]
         else:
-            return getattr( self.__dict__[''], key )
-class _FullLoggedFunction( _LoggedFunction ):
+            return getattr(self.__dict__[""], key)
+class _FullLoggedFunction(_LoggedFunction):
     """Fully-logged function wrapper (logs all call params to OpenGL.calltrace)"""
-    _callTrace = getLog( 'OpenGL.calltrace' )
-    def __call__( self, *args, **named ):
+    _callTrace = getLog("OpenGL.calltrace")
+    def __call__(self, *args, **named):
         argRepr = []
-        function = getattr( self, '' )
+        function = getattr(self, "")
         for arg in args:
-            argRepr.append( repr(arg) )
+            argRepr.append(repr(arg))
         for key,value in named.items():
-            argRepr.append( '%s = %s'%( key,repr(value)) )
-        argRepr = ",".join( argRepr )
-        self._callTrace.info( '%s( %s )', function.__name__, argRepr )
+            argRepr.append("%s = %s"%(key,repr(value)))
+        argRepr = ",".join(argRepr)
+        self._callTrace.info("%s(%s)", function.__name__, argRepr)
         try:
-            return function( *args, **named )
+            return function(*args, **named)
         except Exception as err:
             self.log.warning(
-                """Failure on %s: %s""", function.__name__, self.log.getException( err )
-            )
+                """Failure on %s: %s""", function.__name__, self.log.getException(err)
+           )
             raise
-class _ErrorLoggedFunction ( _LoggedFunction ):
+class _ErrorLoggedFunction (_LoggedFunction):
     """On-error-logged function wrapper"""
-    def __call__( self, *args, **named ):
-        function = getattr( self, '' )
+    def __call__(self, *args, **named):
+        function = getattr(self, "")
         try:
-            return function( *args, **named )
+            return function(*args, **named)
         except Exception as err:
             self.log.warning(
-                """Failure on %s: %s""", function.__name__, self.log.getException( err )
-            )
+                """Failure on %s: %s""", function.__name__, self.log.getException(err)
+           )
             raise
     
 
-def logOnFail( function, log ):
+def logOnFail(function, log):
     """Produce possible log-wrapped version of function
 
     function -- callable object to be wrapped
@@ -83,9 +83,9 @@ def logOnFail( function, log ):
     """
     if ERROR_LOGGING or FULL_LOGGING:
         if FULL_LOGGING:
-            loggedFunction = _FullLoggedFunction( function, log )
+            loggedFunction = _FullLoggedFunction(function, log)
         else:
-            loggedFunction = _ErrorLoggedFunction( function, log )
+            loggedFunction = _ErrorLoggedFunction(function, log)
         return loggedFunction
     else:
         return function

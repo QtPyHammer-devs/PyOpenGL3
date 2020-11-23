@@ -1,4 +1,4 @@
-'''OpenGL extension NV.texture_shader
+"""OpenGL extension NV.texture_shader
 
 This module customises the behaviour of the 
 OpenGL.raw.GL.NV.texture_shader to provide a more 
@@ -11,14 +11,14 @@ Overview (from the spec)
 	coordinates to filtered colors.  This extension provides a more
 	functional mechanism.
 	
-	OpenGL's standard texturing mechanism defines a set of texture
+	OpenGL"s standard texturing mechanism defines a set of texture
 	targets.  Each texture target defines how the texture image
 	is specified and accessed via a set of texture coordinates.
 	OpenGL 1.0 defines the 1D and 2D texture targets.  OpenGL 1.2
 	(and/or the EXT_texture3D extension) defines the 3D texture target.
 	The ARB_texture_cube_map extension defines the cube map texture
-	target.  Each texture unit's texture coordinate set is mapped to a
-	color using the unit's highest priority enabled texture target.
+	target.  Each texture unit"s texture coordinate set is mapped to a
+	color using the unit"s highest priority enabled texture target.
 	
 	This extension introduces texture shader stages.  A sequence of
 	texture shader stages provides a more flexible mechanism for mapping
@@ -27,7 +27,7 @@ Overview (from the spec)
 	
 	When the texture shader enable is on, the extension replaces the
 	conventional OpenGL mechanism for mapping sets of texture coordinates
-	to filtered colors with this extension's sequence of texture shader
+	to filtered colors with this extension"s sequence of texture shader
 	stages.  
 	
 	Each texture shader stage runs one of 21 canned texture shader
@@ -48,11 +48,11 @@ Overview (from the spec)
 	HILO (pronounced high-low) formats provide possibly signed, high
 	precision (16-bit) two-component textures.
 	
-	Each program takes as input the stage's interpolated texture
+	Each program takes as input the stage"s interpolated texture
 	coordinate set (s,t,r,q).  Each program generates two results:
 	a shader stage result that may be used as an input to subsequent
 	shader stage programs, and a texture unit RGBA result that becomes the
-	texture color used by the texture unit's texture environment function
+	texture color used by the texture unit"s texture environment function
 	or becomes the initial value for the corresponding texture register
 	for register combiners. The texture unit RGBA result is always
 	an RGBA color, but the shader stage result may be one of an RGBA
@@ -62,7 +62,7 @@ Overview (from the spec)
 	(though not in all cases).
 	
 	Additionally, certain programs have a side-effect such as culling
-	the fragment or replacing the fragment's depth value.
+	the fragment or replacing the fragment"s depth value.
 	
 	The twenty-one programs are briefly described:
 	
@@ -94,7 +94,7 @@ Overview (from the spec)
 	
 	8.   OFFSET_TEXTURE_2D_NV - Transforms the signed (ds,dt) components
 	     of a previous texture unit by a 2x2 floating-point matrix and
-	     then uses the result to offset the stage's texture coordinates
+	     then uses the result to offset the stage"s texture coordinates
 	     for a 2D non-projective texture.
 	
 	9.   OFFSET_TEXTURE_2D_SCALE_NV - Same as above except the magnitude
@@ -123,10 +123,10 @@ Overview (from the spec)
 	<dot product textures>
 	
 	14.  DOT_PRODUCT_NV - Computes the dot product of the texture
-	     shader's texture coordinate set (s,t,r) with some mapping of the
+	     shader"s texture coordinate set (s,t,r) with some mapping of the
 	     components of a previous texture shader result.  The component
 	     mapping depends on the type (RGBA or HILO) and signedness of
-	     the stage's previous texture input.  Other dot product texture
+	     the stage"s previous texture input.  Other dot product texture
 	     programs use the result of this program to compose a texture
 	     coordinate set for a dependent texture access.  The color result
 	     is undefined.
@@ -172,13 +172,13 @@ Overview (from the spec)
 	
 	21.  DOT_PRODUCT_DEPTH_REPLACE_NV - When preceded by a DOT_PRODUCT_NV
 	     program in the previous texture shader stage, computes a second
-	     similar dot product and replaces the fragment's window-space
+	     similar dot product and replaces the fragment"s window-space
 	     depth value with the first dot product results divided by
 	     the second.  The texture unit RGBA result is (0,0,0,0).
 
 The official definition of this extension is available here:
-http://www.opengl.org/registry/specs/NV/texture_shader.txt
-'''
+https://www.opengl.org/registry/specs/NV/texture_shader.txt
+"""
 from OpenGL import platform, constant, arrays
 from OpenGL import extensions, wrapper
 import ctypes
@@ -187,12 +187,12 @@ from OpenGL.raw.GL.NV.texture_shader import *
 from OpenGL.raw.GL.NV.texture_shader import _EXTENSION_NAME
 
 def glInitTextureShaderNV():
-    '''Return boolean indicating whether this extension is available'''
+    """Return boolean indicating whether this extension is available"""
     from OpenGL import extensions
-    return extensions.hasGLExtension( _EXTENSION_NAME )
+    return extensions.hasGLExtension(_EXTENSION_NAME)
 
 
-### END AUTOGENERATED SECTION
+# END AUTOGENERATED SECTION
 GL_OFFSET_TEXTURE_2D_BIAS_NV = GL_OFFSET_TEXTURE_BIAS_NV # alias
 GL_OFFSET_TEXTURE_2D_MATRIX_NV = GL_OFFSET_TEXTURE_MATRIX_NV # alias
 GL_OFFSET_TEXTURE_2D_SCALE_NV = GL_OFFSET_TEXTURE_SCALE_NV # alias

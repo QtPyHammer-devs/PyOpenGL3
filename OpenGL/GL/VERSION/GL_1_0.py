@@ -5,7 +5,7 @@ OpenGL.raw.GL.VERSION.GL_1_0 to provide a more
 Python-friendly API
 
 The official definition of this extension is available here:
-http://www.opengl.org/registry/specs/VERSION/GL_1_0.txt"""
+https://www.opengl.org/registry/specs/VERSION/GL_1_0.txt"""
 # load raw OpenGL functions for OpenGL 1.0
 # from OpenGL.raw.GL.VERSION.GL_1_0 import *
 from OpenGL.raw.GL.VERSION.GL_1_0 import _EXTENSION_NAME, _glgets, wrapper

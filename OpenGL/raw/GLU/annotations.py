@@ -17,25 +17,25 @@ gluCheckExtension = arrays.setInputArraySizeType(
         raw.gluCheckExtension,
         None, # XXX Could not determine size of argument extName for gluCheckExtension arrays.GLubyteArray
         arrays.GLubyteArray, 
-        'extName',
-    ),
+        "extName",
+   ),
     None, # XXX Could not determine size of argument extString for gluCheckExtension arrays.GLubyteArray
     arrays.GLubyteArray, 
-    'extString',
+    "extString",
 )
 
 gluGetNurbsProperty = arrays.setInputArraySizeType(
     raw.gluGetNurbsProperty,
     None, # XXX Could not determine size of argument data for gluGetNurbsProperty arrays.GLfloatArray
     arrays.GLfloatArray, 
-    'data',
+    "data",
 )
 
 gluGetTessProperty = arrays.setInputArraySizeType(
     raw.gluGetTessProperty,
     None, # XXX Could not determine size of argument data for gluGetTessProperty arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'data',
+    "data",
 )
 
 gluLoadSamplingMatrices = arrays.setInputArraySizeType(
@@ -44,15 +44,15 @@ gluLoadSamplingMatrices = arrays.setInputArraySizeType(
             raw.gluLoadSamplingMatrices,
             None, # XXX Could not determine size of argument model for gluLoadSamplingMatrices arrays.GLfloatArray
             arrays.GLfloatArray, 
-            'model',
-        ),
+            "model",
+       ),
         None, # XXX Could not determine size of argument perspective for gluLoadSamplingMatrices arrays.GLfloatArray
         arrays.GLfloatArray, 
-        'perspective',
-    ),
+        "perspective",
+   ),
     None, # XXX Could not determine size of argument view for gluLoadSamplingMatrices arrays.GLintArray
     arrays.GLintArray, 
-    'view',
+    "view",
 )
 
 gluNurbsCurve = arrays.setInputArraySizeType(
@@ -60,11 +60,11 @@ gluNurbsCurve = arrays.setInputArraySizeType(
         raw.gluNurbsCurve,
         None, # XXX Could not determine size of argument knots for gluNurbsCurve arrays.GLfloatArray
         arrays.GLfloatArray, 
-        'knots',
-    ),
+        "knots",
+   ),
     None, # XXX Could not determine size of argument control for gluNurbsCurve arrays.GLfloatArray
     arrays.GLfloatArray, 
-    'control',
+    "control",
 )
 
 gluNurbsSurface = arrays.setInputArraySizeType(
@@ -73,22 +73,22 @@ gluNurbsSurface = arrays.setInputArraySizeType(
             raw.gluNurbsSurface,
             None, # XXX Could not determine size of argument sKnots for gluNurbsSurface arrays.GLfloatArray
             arrays.GLfloatArray, 
-            'sKnots',
-        ),
+            "sKnots",
+       ),
         None, # XXX Could not determine size of argument tKnots for gluNurbsSurface arrays.GLfloatArray
         arrays.GLfloatArray, 
-        'tKnots',
-    ),
+        "tKnots",
+   ),
     None, # XXX Could not determine size of argument control for gluNurbsSurface arrays.GLfloatArray
     arrays.GLfloatArray, 
-    'control',
+    "control",
 )
 
 gluPickMatrix = arrays.setInputArraySizeType(
     raw.gluPickMatrix,
     None, # XXX Could not determine size of argument viewport for gluPickMatrix arrays.GLintArray
     arrays.GLintArray, 
-    'viewport',
+    "viewport",
 )
 
 gluProject = arrays.setInputArraySizeType(
@@ -100,41 +100,41 @@ gluProject = arrays.setInputArraySizeType(
                         raw.gluProject,
                         None, # XXX Could not determine size of argument model for gluProject arrays.GLdoubleArray
                         arrays.GLdoubleArray, 
-                        'model',
-                    ),
+                        "model",
+                   ),
                     None, # XXX Could not determine size of argument proj for gluProject arrays.GLdoubleArray
                     arrays.GLdoubleArray, 
-                    'proj',
-                ),
+                    "proj",
+               ),
                 None, # XXX Could not determine size of argument view for gluProject arrays.GLintArray
                 arrays.GLintArray, 
-                'view',
-            ),
+                "view",
+           ),
             None, # XXX Could not determine size of argument winX for gluProject arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'winX',
-        ),
+            "winX",
+       ),
         None, # XXX Could not determine size of argument winY for gluProject arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'winY',
-    ),
+        "winY",
+   ),
     None, # XXX Could not determine size of argument winZ for gluProject arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'winZ',
+    "winZ",
 )
 
 gluPwlCurve = arrays.setInputArraySizeType(
     raw.gluPwlCurve,
     None, # XXX Could not determine size of argument data for gluPwlCurve arrays.GLfloatArray
     arrays.GLfloatArray, 
-    'data',
+    "data",
 )
 
 gluTessVertex = arrays.setInputArraySizeType(
     raw.gluTessVertex,
     None, # XXX Could not determine size of argument location for gluTessVertex arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'location',
+    "location",
 )
 
 gluUnProject = arrays.setInputArraySizeType(
@@ -146,27 +146,27 @@ gluUnProject = arrays.setInputArraySizeType(
                         raw.gluUnProject,
                         None, # XXX Could not determine size of argument model for gluUnProject arrays.GLdoubleArray
                         arrays.GLdoubleArray, 
-                        'model',
-                    ),
+                        "model",
+                   ),
                     None, # XXX Could not determine size of argument proj for gluUnProject arrays.GLdoubleArray
                     arrays.GLdoubleArray, 
-                    'proj',
-                ),
+                    "proj",
+               ),
                 None, # XXX Could not determine size of argument view for gluUnProject arrays.GLintArray
                 arrays.GLintArray, 
-                'view',
-            ),
+                "view",
+           ),
             None, # XXX Could not determine size of argument objX for gluUnProject arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'objX',
-        ),
+            "objX",
+       ),
         None, # XXX Could not determine size of argument objY for gluUnProject arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'objY',
-    ),
+        "objY",
+   ),
     None, # XXX Could not determine size of argument objZ for gluUnProject arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'objZ',
+    "objZ",
 )
 
 gluUnProject4 = arrays.setInputArraySizeType(
@@ -179,44 +179,44 @@ gluUnProject4 = arrays.setInputArraySizeType(
                             raw.gluUnProject4,
                             None, # XXX Could not determine size of argument model for gluUnProject4 arrays.GLdoubleArray
                             arrays.GLdoubleArray, 
-                            'model',
-                        ),
+                            "model",
+                       ),
                         None, # XXX Could not determine size of argument proj for gluUnProject4 arrays.GLdoubleArray
                         arrays.GLdoubleArray, 
-                        'proj',
-                    ),
+                        "proj",
+                   ),
                     None, # XXX Could not determine size of argument view for gluUnProject4 arrays.GLintArray
                     arrays.GLintArray, 
-                    'view',
-                ),
+                    "view",
+               ),
                 None, # XXX Could not determine size of argument objX for gluUnProject4 arrays.GLdoubleArray
                 arrays.GLdoubleArray, 
-                'objX',
-            ),
+                "objX",
+           ),
             None, # XXX Could not determine size of argument objY for gluUnProject4 arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'objY',
-        ),
+            "objY",
+       ),
         None, # XXX Could not determine size of argument objZ for gluUnProject4 arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'objZ',
-    ),
+        "objZ",
+   ),
     None, # XXX Could not determine size of argument objW for gluUnProject4 arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'objW',
+    "objW",
 )
 
 __all__ = [
-    'gluCheckExtension',
-    'gluGetNurbsProperty',
-    'gluGetTessProperty',
-    'gluLoadSamplingMatrices',
-    'gluNurbsCurve',
-    'gluNurbsSurface',
-    'gluPickMatrix',
-    'gluProject',
-    'gluPwlCurve',
-    'gluTessVertex',
-    'gluUnProject',
-    'gluUnProject4'
+    "gluCheckExtension",
+    "gluGetNurbsProperty",
+    "gluGetTessProperty",
+    "gluLoadSamplingMatrices",
+    "gluNurbsCurve",
+    "gluNurbsSurface",
+    "gluPickMatrix",
+    "gluProject",
+    "gluPwlCurve",
+    "gluTessVertex",
+    "gluUnProject",
+    "gluUnProject4"
 ]

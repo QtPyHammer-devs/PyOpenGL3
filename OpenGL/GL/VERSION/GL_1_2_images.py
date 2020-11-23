@@ -16,21 +16,21 @@ from OpenGL.GL import images
 import ctypes
 
 for suffix,arrayConstant in [
-    ('b', constants.GL_BYTE),
-    ('f', constants.GL_FLOAT),
-    ('i', constants.GL_INT),
-    ('s', constants.GL_SHORT),
-    ('ub', constants.GL_UNSIGNED_BYTE),
-    ('ui', constants.GL_UNSIGNED_INT),
-    ('us', constants.GL_UNSIGNED_SHORT),
+    ("b", constants.GL_BYTE),
+    ("f", constants.GL_FLOAT),
+    ("i", constants.GL_INT),
+    ("s", constants.GL_SHORT),
+    ("ub", constants.GL_UNSIGNED_BYTE),
+    ("ui", constants.GL_UNSIGNED_INT),
+    ("us", constants.GL_UNSIGNED_SHORT),
 ]:
     for functionName in (
-        'glTexImage3D',
-        'glTexSubImage3D', # extension/1.2 standard
-    ):
+        "glTexImage3D",
+        "glTexSubImage3D", # extension/1.2 standard
+   ):
         functionName, function = images.typedImageFunction(
             suffix, arrayConstant, getattr(_simple, functionName),
-        )
+       )
         globals()[functionName] = function
         try:
             del function, functionName
@@ -44,12 +44,12 @@ for suffix,arrayConstant in [
 glTexImage3D = images.setDimensionsAsInts(
     images.setImageInput(
         _simple.glTexImage3D,
-        typeName = 'type',
-    )
+        typeName = "type",
+   )
 )
 glTexSubImage3D = images.setDimensionsAsInts(
     images.setImageInput(
         _simple.glTexSubImage3D,
-        typeName = 'type',
-    )
+        typeName = "type",
+   )
 )

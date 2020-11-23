@@ -227,7 +227,7 @@ def format_debug_configs(debug_configs, formats=CONFIG_FORMAT):
                 "col": col,
                 "width": max_width,
             }
-        )
+       )
     headers = []
     subheaders = []
     rows = [headers, subheaders]
@@ -241,5 +241,5 @@ def format_debug_configs(debug_configs, formats=CONFIG_FORMAT):
         subheaders.append(column["subcol"].rjust(column["width"])[: column["width"]])
     rows.extend(
         zip(*[[v.rjust(col["width"], " ") for v in col["rows"]] for col in columns])
-    )
+   )
     return "\n".join([" ".join(row) for row in rows])

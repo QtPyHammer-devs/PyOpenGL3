@@ -1,4 +1,4 @@
-'''OpenGL extension SUN.vertex
+"""OpenGL extension SUN.vertex
 
 This module customises the behaviour of the 
 OpenGL.raw.GL.SUN.vertex to provide a more 
@@ -11,8 +11,8 @@ Overview (from the spec)
 	minimize the overhead in making GL commands for each set of vertex data.
 
 The official definition of this extension is available here:
-http://www.opengl.org/registry/specs/SUN/vertex.txt
-'''
+https://www.opengl.org/registry/specs/SUN/vertex.txt
+"""
 from OpenGL import platform, constant, arrays
 from OpenGL import extensions, wrapper
 import ctypes
@@ -21,146 +21,146 @@ from OpenGL.raw.GL.SUN.vertex import *
 from OpenGL.raw.GL.SUN.vertex import _EXTENSION_NAME
 
 def glInitVertexSUN():
-    '''Return boolean indicating whether this extension is available'''
+    """Return boolean indicating whether this extension is available"""
     from OpenGL import extensions
-    return extensions.hasGLExtension( _EXTENSION_NAME )
+    return extensions.hasGLExtension(_EXTENSION_NAME)
 
 glColor4ubVertex2fvSUN=wrapper.wrapper(glColor4ubVertex2fvSUN).setInputArraySize(
-    'c', 4
+    "c", 4
 ).setInputArraySize(
-    'v', 2
+    "v", 2
 )
 glColor4ubVertex3fvSUN=wrapper.wrapper(glColor4ubVertex3fvSUN).setInputArraySize(
-    'c', 4
+    "c", 4
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glColor3fVertex3fvSUN=wrapper.wrapper(glColor3fVertex3fvSUN).setInputArraySize(
-    'c', 3
+    "c", 3
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glNormal3fVertex3fvSUN=wrapper.wrapper(glNormal3fVertex3fvSUN).setInputArraySize(
-    'n', 3
+    "n", 3
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glColor4fNormal3fVertex3fvSUN=wrapper.wrapper(glColor4fNormal3fVertex3fvSUN).setInputArraySize(
-    'c', 4
+    "c", 4
 ).setInputArraySize(
-    'n', 3
+    "n", 3
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glTexCoord2fVertex3fvSUN=wrapper.wrapper(glTexCoord2fVertex3fvSUN).setInputArraySize(
-    'tc', 2
+    "tc", 2
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glTexCoord4fVertex4fvSUN=wrapper.wrapper(glTexCoord4fVertex4fvSUN).setInputArraySize(
-    'tc', 4
+    "tc", 4
 ).setInputArraySize(
-    'v', 4
+    "v", 4
 )
 glTexCoord2fColor4ubVertex3fvSUN=wrapper.wrapper(glTexCoord2fColor4ubVertex3fvSUN).setInputArraySize(
-    'c', 4
+    "c", 4
 ).setInputArraySize(
-    'tc', 2
+    "tc", 2
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glTexCoord2fColor3fVertex3fvSUN=wrapper.wrapper(glTexCoord2fColor3fVertex3fvSUN).setInputArraySize(
-    'c', 3
+    "c", 3
 ).setInputArraySize(
-    'tc', 2
+    "tc", 2
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glTexCoord2fNormal3fVertex3fvSUN=wrapper.wrapper(glTexCoord2fNormal3fVertex3fvSUN).setInputArraySize(
-    'n', 3
+    "n", 3
 ).setInputArraySize(
-    'tc', 2
+    "tc", 2
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glTexCoord2fColor4fNormal3fVertex3fvSUN=wrapper.wrapper(glTexCoord2fColor4fNormal3fVertex3fvSUN).setInputArraySize(
-    'c', 4
+    "c", 4
 ).setInputArraySize(
-    'n', 3
+    "n", 3
 ).setInputArraySize(
-    'tc', 2
+    "tc", 2
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glTexCoord4fColor4fNormal3fVertex4fvSUN=wrapper.wrapper(glTexCoord4fColor4fNormal3fVertex4fvSUN).setInputArraySize(
-    'c', 4
+    "c", 4
 ).setInputArraySize(
-    'n', 3
+    "n", 3
 ).setInputArraySize(
-    'tc', 4
+    "tc", 4
 ).setInputArraySize(
-    'v', 4
+    "v", 4
 )
 glReplacementCodeuiVertex3fvSUN=wrapper.wrapper(glReplacementCodeuiVertex3fvSUN).setInputArraySize(
-    'rc', 1
+    "rc", 1
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glReplacementCodeuiColor4ubVertex3fvSUN=wrapper.wrapper(glReplacementCodeuiColor4ubVertex3fvSUN).setInputArraySize(
-    'c', 4
+    "c", 4
 ).setInputArraySize(
-    'rc', 1
+    "rc", 1
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glReplacementCodeuiColor3fVertex3fvSUN=wrapper.wrapper(glReplacementCodeuiColor3fVertex3fvSUN).setInputArraySize(
-    'c', 3
+    "c", 3
 ).setInputArraySize(
-    'rc', 1
+    "rc", 1
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glReplacementCodeuiNormal3fVertex3fvSUN=wrapper.wrapper(glReplacementCodeuiNormal3fVertex3fvSUN).setInputArraySize(
-    'n', 3
+    "n", 3
 ).setInputArraySize(
-    'rc', 1
+    "rc", 1
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glReplacementCodeuiColor4fNormal3fVertex3fvSUN=wrapper.wrapper(glReplacementCodeuiColor4fNormal3fVertex3fvSUN).setInputArraySize(
-    'c', 4
+    "c", 4
 ).setInputArraySize(
-    'n', 3
+    "n", 3
 ).setInputArraySize(
-    'rc', 1
+    "rc", 1
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glReplacementCodeuiTexCoord2fVertex3fvSUN=wrapper.wrapper(glReplacementCodeuiTexCoord2fVertex3fvSUN).setInputArraySize(
-    'rc', 1
+    "rc", 1
 ).setInputArraySize(
-    'tc', 2
+    "tc", 2
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN=wrapper.wrapper(glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN).setInputArraySize(
-    'n', 3
+    "n", 3
 ).setInputArraySize(
-    'rc', 1
+    "rc", 1
 ).setInputArraySize(
-    'tc', 2
+    "tc", 2
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
 glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN=wrapper.wrapper(glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN).setInputArraySize(
-    'c', 4
+    "c", 4
 ).setInputArraySize(
-    'n', 3
+    "n", 3
 ).setInputArraySize(
-    'rc', 1
+    "rc", 1
 ).setInputArraySize(
-    'tc', 2
+    "tc", 2
 ).setInputArraySize(
-    'v', 3
+    "v", 3
 )
-### END AUTOGENERATED SECTION
+# END AUTOGENERATED SECTION

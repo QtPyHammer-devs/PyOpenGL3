@@ -15,9 +15,9 @@ The implication there is that your library code should be
 able to work with any of the valid configurations available
 with these sets of flags.
 
-Further, once any entry point has been loaded, the variables 
-can no longer be updated.  The OpenGL._confligflags module 
-imports the variables from this location, and once that 
+Further, once any entry point has been loaded, the variables
+can no longer be updated.  The OpenGL._confligflags module
+imports the variables from this location, and once that
 import occurs the flags should no longer be changed.
 
     ERROR_CHECKING -- if set to a False value before
@@ -97,10 +97,10 @@ import occurs the flags should no longer be changed.
         the time period for which they are active in the GL.  That
         is, you must be sure that your array objects live at least
         until they are no longer bound in the GL.  This is something
-        you need to confirm by thinking about your application's
+        you need to confirm by thinking about your application"s
         structure.
 
-        When you are sure your arrays won't cause seg-faults, you
+        When you are sure your arrays won"t cause seg-faults, you
         can set STORE_POINTERS=False in your application and enjoy
         a (slight) speed up.
 
@@ -123,7 +123,7 @@ import occurs the flags should no longer be changed.
 
         You will need to have a  logging configuration (e.g.
             logging.basicConfig()
-        ) call  in your top-level script to see the results of the
+       ) call  in your top-level script to see the results of the
         logging.
 
         Default: False
@@ -147,14 +147,14 @@ import occurs the flags should no longer be changed.
 
     FORWARD_COMPATIBLE_ONLY -- only include OpenGL 3.1 compatible
         entry points.  Note that this will generally break most
-        PyOpenGL code that hasn't been explicitly made "legacy free"
+        PyOpenGL code that hasn"t been explicitly made "legacy free"
         via a significant rewrite.
 
         Default: False
 
     SIZE_1_ARRAY_UNPACK -- if True, unpack size-1 arrays to be
         scalar values, as done in PyOpenGL 1.5 -> 3.0.0, that is,
-        if a glGenList( 1 ) is done, return a uint rather than
+        if a glGenList(1) is done, return a uint rather than
         an array of uints.
 
         Default: True
@@ -164,134 +164,100 @@ import occurs the flags should no longer be changed.
         operations.
 
         Default: True
-    
-    MODULE_ANNOTATIONS -- if True, attempt to annotate alternates() and 
-        constants to track in which module they are defined (only useful 
+
+    MODULE_ANNOTATIONS -- if True, attempt to annotate alternates() and
+        constants to track in which module they are defined (only useful
         for the documentation-generation passes, really).
-        
+
         Default: False
-    
+
     TYPE_ANNOTATIONS -- if True, set up type annotations in __annotations__
         on raw functions. This is mostly just so that people can play
         with the use of e.g. mypy or the like, but the values put in the
-        annotations dictionary are generally either ctypes types or 
-        ArrayDataType references, so this isn't *likely* to be all that useful
-        without further work.
-"""
-from OpenGL.version import __version__
+        annotations dictionary are generally either ctypes types or
+        ArrayDataType references, so this isn"t *likely* to be all that useful
+        without further work."""
+
 import os
-def environ_key( name, default ):
-    composed = 'PYOPENGL_%s'%name.upper()
+
+from OpenGL.plugins import PlatformPlugin, FormatHandler
+import OpenGL.version
+__version__ = OpenGL.version.__version__
+
+
+def environ_key(name, default):
+    composed = f"PYOPENGL_{name.upper()}"
     if composed in os.environ:
         value = os.environ[composed]
-        if value.lower() in ('1','true'):
-            return True 
+        if value.lower() in ("1", "true"):
+            return True
         else:
             return False
-    return os.environ.get( composed, default )
+    return os.environ.get(composed, default)
 
-ERROR_CHECKING = environ_key( 'ERROR_CHECKING', True)
-ERROR_LOGGING = environ_key( 'ERROR_LOGGING', False )
-ERROR_ON_COPY = environ_key( 'ERROR_ON_COPY', False )
-ARRAY_SIZE_CHECKING = environ_key( 'ARRAY_SIZE_CHECKING', True )
-STORE_POINTERS = environ_key( 'STORE_POINTERS', True )
+
+ERROR_CHECKING = environ_key("ERROR_CHECKING", True)
+ERROR_LOGGING = environ_key("ERROR_LOGGING", False)
+ERROR_ON_COPY = environ_key("ERROR_ON_COPY", False)
+ARRAY_SIZE_CHECKING = environ_key("ARRAY_SIZE_CHECKING", True)
+STORE_POINTERS = environ_key("STORE_POINTERS", True)
 WARN_ON_FORMAT_UNAVAILABLE = False
 FORWARD_COMPATIBLE_ONLY = False
 SIZE_1_ARRAY_UNPACK = True
-USE_ACCELERATE = environ_key( 'USE_ACCELERATE', True )
-CONTEXT_CHECKING = environ_key( 'CONTEXT_CHECKING', False )
+USE_ACCELERATE = environ_key("USE_ACCELERATE", True)
+CONTEXT_CHECKING = environ_key("CONTEXT_CHECKING", False)
 
-FULL_LOGGING = environ_key( 'FULL_LOGGING', False )
-ALLOW_NUMPY_SCALARS = environ_key( 'ALLOW_NUMPY_SCALARS', False )
-UNSIGNED_BYTE_IMAGES_AS_STRING = environ_key( 'UNSIGNED_BYTE_IMAGES_AS_STRING', True )
+FULL_LOGGING = environ_key("FULL_LOGGING", False)
+ALLOW_NUMPY_SCALARS = environ_key("ALLOW_NUMPY_SCALARS", False)
+UNSIGNED_BYTE_IMAGES_AS_STRING = environ_key("UNSIGNED_BYTE_IMAGES_AS_STRING", True)
 MODULE_ANNOTATIONS = False
 TYPE_ANNOTATIONS = False
 
 
 # Declarations of plugins provided by PyOpenGL itself
-from OpenGL.plugins import PlatformPlugin, FormatHandler
-PlatformPlugin( 'nt', 'OpenGL.platform.win32.Win32Platform' )
-PlatformPlugin( 'linux2', 'OpenGL.platform.glx.GLXPlatform' )
-PlatformPlugin( 'darwin', 'OpenGL.platform.darwin.DarwinPlatform' )
-PlatformPlugin( 'posix', 'OpenGL.platform.glx.GLXPlatform' )
-PlatformPlugin( 'osmesa', 'OpenGL.platform.osmesa.OSMesaPlatform')
-PlatformPlugin( 'egl', 'OpenGL.platform.egl.EGLPlatform')
+PlatformPlugin("nt", "OpenGL.platform.win32.Win32Platform")
+PlatformPlugin("linux2", "OpenGL.platform.glx.GLXPlatform")
+PlatformPlugin("darwin", "OpenGL.platform.darwin.DarwinPlatform")
+PlatformPlugin("posix", "OpenGL.platform.glx.GLXPlatform")
+PlatformPlugin("osmesa", "OpenGL.platform.osmesa.OSMesaPlatform")
+PlatformPlugin("egl", "OpenGL.platform.egl.EGLPlatform")
 
-import sys
-if sys.version_info[0] < 3:
-    # Python 3.x renames the built-in module
-    _bi = '__builtin__'
-else:
-    _bi = 'builtins'
 
-FormatHandler( 'none', 'OpenGL.arrays.nones.NoneHandler', [ _bi+'.NoneType'],isOutput=False )
+FormatHandler("none", "OpenGL.arrays.nones.NoneHandler",
+              ["__builtin__.NoneType"], isOutput=False)
 
-if sys.version_info[0] < 3:
-    FormatHandler( 'str', 'OpenGL.arrays.strings.StringHandler',[_bi+'.str'], isOutput=False )
-    FormatHandler( 'unicode', 'OpenGL.arrays.strings.UnicodeHandler',[_bi+'.unicode'], isOutput=False )
-else:
-    FormatHandler( 'bytes', 'OpenGL.arrays.strings.StringHandler',[_bi+'.bytes'], isOutput=False )
-    FormatHandler( 'str', 'OpenGL.arrays.strings.UnicodeHandler',[_bi+'.str'], isOutput=False )
-    
-FormatHandler( 'list', 'OpenGL.arrays.lists.ListHandler', [
-    _bi+'.list',
-    _bi+'.tuple',
-], isOutput=False )
-FormatHandler( 'numbers', 'OpenGL.arrays.numbers.NumberHandler', [
-    _bi+'.int',
-    _bi+'.float',
-    _bi+'.long',
-], isOutput=False )
-FormatHandler(
-    'ctypesarrays', 'OpenGL.arrays.ctypesarrays.CtypesArrayHandler',
-    [
-        '_ctypes.ArrayType',
-        '_ctypes.PyCArrayType',
-        '_ctypes.Array',
-        '_ctypes.array.Array',
-    ],
-    isOutput=True,
-)
-FormatHandler(
-    'ctypesparameter',
-    'OpenGL.arrays.ctypesparameters.CtypesParameterHandler',
-    [
-        _bi+'.CArgObject',
-        'ctypes.c_uint',
-        'ctypes.c_int',
-        'ctypes.c_float',
-        'ctypes.c_double',
-        'ctypes.c_ulong',
-        'ctypes.c_long',
-        'ctypes.c_longlong',
-    ],
-    isOutput=True,
-)
-FormatHandler( 'ctypespointer', 'OpenGL.arrays.ctypespointers.CtypesPointerHandler',[
-    'ctypes.c_void_p',
-    '_ctypes._Pointer',
-    'ctypes.c_char_p',
-    '_ctypes.pointer._Pointer',
-],isOutput=False )
-FormatHandler( 'numpy', 'OpenGL.arrays.numpymodule.NumpyHandler', [
-    'numpy.ndarray',
-    'numpy.core.memmap.memmap',
-    'numpy.uint8',
-    'numpy.uint16',
-    'numpy.uint32',
-    'numpy.uint64',
-    'numpy.int8',
-    'numpy.int16',
-    'numpy.int32',
-    'numpy.int64',
-    'numpy.float32',
-    'numpy.float64',
-    'numpy.float128',
-],isOutput=True )
-FormatHandler( 'buffer', 'OpenGL.arrays.buffers.BufferHandler', [
-    'OpenGL.arrays._buffers.Py_buffer',
-    _bi+'.memoryview',
-    _bi+'.bytearray',
-],isOutput=True )
-FormatHandler( 'vbo', 'OpenGL.arrays.vbo.VBOHandler', ['OpenGL.arrays.vbo.VBO','OpenGL_accelerate.vbo.VBO'],isOutput=False )
-FormatHandler( 'vbooffset', 'OpenGL.arrays.vbo.VBOOffsetHandler', ['OpenGL.arrays.vbo.VBOOffset','OpenGL_accelerate.vbo.VBOOffset'],isOutput=False )
+FormatHandler("str", "OpenGL.arrays.strings.StringHandler",
+              ["__builtin__.str"], isOutput=False)
+
+FormatHandler("unicode", "OpenGL.arrays.strings.UnicodeHandler",
+              ["__builtin__.unicode"], isOutput=False)
+
+FormatHandler("list", "OpenGL.arrays.lists.ListHandler",
+              ["__builtin__.list", "__builtin__.tuple"], isOutput=False)
+
+FormatHandler("numbers", "OpenGL.arrays.numbers.NumberHandler",
+              ["__builtin__.int", "__builtin__.float", "__builtin__.long"], isOutput=False)
+
+FormatHandler("ctypesarrays", "OpenGL.arrays.ctypesarrays.CtypesArrayHandler",
+              ["_ctypes.ArrayType", "_ctypes.PyCArrayType", "_ctypes.Array", "_ctypes.array.Array"], isOutput=True)
+
+FormatHandler("ctypesparameter", "OpenGL.arrays.ctypesparameters.CtypesParameterHandler",
+              ["__builtin__.CArgObject", "ctypes.c_uint", "ctypes.c_int", "ctypes.c_float",
+               "ctypes.c_double", "ctypes.c_ulong", "ctypes.c_long", "ctypes.c_longlong"], isOutput=True)
+
+FormatHandler("ctypespointer", "OpenGL.arrays.ctypespointers.CtypesPointerHandler",
+              ["ctypes.c_void_p", "_ctypes._Pointer", "ctypes.c_char_p", "_ctypes.pointer._Pointer"], isOutput=False)
+
+FormatHandler("numpy", "OpenGL.arrays.numpymodule.NumpyHandler",
+              ["numpy.ndarray", "numpy.core.memmap.memmap", "numpy.uint8", "numpy.uint16", "numpy.uint32", "numpy.uint64",
+               "numpy.int8", "numpy.int16", "numpy.int32", "numpy.int64", "numpy.float32", "numpy.float64", "numpy.float128"],
+              isOutput=True)
+
+FormatHandler("buffer", "OpenGL.arrays.buffers.BufferHandler",
+              ["OpenGL.arrays._buffers.Py_buffer", "__builtin__.memoryview", "__builtin__.bytearray"], isOutput=True)
+
+FormatHandler("vbo", "OpenGL.arrays.vbo.VBOHandler",
+              ["OpenGL.arrays.vbo.VBO"], isOutput=False)
+
+FormatHandler("vbooffset", "OpenGL.arrays.vbo.VBOOffsetHandler",
+              ["OpenGL.arrays.vbo.VBOOffset"], isOutput=False)

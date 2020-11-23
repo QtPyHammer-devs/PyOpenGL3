@@ -1,7 +1,7 @@
 """OpenGL-wide constant types (not OpenGL.GL-specific)
 
 These are basically the fundamental data-types that OpenGL uses
-(doesn't include the OpenGL-ES types!)"""
+(doesn"t include the OpenGL-ES types!)"""
 import ctypes
 from OpenGL.constant import Constant
 from OpenGL._bytes import bytes, unicode, as_8_bit, long
@@ -43,15 +43,15 @@ def _defineType(name, baseType, convertFunc=long):
     from OpenGL import _configflags
     do_wrapping = (
         _configflags.ALLOW_NUMPY_SCALARS or  # explicitly require
-        ((  # or we are using Python 2.5.x ctypes which doesn"t support uint type numpy scalars
+        (( # or we are using Python 2.5.x ctypes which doesn"t support uint type numpy scalars
             ctypes_version < [1, 1, 0]
             and baseType in (ctypes.c_uint, ctypes.c_uint64, ctypes.c_ulong, ctypes.c_ushort)
-        ) or
-         (  # or we are using Python 2.5.x (x < 2) ctypes which doesn"t support any numpy int scalars
+       ) or
+         ( # or we are using Python 2.5.x (x < 2) ctypes which doesn"t support any numpy int scalars
             ctypes_version < [1, 0, 2]
             and baseType in (ctypes.c_int, ctypes.c_int64, ctypes.c_long, ctypes.c_short)
-        ))
-        )
+       ))
+       )
     if do_wrapping:
         original = baseType.from_param
         if not getattr(original, "from_param_numpy_scalar", False):

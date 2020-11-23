@@ -30,7 +30,7 @@ def platformDisplay(device):
     device -- EGLDeviceEXT, gbm card* path, or gbm card* ordinal (index)
 
     returns display, created_device (or None if passed in)
-    raises RuntimeError if we can't create the display
+    raises RuntimeError if we can"t create the display
     """
     created_device = display = None
     if isinstance(device, (str, int)):
@@ -42,7 +42,7 @@ def platformDisplay(device):
             else platform_gbm.EGL_PLATFORM_GBM_MESA,
             device,
             ctypes.c_void_p(0),
-        )
+       )
         if display == EGL_NO_DISPLAY:
             raise RuntimeError("Unable to create EGL display on %s" % (display))
     else:
@@ -70,7 +70,7 @@ def gbmPlatformSurface(display, config, platform_device, width, height):
         height,
         format=visual.value,
         flags=gbmdevice.GBM_BO_USE_RENDERING,
-    )
+   )
     if not platform_surface:
         raise RuntimeError("Unable to allocate a gbm surface")
     surface = eglCreatePlatformWindowSurface(display, config, platform_surface, None)
@@ -91,7 +91,7 @@ def choose_config(display, attributes):
     if not num_configs:
         raise NoConfig(
             "No compatible configs found", attributes,
-        )
+       )
     return configs[0]
 
 
@@ -111,8 +111,8 @@ def egl_context(
         24,
         EGL_COLOR_BUFFER_TYPE,
         EGL_RGB_BUFFER,
-        # EGL_CONFIG_CAVEAT, EGL_NONE, # Don't allow slow/non-conformant
-    ),
+        # EGL_CONFIG_CAVEAT, EGL_NONE, # Don"t allow slow/non-conformant
+   ),
     pbuffer=False,
     device=None,
     output="output.ppm",
@@ -136,7 +136,7 @@ def egl_context(
         log.debug(
             "Available configs:\n%s",
             debug.format_debug_configs(debug.debug_configs(display)),
-        )
+       )
 
         # for config in configs[:num_configs.value]:
         #     log.debug("Config: %s",pprint.pformat(debug.debug_config(display,config)))
@@ -144,19 +144,19 @@ def egl_context(
         if pbuffer:
             local_attributes.extend(
                 [EGL_SURFACE_TYPE, EGL_PBUFFER_BIT,]
-            )
+           )
         else:
             local_attributes.extend(
                 [EGL_SURFACE_TYPE, EGL_WINDOW_BIT,]
-            )
+           )
         local_attributes.extend(
             [EGL_CONFORMANT, api, EGL_NONE,]  # end of list
-        )
+       )
         config = choose_config(display, local_attributes,)
         log.debug(
             "Selected config:\n%s",
             debug.format_debug_configs(debug.debug_configs(display, configs=[config])),
-        )
+       )
         surface_attributes = [
             EGL_WIDTH,
             width,
@@ -169,7 +169,7 @@ def egl_context(
         else:
             surface, platform_surface = gbmPlatformSurface(
                 display, config, created_device, width, height
-            )
+           )
         eglBindAPI(API_MAP[api])
         ctx = eglCreateContext(display, config, EGL_NO_CONTEXT, None)
         if ctx == EGL_NO_CONTEXT:
@@ -191,7 +191,7 @@ def egl_context(
                 from OpenGL.GLES1 import glReadPixels, GL_UNSIGNED_BYTE, GL_RGB
             content = glReadPixels(
                 0, 0, width, height, GL_RGB, type=GL_UNSIGNED_BYTE, array=content
-            )
+           )
 
             debug.write_ppm(content, output)
             # glFinish()
@@ -225,7 +225,7 @@ def debug_info(setup):
         GL_VENDOR,
         GL_EXTENSIONS,
         glFinish,
-    )
+   )
 
     display, ctx, surface = setup
     glClearColor(1.0, 1.0, 1.0, 1.0)
@@ -235,23 +235,23 @@ def debug_info(setup):
     glFinish()
 
 def get_device_name(device):
-    """Try to get the display's DRM device name
+    """Try to get the display"s DRM device name
 
     This is almost certainly not going to work on
     anything other than Linux
     """
     from OpenGL.EGL.EXT.device_query import (
         eglQueryDeviceStringEXT,
-    )
+   )
     from OpenGL.EGL.EXT.device_drm import (
         EGL_DRM_DEVICE_FILE_EXT,
-    )
+   )
     if eglQueryDeviceStringEXT:
         name = eglQueryDeviceStringEXT(
             device,
             EGL_DRM_DEVICE_FILE_EXT
-        )
-        return name.decode('ascii',errors='ignore')
+       )
+        return name.decode("ascii",errors="ignore")
     return None
 
 

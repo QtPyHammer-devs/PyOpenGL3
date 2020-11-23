@@ -20,23 +20,23 @@ gleExtrusion = arrays.setInputArraySizeType(
                     raw.gleExtrusion,
                     None, # XXX Could not determine size of argument contour for gleExtrusion arrays.GLdoubleArray
                     arrays.GLdoubleArray, 
-                    'contour',
-                ),
+                    "contour",
+               ),
                 None, # XXX Could not determine size of argument cont_normal for gleExtrusion arrays.GLdoubleArray
                 arrays.GLdoubleArray, 
-                'cont_normal',
-            ),
+                "cont_normal",
+           ),
             None, # XXX Could not determine size of argument up for gleExtrusion arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'up',
-        ),
+            "up",
+       ),
         None, # XXX Could not determine size of argument point_array for gleExtrusion arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'point_array',
-    ),
+        "point_array",
+   ),
     None, # XXX Could not determine size of argument color_array for gleExtrusion arrays.GLfloatArray
     arrays.GLfloatArray, 
-    'color_array',
+    "color_array",
 )
 
 gleHelicoid = arrays.setInputArraySizeType(
@@ -44,11 +44,11 @@ gleHelicoid = arrays.setInputArraySizeType(
         raw.gleHelicoid,
         None, # XXX Could not determine size of argument startXform for gleHelicoid arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'startXform',
-    ),
+        "startXform",
+   ),
     None, # XXX Could not determine size of argument dXformdTheta for gleHelicoid arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'dXformdTheta',
+    "dXformdTheta",
 )
 
 gleLathe = arrays.setInputArraySizeType(
@@ -59,23 +59,23 @@ gleLathe = arrays.setInputArraySizeType(
                     raw.gleLathe,
                     None, # XXX Could not determine size of argument contour for gleLathe arrays.GLdoubleArray
                     arrays.GLdoubleArray, 
-                    'contour',
-                ),
+                    "contour",
+               ),
                 None, # XXX Could not determine size of argument cont_normal for gleLathe arrays.GLdoubleArray
                 arrays.GLdoubleArray, 
-                'cont_normal',
-            ),
+                "cont_normal",
+           ),
             None, # XXX Could not determine size of argument up for gleLathe arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'up',
-        ),
+            "up",
+       ),
         None, # XXX Could not determine size of argument startXform for gleLathe arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'startXform',
-    ),
+        "startXform",
+   ),
     None, # XXX Could not determine size of argument dXformdTheta for gleLathe arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'dXformdTheta',
+    "dXformdTheta",
 )
 
 glePolyCone = arrays.setInputArraySizeType(
@@ -84,15 +84,15 @@ glePolyCone = arrays.setInputArraySizeType(
             raw.glePolyCone,
             None, # XXX Could not determine size of argument point_array for glePolyCone arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'point_array',
-        ),
+            "point_array",
+       ),
         None, # XXX Could not determine size of argument color_array for glePolyCone arrays.GLfloatArray
         arrays.GLfloatArray, 
-        'color_array',
-    ),
+        "color_array",
+   ),
     None, # XXX Could not determine size of argument radius_array for glePolyCone arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'radius_array',
+    "radius_array",
 )
 
 glePolyCylinder = arrays.setInputArraySizeType(
@@ -100,11 +100,11 @@ glePolyCylinder = arrays.setInputArraySizeType(
         raw.glePolyCylinder,
         None, # XXX Could not determine size of argument point_array for glePolyCylinder arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'point_array',
-    ),
+        "point_array",
+   ),
     None, # XXX Could not determine size of argument color_array for glePolyCylinder arrays.GLfloatArray
     arrays.GLfloatArray, 
-    'color_array',
+    "color_array",
 )
 
 gleScrew = arrays.setInputArraySizeType(
@@ -113,15 +113,15 @@ gleScrew = arrays.setInputArraySizeType(
             raw.gleScrew,
             None, # XXX Could not determine size of argument contour for gleScrew arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'contour',
-        ),
+            "contour",
+       ),
         None, # XXX Could not determine size of argument cont_normal for gleScrew arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'cont_normal',
-    ),
+        "cont_normal",
+   ),
     None, # XXX Could not determine size of argument up for gleScrew arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'up',
+    "up",
 )
 
 gleSpiral = arrays.setInputArraySizeType(
@@ -132,23 +132,23 @@ gleSpiral = arrays.setInputArraySizeType(
                     raw.gleSpiral,
                     None, # XXX Could not determine size of argument contour for gleSpiral arrays.GLdoubleArray
                     arrays.GLdoubleArray, 
-                    'contour',
-                ),
+                    "contour",
+               ),
                 None, # XXX Could not determine size of argument cont_normal for gleSpiral arrays.GLdoubleArray
                 arrays.GLdoubleArray, 
-                'cont_normal',
-            ),
+                "cont_normal",
+           ),
             None, # XXX Could not determine size of argument up for gleSpiral arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'up',
-        ),
+            "up",
+       ),
         None, # XXX Could not determine size of argument startXform for gleSpiral arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'startXform',
-    ),
+        "startXform",
+   ),
     None, # XXX Could not determine size of argument dXformdTheta for gleSpiral arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'dXformdTheta',
+    "dXformdTheta",
 )
 
 gleSuperExtrusion = arrays.setInputArraySizeType(
@@ -160,27 +160,27 @@ gleSuperExtrusion = arrays.setInputArraySizeType(
                         raw.gleSuperExtrusion,
                         None, # XXX Could not determine size of argument contour for gleSuperExtrusion arrays.GLdoubleArray
                         arrays.GLdoubleArray, 
-                        'contour',
-                    ),
+                        "contour",
+                   ),
                     None, # XXX Could not determine size of argument cont_normal for gleSuperExtrusion arrays.GLdoubleArray
                     arrays.GLdoubleArray, 
-                    'cont_normal',
-                ),
+                    "cont_normal",
+               ),
                 None, # XXX Could not determine size of argument up for gleSuperExtrusion arrays.GLdoubleArray
                 arrays.GLdoubleArray, 
-                'up',
-            ),
+                "up",
+           ),
             None, # XXX Could not determine size of argument point_array for gleSuperExtrusion arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'point_array',
-        ),
+            "point_array",
+       ),
         None, # XXX Could not determine size of argument color_array for gleSuperExtrusion arrays.GLfloatArray
         arrays.GLfloatArray, 
-        'color_array',
-    ),
+        "color_array",
+   ),
     None, # XXX Could not determine size of argument xform_array for gleSuperExtrusion arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'xform_array',
+    "xform_array",
 )
 
 gleToroid = arrays.setInputArraySizeType(
@@ -188,11 +188,11 @@ gleToroid = arrays.setInputArraySizeType(
         raw.gleToroid,
         None, # XXX Could not determine size of argument startXform for gleToroid arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'startXform',
-    ),
+        "startXform",
+   ),
     None, # XXX Could not determine size of argument dXformdTheta for gleToroid arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'dXformdTheta',
+    "dXformdTheta",
 )
 
 gleTwistExtrusion = arrays.setInputArraySizeType(
@@ -204,48 +204,48 @@ gleTwistExtrusion = arrays.setInputArraySizeType(
                         raw.gleTwistExtrusion,
                         None, # XXX Could not determine size of argument contour for gleTwistExtrusion arrays.GLdoubleArray
                         arrays.GLdoubleArray, 
-                        'contour',
-                    ),
+                        "contour",
+                   ),
                     None, # XXX Could not determine size of argument cont_normal for gleTwistExtrusion arrays.GLdoubleArray
                     arrays.GLdoubleArray, 
-                    'cont_normal',
-                ),
+                    "cont_normal",
+               ),
                 None, # XXX Could not determine size of argument up for gleTwistExtrusion arrays.GLdoubleArray
                 arrays.GLdoubleArray, 
-                'up',
-            ),
+                "up",
+           ),
             None, # XXX Could not determine size of argument point_array for gleTwistExtrusion arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'point_array',
-        ),
+            "point_array",
+       ),
         None, # XXX Could not determine size of argument color_array for gleTwistExtrusion arrays.GLfloatArray
         arrays.GLfloatArray, 
-        'color_array',
-    ),
+        "color_array",
+   ),
     None, # XXX Could not determine size of argument twist_array for gleTwistExtrusion arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'twist_array',
+    "twist_array",
 )
 
 rot_about_axis = arrays.setInputArraySizeType(
     raw.rot_about_axis,
     None, # XXX Could not determine size of argument axis for rot_about_axis arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'axis',
+    "axis",
 )
 
 rot_axis = arrays.setInputArraySizeType(
     raw.rot_axis,
     None, # XXX Could not determine size of argument axis for rot_axis arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'axis',
+    "axis",
 )
 
 rot_omega = arrays.setInputArraySizeType(
     raw.rot_omega,
     None, # XXX Could not determine size of argument axis for rot_omega arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'axis',
+    "axis",
 )
 
 urot_about_axis = arrays.setInputArraySizeType(
@@ -253,11 +253,11 @@ urot_about_axis = arrays.setInputArraySizeType(
         raw.urot_about_axis,
         None, # XXX Could not determine size of argument m for urot_about_axis arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'm',
-    ),
+        "m",
+   ),
     None, # XXX Could not determine size of argument axis for urot_about_axis arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'axis',
+    "axis",
 )
 
 urot_axis = arrays.setInputArraySizeType(
@@ -265,11 +265,11 @@ urot_axis = arrays.setInputArraySizeType(
         raw.urot_axis,
         None, # XXX Could not determine size of argument m for urot_axis arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'm',
-    ),
+        "m",
+   ),
     None, # XXX Could not determine size of argument axis for urot_axis arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'axis',
+    "axis",
 )
 
 urot_omega = arrays.setInputArraySizeType(
@@ -277,18 +277,18 @@ urot_omega = arrays.setInputArraySizeType(
         raw.urot_omega,
         None, # XXX Could not determine size of argument m for urot_omega arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'm',
-    ),
+        "m",
+   ),
     None, # XXX Could not determine size of argument axis for urot_omega arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'axis',
+    "axis",
 )
 
 urot_prince = arrays.setInputArraySizeType(
     raw.urot_prince,
     None, # XXX Could not determine size of argument m for urot_prince arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'm',
+    "m",
 )
 
 uview_direction = arrays.setInputArraySizeType(
@@ -297,15 +297,15 @@ uview_direction = arrays.setInputArraySizeType(
             raw.uview_direction,
             None, # XXX Could not determine size of argument m for uview_direction arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'm',
-        ),
+            "m",
+       ),
         None, # XXX Could not determine size of argument v21 for uview_direction arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'v21',
-    ),
+        "v21",
+   ),
     None, # XXX Could not determine size of argument up for uview_direction arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'up',
+    "up",
 )
 
 uviewpoint = arrays.setInputArraySizeType(
@@ -315,39 +315,39 @@ uviewpoint = arrays.setInputArraySizeType(
                 raw.uviewpoint,
                 None, # XXX Could not determine size of argument m for uviewpoint arrays.GLdoubleArray
                 arrays.GLdoubleArray, 
-                'm',
-            ),
+                "m",
+           ),
             None, # XXX Could not determine size of argument v1 for uviewpoint arrays.GLdoubleArray
             arrays.GLdoubleArray, 
-            'v1',
-        ),
+            "v1",
+       ),
         None, # XXX Could not determine size of argument v2 for uviewpoint arrays.GLdoubleArray
         arrays.GLdoubleArray, 
-        'v2',
-    ),
+        "v2",
+   ),
     None, # XXX Could not determine size of argument up for uviewpoint arrays.GLdoubleArray
     arrays.GLdoubleArray, 
-    'up',
+    "up",
 )
 
 __all__ = [
-    'gleExtrusion',
-    'gleHelicoid',
-    'gleLathe',
-    'glePolyCone',
-    'glePolyCylinder',
-    'gleScrew',
-    'gleSpiral',
-    'gleSuperExtrusion',
-    'gleToroid',
-    'gleTwistExtrusion',
-    'rot_about_axis',
-    'rot_axis',
-    'rot_omega',
-    'urot_about_axis',
-    'urot_axis',
-    'urot_omega',
-    'urot_prince',
-    'uview_direction',
-    'uviewpoint'
+    "gleExtrusion",
+    "gleHelicoid",
+    "gleLathe",
+    "glePolyCone",
+    "glePolyCylinder",
+    "gleScrew",
+    "gleSpiral",
+    "gleSuperExtrusion",
+    "gleToroid",
+    "gleTwistExtrusion",
+    "rot_about_axis",
+    "rot_axis",
+    "rot_omega",
+    "urot_about_axis",
+    "urot_axis",
+    "urot_omega",
+    "urot_prince",
+    "uview_direction",
+    "uviewpoint"
 ]

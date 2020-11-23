@@ -11,7 +11,7 @@ Defines the following which allow for dealing with Python 3 breakages:
     
         An 8-bit byte with NULL (0) value 
     
-    as_8_bit( x, encoding='utf-8')
+    as_8_bit(x, encoding="utf-8")
     
         Returns the value as the 8-bit version
     
@@ -34,13 +34,13 @@ except NameError as err:
 if sys.version_info[:2] < (3,0):
     # traditional setup, with bytes defined...
     unicode = unicode
-    _NULL_8_BYTE = '\000'
-    def as_8_bit( x, encoding='utf-8' ):
-        if isinstance( x, unicode ):
-            return x.encode( encoding )
-        return bytes( x )
+    _NULL_8_BYTE = "\000"
+    def as_8_bit(x, encoding="utf-8"):
+        if isinstance(x, unicode):
+            return x.encode(encoding)
+        return bytes(x)
     integer_types = int,long
-    def as_str( x, encoding='utf-8'):
+    def as_str(x, encoding="utf-8"):
         """Produce a native string (i.e. different on python 2 and 3)"""
         if isinstance(x,bytes):
             return x
@@ -51,19 +51,19 @@ if sys.version_info[:2] < (3,0):
 else:
     # new setup, str is now unicode...
     STR_IS_BYTES = False
-    _NULL_8_BYTE = bytes( '\000','latin1' )
-    def as_8_bit( x, encoding='utf-8' ):
-        if isinstance( x,unicode ):
+    _NULL_8_BYTE = bytes("\000","latin1")
+    def as_8_bit(x, encoding="utf-8"):
+        if isinstance(x,unicode):
             return x.encode(encoding)
-        elif isinstance( x, bytes ):
+        elif isinstance(x, bytes):
             # Note: this can create an 8-bit string that is *not* in encoding,
             # but that is potentially exactly what we wanted, as these can 
             # be arbitrary byte-streams being passed to C functions
             return x
-        return str(x).encode( encoding )
+        return str(x).encode(encoding)
     unicode = str
     integer_types = int,
-    def as_str( x, encoding='utf-8'):
+    def as_str(x, encoding="utf-8"):
         """Produce a native string (i.e. different on python 2 and 3)"""
         if isinstance(x,unicode):
             return x
@@ -73,12 +73,12 @@ else:
             return str(x)
 
 STR_IS_UNICODE = not STR_IS_BYTES
-if hasattr( sys, 'maxsize' ):
+if hasattr(sys, "maxsize"):
     maxsize = sys.maxsize 
 else:
     maxsize = sys.maxint
 
-def as_unicode(x,encoding='utf-8'):
+def as_unicode(x,encoding="utf-8"):
     """Ensure is a unicode object given default encoding"""
     if isinstance(x,unicode):
         return x
@@ -86,7 +86,7 @@ def as_unicode(x,encoding='utf-8'):
         try:
             return x.decode(encoding)
         except UnicodeDecodeError as err:
-            return x.decode('latin-1')
+            return x.decode("latin-1")
     else:
         return unicode(x)
 

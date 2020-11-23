@@ -17,14 +17,14 @@ demo/testing interfaces.
 
 The Togl project is located here:
 
-    http://togl.sourceforge.net/
+    https://togl.sourceforge.net/
 """
 # A class that creates an opengl widget.
 # Mike Hartshorn
 # Department of Chemistry
 # University of York, UK
 import os,sys, logging
-_log = logging.getLogger( 'OpenGL.Tk' )
+_log = logging.getLogger("OpenGL.Tk")
 from OpenGL.GL import *
 from OpenGL.GLU import *
 try:
@@ -37,7 +37,7 @@ except ImportError as err:
         from Tkinter import *
         import Dialog as dialog
     except ImportError as err:
-        _log.error( """Unable to import Tkinter, likely need to install a separate package (python-tk) to have Tkinter support.  You likely also want to run the src/togl.py script in the PyOpenGL source distribution to install the Togl widget""" )
+        _log.error("""Unable to import Tkinter, likely need to install a separate package (python-tk) to have Tkinter support.  You likely also want to run the src/togl.py script in the PyOpenGL source distribution to install the Togl widget""")
         raise
 import math
 
@@ -82,7 +82,7 @@ TOGL_NORMAL = 1
 TOGL_OVERLAY = 2
 
 def v3distsq(a,b):
-    d = ( a[0] - b[0], a[1] - b[1], a[2] - b[2] )
+    d = (a[0] - b[0], a[1] - b[1], a[2] - b[2])
     return d[0]*d[0] + d[1]*d[1] + d[2]*d[2]
 
 # new version from Daniel Faken (Daniel_Faken@brown.edu) for static 
@@ -90,36 +90,36 @@ def v3distsq(a,b):
 if _default_root is None:
     _default_root = Tk()
 
-# Add this file's directory to Tcl's search path
+# Add this file"s directory to Tcl"s search path
 # This code is intended to work with the src/togl.py script 
 # which will populate the directory with the appropriate 
 # Binary Togl distribution.  Note that Togl 2.0 and above 
-# uses "stubs", so we don't care what Tk version we are using,
+# uses "stubs", so we don"t care what Tk version we are using,
 # but that a different build is required for 64-bit Python.
 # Thus the directory structure is *not* the same as the 
 # original PyOpenGL versions.
 if sys.maxsize > 2**32:
-    suffix = '-64'
+    suffix = "-64"
 else:
-    suffix = ''
+    suffix = ""
 try:
     TOGL_DLL_PATH = os.path.join(
         os.path.dirname(__file__),
-        'togl-'+ sys.platform + suffix,
-    )
+        "togl-"+ sys.platform + suffix,
+   )
 except NameError as err:
     # no __file__, likely running as an egg
     TOGL_DLL_PATH = ""
 
-if not os.path.isdir( TOGL_DLL_PATH ):
-    _log.warning( 'Expected Tk Togl installation in %s', TOGL_DLL_PATH )
-_log.info( 'Loading Togl from: %s', TOGL_DLL_PATH )
-_default_root.tk.call('lappend', 'auto_path', TOGL_DLL_PATH)
+if not os.path.isdir(TOGL_DLL_PATH):
+    _log.warning("Expected Tk Togl installation in %s", TOGL_DLL_PATH)
+_log.info("Loading Togl from: %s", TOGL_DLL_PATH)
+_default_root.tk.call("lappend", "auto_path", TOGL_DLL_PATH)
 try:
-    _default_root.tk.call('package', 'require', 'Togl')
-    _default_root.tk.eval('load {} Togl')
+    _default_root.tk.call("package", "require", "Togl")
+    _default_root.tk.eval("load {} Togl")
 except TclError as err:
-    _log.error( """Failure loading Togl package: %s, on debian systems this is provided by `libtogl2`""", err )
+    _log.error("""Failure loading Togl package: %s, on debian systems this is provided by `libtogl2`""", err)
     if _default_root:
         _default_root.destroy()
     raise
@@ -137,7 +137,7 @@ def cleanup():
     except (TclError,AttributeError):
         pass
     tkinter._default_root = None
-atexit.register( cleanup )
+atexit.register(cleanup)
 
 class Togl(Widget):
     """
@@ -148,7 +148,7 @@ class Togl(Widget):
     Very basic widget which provides access to Togl functions.
     """
     def __init__(self, master=None, cnf={}, **kw):
-        Widget.__init__(self, master, 'togl', cnf, kw)
+        Widget.__init__(self, master, "togl", cnf, kw)
 
 
     def render(self):
@@ -156,63 +156,63 @@ class Togl(Widget):
 
 
     def swapbuffers(self):
-        self.tk.call(self._w, 'swapbuffers')
+        self.tk.call(self._w, "swapbuffers")
 
 
     def makecurrent(self):
-        self.tk.call(self._w, 'makecurrent')
+        self.tk.call(self._w, "makecurrent")
 
 
     def alloccolor(self, red, green, blue):
-        return self.tk.getint(self.tk.call(self._w, 'alloccolor', red, green, blue))
+        return self.tk.getint(self.tk.call(self._w, "alloccolor", red, green, blue))
 
 
     def freecolor(self, index):
-        self.tk.call(self._w, 'freecolor', index)
+        self.tk.call(self._w, "freecolor", index)
 
 
     def setcolor(self, index, red, green, blue):
-        self.tk.call(self._w, 'setcolor', index, red, green, blue)
+        self.tk.call(self._w, "setcolor", index, red, green, blue)
 
 
     def loadbitmapfont(self, fontname):
-        return self.tk.getint(self.tk.call(self._w, 'loadbitmapfont', fontname))
+        return self.tk.getint(self.tk.call(self._w, "loadbitmapfont", fontname))
 
 
     def unloadbitmapfont(self, fontbase):
-        self.tk.call(self._w, 'unloadbitmapfont', fontbase)
+        self.tk.call(self._w, "unloadbitmapfont", fontbase)
 
 
     def uselayer(self, layer):
-        self.tk.call(self._w, 'uselayer', layer)
+        self.tk.call(self._w, "uselayer", layer)
 
 
     def showoverlay(self):
-        self.tk.call(self._w, 'showoverlay')
+        self.tk.call(self._w, "showoverlay")
 
 
     def hideoverlay(self):
-        self.tk.call(self._w, 'hideoverlay')
+        self.tk.call(self._w, "hideoverlay")
 
 
     def existsoverlay(self):
-        return self.tk.getboolean(self.tk.call(self._w, 'existsoverlay'))
+        return self.tk.getboolean(self.tk.call(self._w, "existsoverlay"))
 
 
     def getoverlaytransparentvalue(self):
-        return self.tk.getint(self.tk.call(self._w, 'getoverlaytransparentvalue'))
+        return self.tk.getint(self.tk.call(self._w, "getoverlaytransparentvalue"))
 
 
     def ismappedoverlay(self):
-        return self.tk.getboolean(self.tk.call(self._w, 'ismappedoverlay'))
+        return self.tk.getboolean(self.tk.call(self._w, "ismappedoverlay"))
 
 
     def alloccoloroverlay(self, red, green, blue):
-        return self.tk.getint(self.tk.call(self._w, 'alloccoloroverlay', red, green, blue))
+        return self.tk.getint(self.tk.call(self._w, "alloccoloroverlay", red, green, blue))
 
 
     def freecoloroverlay(self, index):
-        self.tk.call(self._w, 'freecoloroverlay', index)
+        self.tk.call(self._w, "freecoloroverlay", index)
 
 
 
@@ -222,17 +222,17 @@ class RawOpengl(Widget, Misc):
 
 
     def __init__(self, master=None, cnf={}, **kw):
-        Widget.__init__(self, master, 'togl', cnf, kw)
-        self.bind('<Map>', self.tkMap)
-        self.bind('<Expose>', self.tkExpose)
-        self.bind('<Configure>', self.tkExpose)
+        Widget.__init__(self, master, "togl", cnf, kw)
+        self.bind("<Map>", self.tkMap)
+        self.bind("<Expose>", self.tkExpose)
+        self.bind("<Configure>", self.tkExpose)
 
 
     def tkRedraw(self, *dummy):
         # This must be outside of a pushmatrix, since a resize event
         # will call redraw recursively. 
         self.update_idletasks()
-        self.tk.call(self._w, 'makecurrent')
+        self.tk.call(self._w, "makecurrent")
         _mode = glGetDoublev(GL_MATRIX_MODE)
         try:
             glMatrixMode(GL_PROJECTION)
@@ -244,7 +244,7 @@ class RawOpengl(Widget, Misc):
                 glPopMatrix()
         finally:
             glMatrixMode(_mode)
-        self.tk.call(self._w, 'swapbuffers')
+        self.tk.call(self._w, "swapbuffers")
 
 
     def tkMap(self, *dummy):
@@ -263,7 +263,7 @@ Tkinter bindings for an Opengl widget.
 Mike Hartshorn
 Department of Chemistry
 University of York, UK
-http://www.yorvic.york.ac.uk/~mjh/
+https://www.yorvic.york.ac.uk/~mjh/
 """
 
     def __init__(self, master=None, cnf={}, **kw):
@@ -272,7 +272,7 @@ http://www.yorvic.york.ac.uk/~mjh/
         Arrange for redraws when the window is exposed or when
         it changes size."""
 
-        #Widget.__init__(self, master, 'togl', cnf, kw)
+        #Widget.__init__(self, master, "togl", cnf, kw)
         RawOpengl.__init__(*(self, master, cnf), **kw)
         self.initialised = 0
 
@@ -307,37 +307,37 @@ http://www.yorvic.york.ac.uk/~mjh/
         self.autospin = 0
 
         # Basic bindings for the virtual trackball
-        self.bind('<Map>', self.tkMap)
-        self.bind('<Expose>', self.tkExpose)
-        self.bind('<Configure>', self.tkExpose)
-        self.bind('<Shift-Button-1>', self.tkHandlePick)
-        #self.bind('<Button-1><ButtonRelease-1>', self.tkHandlePick)
-        self.bind('<Button-1>', self.tkRecordMouse)
-        self.bind('<B1-Motion>', self.tkTranslate)
-        self.bind('<Button-2>', self.StartRotate)
-        self.bind('<B2-Motion>', self.tkRotate)
-        self.bind('<ButtonRelease-2>', self.tkAutoSpin)
-        self.bind('<Button-3>', self.tkRecordMouse)
-        self.bind('<B3-Motion>', self.tkScale)
+        self.bind("<Map>", self.tkMap)
+        self.bind("<Expose>", self.tkExpose)
+        self.bind("<Configure>", self.tkExpose)
+        self.bind("<Shift-Button-1>", self.tkHandlePick)
+        #self.bind("<Button-1><ButtonRelease-1>", self.tkHandlePick)
+        self.bind("<Button-1>", self.tkRecordMouse)
+        self.bind("<B1-Motion>", self.tkTranslate)
+        self.bind("<Button-2>", self.StartRotate)
+        self.bind("<B2-Motion>", self.tkRotate)
+        self.bind("<ButtonRelease-2>", self.tkAutoSpin)
+        self.bind("<Button-3>", self.tkRecordMouse)
+        self.bind("<B3-Motion>", self.tkScale)
 
 
     def help(self):
         """Help for the widget."""
 
-        d = dialog.Dialog(None, {'title': 'Viewer help',
-                                 'text': 'Button-1: Translate\n'
-                                         'Button-2: Rotate\n'
-                                         'Button-3: Zoom\n'
-                                         'Reset: Resets transformation to identity\n',
-                                 'bitmap': 'questhead',
-                                 'default': 0,
-                                 'strings': ('Done', 'Ok')})
+        d = dialog.Dialog(None, {"title": "Viewer help",
+                                 "text": "Button-1: Translate\n"
+                                         "Button-2: Rotate\n"
+                                         "Button-3: Zoom\n"
+                                         "Reset: Resets transformation to identity\n",
+                                 "bitmap": "questhead",
+                                 "default": 0,
+                                 "strings": ("Done", "Ok")})
         assert d
 
     def activate(self):
         """Cause this Opengl widget to be the current destination for drawing."""
 
-        self.tk.call(self._w, 'makecurrent')
+        self.tk.call(self._w, "makecurrent")
 
 
     # This should almost certainly be part of some derived class.
@@ -397,7 +397,7 @@ http://www.yorvic.york.ac.uk/~mjh/
     def tkHandlePick(self, event):
         """Handle a pick on the scene."""
 
-        if hasattr(self, 'pick'):
+        if hasattr(self, "pick"):
             # here we need to use glu.UnProject
 
             # Tk and X have their origin top left, 
@@ -463,12 +463,12 @@ http://www.yorvic.york.ac.uk/~mjh/
         self.after(4)
         self.update_idletasks()
 
-        # This could be done with one call to pointerxy but I'm not sure
+        # This could be done with one call to pointerxy but I"m not sure
         # it would any quicker as we would have to split up the resulting
         # string and then conv
 
-        x = self.tk.getint(self.tk.call('winfo', 'pointerx', self._w))
-        y = self.tk.getint(self.tk.call('winfo', 'pointery', self._w))
+        x = self.tk.getint(self.tk.call("winfo", "pointerx", self._w))
+        y = self.tk.getint(self.tk.call("winfo", "pointery", self._w))
 
         if self.autospin_allowed:
             if x != event.x_root and y != event.y_root:
@@ -495,12 +495,12 @@ http://www.yorvic.york.ac.uk/~mjh/
         self.activate()
 
         # Scale mouse translations to object viewplane so object tracks with mouse
-        win_height = max( 1,self.winfo_height() )
-        obj_c	  = ( self.xcenter, self.ycenter, self.zcenter )
-        win		= gluProject( obj_c[0], obj_c[1], obj_c[2])
-        obj		= gluUnProject( win[0], win[1] + 0.5 * win_height, win[2])
-        dist	   = math.sqrt( v3distsq( obj, obj_c ) )
-        scale	  = abs( dist / ( 0.5 * win_height ) )
+        win_height = max(1,self.winfo_height())
+        obj_c	  = (self.xcenter, self.ycenter, self.zcenter)
+        win		= gluProject(obj_c[0], obj_c[1], obj_c[2])
+        obj		= gluUnProject(win[0], win[1] + 0.5 * win_height, win[2])
+        dist	   = math.sqrt(v3distsq(obj, obj_c))
+        scale	  = abs(dist / (0.5 * win_height))
 
         glTranslateScene(scale, event.x, event.y, self.xmouse, self.ymouse)
         self.tkRedraw()
@@ -546,9 +546,9 @@ http://www.yorvic.york.ac.uk/~mjh/
         glFlush()				# Tidy up
         glPopMatrix()			# Restore the matrix
 
-        self.tk.call(self._w, 'swapbuffers')
-    def redraw( self, *args, **named ):
-        """Prevent access errors if user doesn't set redraw fast enough"""
+        self.tk.call(self._w, "swapbuffers")
+    def redraw(self, *args, **named):
+        """Prevent access errors if user doesn"t set redraw fast enough"""
 
 
     def tkMap(self, *dummy):

@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 import os, logging, glob, ctypes
-os.environ['PYOPENGL_PLATFORM'] = 'egl'
+os.environ["PYOPENGL_PLATFORM"] = "egl"
 log = logging.getLogger(__name__)
 import OpenGL
 from OpenGL.EGL import gbmdevice
@@ -17,7 +17,7 @@ def main():
                 EGL_PLATFORM_GBM_MESA, 
                 device, 
                 ctypes.c_void_p(0)
-            )
+           )
             if display == EGL_NO_DISPLAY:
                 log.error("Failed to get platform display for %s", display)
             else:

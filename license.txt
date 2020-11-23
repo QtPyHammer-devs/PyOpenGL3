@@ -25,7 +25,7 @@ OpenGL-ctypes License
         software without specific prior written permission.
     
     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    ``AS IS"" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
     LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
     FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
     COPYRIGHT HOLDERS AND CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
@@ -131,7 +131,7 @@ licensed under the license declared in OpenGL/DLLS/gle_COPYING.src if GLE is inc
 distribution.  Copyright notice follows:
 
     This software is owned by International Business Machines Corporation
-    ("IBM"), or its subsidiaries or IBM's suppliers, and is copyrighted and
+    ("IBM"), or its subsidiaries or IBM"s suppliers, and is copyrighted and
     licensed, not sold.  IBM retains title to the software, and grants you a
     nonexclusive license for the software.
 
@@ -199,7 +199,7 @@ OpenGL-ctypes includes an OS-Mesa platform driver which is (MIT
 Licensed), Copyright (c) 2012 Xu, Yuan <xuyuan.cn@gmail.com>:
 
     https://github.com/xuyuan/PyOSMesa
-    http://opensource.org/licenses/MIT
+    https://opensource.org/licenses/MIT
 
 OpenGL-ctypes uses a table from the Chromium Regal project to provide 
 constant:array-size mappings.  Regal is:

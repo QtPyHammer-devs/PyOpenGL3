@@ -46,7 +46,7 @@ from OpenGL import error
 from OpenGL import _configflags
 import ctypes
 
-def SetupPixelRead( format, dims, type):
+def SetupPixelRead(format, dims, type):
     """Setup transfer mode for a read into a numpy array return the array
     
     Calls setupDefaultTransferMode, sets rankPacking and then 
@@ -55,11 +55,11 @@ def SetupPixelRead( format, dims, type):
     setupDefaultTransferMode()
     # XXX this is wrong? dims may grow or it may not, depends on whether
     # the format can fit in the type or not, but rank is a property of the 
-    # image itself?  Don't know, should test.
-    rankPacking( len(dims)+1 )
-    return createTargetArray( format, dims, type )
+    # image itself?  Don"t know, should test.
+    rankPacking(len(dims)+1)
+    return createTargetArray(format, dims, type)
 
-def setupDefaultTransferMode( ):
+def setupDefaultTransferMode():
     """Set pixel transfer mode to assumed internal structure of arrays
     
     Basically OpenGL-ctypes (and PyOpenGL) assume that your image data is in 
@@ -71,10 +71,10 @@ def setupDefaultTransferMode( ):
         _simple.glPixelStorei(_simple.GL_PACK_SWAP_BYTES, 0)
         _simple.glPixelStorei(_simple.GL_PACK_LSB_FIRST, 0)
     except error.GLError:
-        # GLES doesn't support pixel storage swapping...
+        # GLES doesn"t support pixel storage swapping...
         pass
         
-def rankPacking( rank ):
+def rankPacking(rank):
     """Set the pixel-transfer modes for a given image "rank" (# of dims)
     
     Uses RANK_PACKINGS table to issue calls to glPixelStorei
@@ -85,7 +85,7 @@ def rankPacking( rank ):
         except error.GLError:
             pass
 
-def createTargetArray( format, dims, type ):
+def createTargetArray(format, dims, type):
     """Create storage array for given parameters
     
     If storage type requires > 1 unit per format pixel, then dims will be
@@ -104,13 +104,13 @@ def createTargetArray( format, dims, type ):
     Numpy arrays for returning the result.
     """
     # calculate the number of storage elements required to store 
-    # a single pixel of format, that's the dimension of the resulting array
-    componentCount = formatToComponentCount( format )
+    # a single pixel of format, that"s the dimension of the resulting array
+    componentCount = formatToComponentCount(format)
     if componentCount > 1:
         if type not in TIGHT_PACK_FORMATS:
             # requires multiple elements to store a single pixel (common)
             # e.g. byte array (typeBits = 8) with RGB (24) or RGBA (32)
-            dims += (componentCount, )
+            dims += (componentCount,)
         elif TIGHT_PACK_FORMATS[ type ] < componentCount:
             raise ValueError(
                 """Image type: %s supports %s components, but format %s requires %s components"""%(
@@ -118,19 +118,19 @@ def createTargetArray( format, dims, type ):
                     TIGHT_PACK_FORMATS[ type ],
                     format,
                     componentCount,
-                )
-            )
+               )
+           )
     arrayType = arrays.GL_CONSTANT_TO_ARRAY_TYPE[ TYPE_TO_ARRAYTYPE.get(type,type) ]
-    return arrayType.zeros( dims )
+    return arrayType.zeros(dims)
 
-def formatToComponentCount( format ):
+def formatToComponentCount(format):
     """Given an OpenGL image format specification, get components/pixel"""
-    size = COMPONENT_COUNTS.get( format )
+    size = COMPONENT_COUNTS.get(format)
     if size is None:
-        raise ValueError( """Unrecognised image format: %r"""%(format,))
+        raise ValueError("""Unrecognised image format: %r"""%(format,))
     return size
 
-def returnFormat( data, type ):
+def returnFormat(data, type):
     """Perform compatibility conversion for PyOpenGL 2.x image-as string results
     
     Uses OpenGL.UNSIGNED_BYTE_IMAGES_AS_STRING to control whether to perform the 
@@ -138,12 +138,12 @@ def returnFormat( data, type ):
     """
     if _configflags.UNSIGNED_BYTE_IMAGES_AS_STRING:
         if type == _simple.GL_UNSIGNED_BYTE:
-            if hasattr( data, 'tostring' ):
+            if hasattr(data, "tostring"):
                 return data.tostring()
-            elif hasattr( data, 'raw' ):
+            elif hasattr(data, "raw"):
                 return data.raw 
-            elif hasattr( data, '_type_' ):
-                s = ctypes.string_at( ctypes.cast( data, ctypes.c_voidp ), ctypes.sizeof( data ))
+            elif hasattr(data, "_type_"):
+                s = ctypes.string_at(ctypes.cast(data, ctypes.c_voidp), ctypes.sizeof(data))
                 result = s[:] # copy into a new string
                 return result
     return data

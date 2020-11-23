@@ -6,24 +6,24 @@ from OpenGL._bytes import as_8_bit
 from OpenGL._opaque import opaque_pointer_cls as _opaque_pointer_cls
 c_void = None
 
-class _WGLQuerier( extensions.ExtensionQuerier ):
-    prefix = b'WGL_'
+class _WGLQuerier(extensions.ExtensionQuerier):
+    prefix = b"WGL_"
     assumed_version = [1,0]
-    version_prefix = b'WGL_VERSION_WGL_'
-    def pullVersion( self ):
+    version_prefix = b"WGL_VERSION_WGL_"
+    def pullVersion(self):
         # only one version...
         return [1,0]
-    def pullExtensions( self ):
+    def pullExtensions(self):
         from OpenGL.platform import PLATFORM
         wglGetCurrentDC = PLATFORM.OpenGL.wglGetCurrentDC
         wglGetCurrentDC.restyle = HDC
         try:
             dc = wglGetCurrentDC()
-            proc_address = PLATFORM.getExtensionProcedure(b'wglGetExtensionsStringARB')
-            wglGetExtensionStringARB = PLATFORM.functionTypeFor( PLATFORM.WGL )(
+            proc_address = PLATFORM.getExtensionProcedure(b"wglGetExtensionsStringARB")
+            wglGetExtensionStringARB = PLATFORM.functionTypeFor(PLATFORM.WGL)(
                 c_char_p,
                 HDC,
-            )( proc_address )
+           )(proc_address)
         except TypeError as err:
             return None
         except AttributeError as err:
@@ -93,30 +93,30 @@ HPBUFFEREXT = HANDLE
 
 class struct__POINTFLOAT(Structure):
     __slots__ = [
-        'x',
-        'y',
+        "x",
+        "y",
     ]
 struct__POINTFLOAT._fields_ = [
-    ('x', FLOAT),
-    ('y', FLOAT),
+    ("x", FLOAT),
+    ("y", FLOAT),
 ]
 
 POINTFLOAT = struct__POINTFLOAT 	# /home/mcfletch/pylive/OpenGL-ctypes/src/wgl.h:83
 PPOINTFLOAT = POINTER(struct__POINTFLOAT) 	# /home/mcfletch/pylive/OpenGL-ctypes/src/wgl.h:83
 class struct__GLYPHMETRICSFLOAT(Structure):
     __slots__ = [
-        'gmfBlackBoxX',
-        'gmfBlackBoxY',
-        'gmfptGlyphOrigin',
-        'gmfCellIncX',
-        'gmfCellIncY',
+        "gmfBlackBoxX",
+        "gmfBlackBoxY",
+        "gmfptGlyphOrigin",
+        "gmfCellIncX",
+        "gmfCellIncY",
     ]
 struct__GLYPHMETRICSFLOAT._fields_ = [
-    ('gmfBlackBoxX', FLOAT),
-    ('gmfBlackBoxY', FLOAT),
-    ('gmfptGlyphOrigin', POINTFLOAT),
-    ('gmfCellIncX', FLOAT),
-    ('gmfCellIncY', FLOAT),
+    ("gmfBlackBoxX", FLOAT),
+    ("gmfBlackBoxY", FLOAT),
+    ("gmfptGlyphOrigin", POINTFLOAT),
+    ("gmfCellIncX", FLOAT),
+    ("gmfCellIncY", FLOAT),
 ]
 
 GLYPHMETRICSFLOAT = struct__GLYPHMETRICSFLOAT 	# /home/mcfletch/pylive/OpenGL-ctypes/src/wgl.h:91
@@ -125,56 +125,56 @@ LPGLYPHMETRICSFLOAT = POINTER(struct__GLYPHMETRICSFLOAT) 	# /home/mcfletch/pyliv
 
 class struct_tagLAYERPLANEDESCRIPTOR(Structure):
     __slots__ = [
-        'nSize',
-        'nVersion',
-        'dwFlags',
-        'iPixelType',
-        'cColorBits',
-        'cRedBits',
-        'cRedShift',
-        'cGreenBits',
-        'cGreenShift',
-        'cBlueBits',
-        'cBlueShift',
-        'cAlphaBits',
-        'cAlphaShift',
-        'cAccumBits',
-        'cAccumRedBits',
-        'cAccumGreenBits',
-        'cAccumBlueBits',
-        'cAccumAlphaBits',
-        'cDepthBits',
-        'cStencilBits',
-        'cAuxBuffers',
-        'iLayerPlane',
-        'bReserved',
-        'crTransparent',
+        "nSize",
+        "nVersion",
+        "dwFlags",
+        "iPixelType",
+        "cColorBits",
+        "cRedBits",
+        "cRedShift",
+        "cGreenBits",
+        "cGreenShift",
+        "cBlueBits",
+        "cBlueShift",
+        "cAlphaBits",
+        "cAlphaShift",
+        "cAccumBits",
+        "cAccumRedBits",
+        "cAccumGreenBits",
+        "cAccumBlueBits",
+        "cAccumAlphaBits",
+        "cDepthBits",
+        "cStencilBits",
+        "cAuxBuffers",
+        "iLayerPlane",
+        "bReserved",
+        "crTransparent",
     ]
 struct_tagLAYERPLANEDESCRIPTOR._fields_ = [
-    ('nSize', WORD),
-    ('nVersion', WORD),
-    ('dwFlags', DWORD),
-    ('iPixelType', BYTE),
-    ('cColorBits', BYTE),
-    ('cRedBits', BYTE),
-    ('cRedShift', BYTE),
-    ('cGreenBits', BYTE),
-    ('cGreenShift', BYTE),
-    ('cBlueBits', BYTE),
-    ('cBlueShift', BYTE),
-    ('cAlphaBits', BYTE),
-    ('cAlphaShift', BYTE),
-    ('cAccumBits', BYTE),
-    ('cAccumRedBits', BYTE),
-    ('cAccumGreenBits', BYTE),
-    ('cAccumBlueBits', BYTE),
-    ('cAccumAlphaBits', BYTE),
-    ('cDepthBits', BYTE),
-    ('cStencilBits', BYTE),
-    ('cAuxBuffers', BYTE),
-    ('iLayerPlane', BYTE),
-    ('bReserved', BYTE),
-    ('crTransparent', COLORREF),
+    ("nSize", WORD),
+    ("nVersion", WORD),
+    ("dwFlags", DWORD),
+    ("iPixelType", BYTE),
+    ("cColorBits", BYTE),
+    ("cRedBits", BYTE),
+    ("cRedShift", BYTE),
+    ("cGreenBits", BYTE),
+    ("cGreenShift", BYTE),
+    ("cBlueBits", BYTE),
+    ("cBlueShift", BYTE),
+    ("cAlphaBits", BYTE),
+    ("cAlphaShift", BYTE),
+    ("cAccumBits", BYTE),
+    ("cAccumRedBits", BYTE),
+    ("cAccumGreenBits", BYTE),
+    ("cAccumBlueBits", BYTE),
+    ("cAccumAlphaBits", BYTE),
+    ("cDepthBits", BYTE),
+    ("cStencilBits", BYTE),
+    ("cAuxBuffers", BYTE),
+    ("iLayerPlane", BYTE),
+    ("bReserved", BYTE),
+    ("crTransparent", COLORREF),
 ]
 
 LAYERPLANEDESCRIPTOR = struct_tagLAYERPLANEDESCRIPTOR 	# /home/mcfletch/pylive/OpenGL-ctypes/src/wgl.h:127
@@ -183,12 +183,12 @@ LPLAYERPLANEDESCRIPTOR = POINTER(struct_tagLAYERPLANEDESCRIPTOR) 	# /home/mcflet
 
 class struct__WGLSWAP(Structure):
     __slots__ = [
-        'hdc',
-        'uiFlags',
+        "hdc",
+        "uiFlags",
     ]
 struct__WGLSWAP._fields_ = [
-    ('hdc', HDC),
-    ('uiFlags', UINT),
+    ("hdc", HDC),
+    ("uiFlags", UINT),
 ]
 
 WGLSWAP = struct__WGLSWAP 	# /home/mcfletch/pylive/OpenGL-ctypes/src/wgl.h:190
@@ -197,16 +197,16 @@ LPWGLSWAP = POINTER(struct__WGLSWAP) 	# /home/mcfletch/pylive/OpenGL-ctypes/src/
 
 class struct_tagRECT(Structure):
     __slots__ = [
-        'left',
-        'top',
-        'right',
-        'bottom',
+        "left",
+        "top",
+        "right",
+        "bottom",
     ]
 struct_tagRECT._fields_ = [
-    ('left', LONG),
-    ('top', LONG),
-    ('right', LONG),
-    ('bottom', LONG),
+    ("left", LONG),
+    ("top", LONG),
+    ("right", LONG),
+    ("bottom", LONG),
 ]
 
 RECT = struct_tagRECT 	# /home/mcfletch/pylive/OpenGL-ctypes/src/wgl.h:202
@@ -216,33 +216,33 @@ LPRECT = POINTER(struct_tagRECT) 	# /home/mcfletch/pylive/OpenGL-ctypes/src/wgl.
 
 class PIXELFORMATDESCRIPTOR(Structure):
     _fields_ = [
-        ('nSize',WORD),
-        ('nVersion',WORD),
-        ('dwFlags',DWORD),
-        ('iPixelType',BYTE),
-        ('cColorBits',BYTE),
-        ('cRedBits',BYTE),
-        ('cRedShift',BYTE),
-        ('cGreenBits',BYTE),
-        ('cGreenShift',BYTE),
-        ('cBlueBits',BYTE),
-        ('cBlueShift',BYTE),
-        ('cAlphaBits',BYTE),
-        ('cAlphaShift',BYTE),
-        ('cAccumBits',BYTE),
-        ('cAccumRedBits',BYTE),
-        ('cAccumGreenBits',BYTE),
-        ('cAccumBlueBits',BYTE),
-        ('cAccumAlphaBits',BYTE),
-        ('cAccumDepthBits',BYTE),
-        ('cAccumStencilBits',BYTE),
-        ('cAuxBuffers',BYTE),
-        ('iLayerType',BYTE),
-        ('bReserved',BYTE),
-        ('dwLayerMask',DWORD),
-        ('dwVisibleMask',DWORD),
-        ('dwDamageMask',DWORD),
+        ("nSize",WORD),
+        ("nVersion",WORD),
+        ("dwFlags",DWORD),
+        ("iPixelType",BYTE),
+        ("cColorBits",BYTE),
+        ("cRedBits",BYTE),
+        ("cRedShift",BYTE),
+        ("cGreenBits",BYTE),
+        ("cGreenShift",BYTE),
+        ("cBlueBits",BYTE),
+        ("cBlueShift",BYTE),
+        ("cAlphaBits",BYTE),
+        ("cAlphaShift",BYTE),
+        ("cAccumBits",BYTE),
+        ("cAccumRedBits",BYTE),
+        ("cAccumGreenBits",BYTE),
+        ("cAccumBlueBits",BYTE),
+        ("cAccumAlphaBits",BYTE),
+        ("cAccumDepthBits",BYTE),
+        ("cAccumStencilBits",BYTE),
+        ("cAuxBuffers",BYTE),
+        ("iLayerType",BYTE),
+        ("bReserved",BYTE),
+        ("dwLayerMask",DWORD),
+        ("dwVisibleMask",DWORD),
+        ("dwDamageMask",DWORD),
     ]
 
 # TODO: This is *not* a working definition, calling any function with this will segfault
-HENHMETAFILE = _opaque_pointer_cls( 'HENHMETAFILE' )
+HENHMETAFILE = _opaque_pointer_cls("HENHMETAFILE")

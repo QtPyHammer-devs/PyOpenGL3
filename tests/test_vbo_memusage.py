@@ -22,8 +22,8 @@ except ImportError:
 def get_current_memory():
     return psutil.Process(os.getpid()).memory_info().rss
 
-@pytest.mark.skipif(not psutil,reason='No psutil available')
-@pytest.mark.skipif(not np,reason='No Numpy available')
+@pytest.mark.skipif(not psutil,reason="No psutil available")
+@pytest.mark.skipif(not np,reason="No Numpy available")
 @pygamegltest.pygametest()
 def test_sf_2980896():
     """Test SF#2980896 report of memory leak on VBO transfer"""
@@ -42,4 +42,4 @@ def test_sf_2980896():
             # the *first* call can load lots of libraries, etc...
             memory = get_current_memory()
         else:
-            assert get_current_memory() - memory < 200, """Shouldn't have any (or at least much) extra RAM allocated..."""
+            assert get_current_memory() - memory < 200, """Shouldn"t have any (or at least much) extra RAM allocated..."""

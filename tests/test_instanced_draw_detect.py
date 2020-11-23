@@ -17,12 +17,12 @@ def detect():
         glDrawArraysInstancedARB, 
         glDrawArraysInstancedEXT,
         #glDrawArraysInstancedNV, is GLES only
-    )
+   )
     
     for function in functions:
         print(function.__name__, bool(function))
     
-    any = alternate( *functions )
+    any = alternate(*functions)
     
     print(any, bool(any))
     try:
