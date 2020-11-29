@@ -15,8 +15,14 @@ To inform the programmer of errors in a way that is instructive & state aware, w
 
 Catch errors the OpenGL C implementation communicates poorly (non-square cubemap texture etc.)
 
-To remove the need for numpy, with quick the translation of python types into bytes handled invisibly::
+To remove the need for numpy, with quick the translation of python types into bytes handled invisibly:
 
-    $ function(GL_FLOAT, iterable)
+```c
+void glBufferData(GLenum target, GLsizeiptr size, const void * data, GLenum usage);
+```
+```python
+def gl.buffer.set_data(target: gl.buffer_type, data: List[bytes], usage: gl.buffer.usage, size=-1)
+    """if size == -1, default to len(data)"""
+```
 
 Before being passed to C, translate iterable to bytestring, taking hints from other arguments  
