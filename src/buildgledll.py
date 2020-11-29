@@ -13,10 +13,7 @@ Then run this script with the appropriate (32-bit or 64-bit python):
 
 Note: the name "opengle" is required because someone issues DMCA takedown orders against anything named "gle.dll"
 despite the name GLE referring to the GLE project for a very long time (they took PyOpenGL offline for a while
-due to such a takedown notice).
-"""
-from __future__ import print_function
-
+due to such a takedown notice)."""
 import glob
 import logging
 import os
@@ -75,8 +72,8 @@ def build():
         target = os.path.join(current, "..", "OpenGL", "DLLS", outfile)
         exports = " ".join([f"/EXPORT:{x}" for x in EXPORTS.split() if x])
 
-        subprocess.check_call("cl -c /D"WIN32" /D "_WINDLL" /Gd /MD *.c")
-        subprocess.check_call(f"link  /LIBPATH:"C:/Program Files/Microsoft Platform SDK/Lib""
+        subprocess.check_call('cl -c /D"WIN32" /D "_WINDLL" /Gd /MD *.c')
+        subprocess.check_call(f'link  /LIBPATH:"C:/Program Files/Microsoft Platform SDK/Lib"'
                               f"{exports} /DLL /OUT:{outfile} opengl32.lib glu32.lib *.obj")
         shutil.copyfile(outfile, target)
         print(f"Created file {target}")
