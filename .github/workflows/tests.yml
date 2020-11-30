@@ -18,13 +18,13 @@ jobs:
         fetch-depth: 0  # Shallow clones disabled for sonarcloud
     - name: Install Ubuntu packages
       run: |
-          # addons apt packages
-          sudo apt-get install freeglut3-dev libgl1-mesa-dev libxcursor-dev libpulse-dev libxinerama-dev libxrandr-dev libxv-dev mesa-utils
-          sudo apt-get install libgl1-mesa-glx mesa-common-dev libglapi-mesa libgbm1 libgl1-mesa-dri libsdl1.2-dev libfreetype6-dev
           # before install
           sudo apt-get update -qq -y
           export DEBIAN_FRONTEND=noninteractive
           sudo apt-get -yq --allow-downgrades install libgl1-mesa-dev libgl1-mesa-glx mesa-common-dev libglapi-mesa libgbm1 libgl1-mesa-dri mesa-utils
+          # addons apt packages
+          sudo apt-get install freeglut3-dev libgl1-mesa-dev libxcursor-dev libpulse-dev libxinerama-dev libxrandr-dev libxv-dev mesa-utils
+          sudo apt-get install libgl1-mesa-glx mesa-common-dev libglapi-mesa libgbm1 libgl1-mesa-dri libsdl1.2-dev libfreetype6-dev
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
