@@ -25,4 +25,10 @@ def gl.buffer.set_data(target: gl.buffer_type, data: List[bytes], usage: gl.buff
     """if size == -1, default to len(data)"""
 ```
 
+use `__enter__` and `__exit__` methods for setting shaders, buffers & other GL state  
+```python
+with glBegin(GL_TRIANGLES):
+    glVertex(0, 1, 2)
+```
+
 Before being passed to C, translate iterable to bytestring, taking hints from other arguments  
